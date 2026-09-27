@@ -21,38 +21,22 @@ cd awesome-skills
 
 ### 用户级安装
 
-跨项目可用。示例复制 `tdd`、系列许可证和固定版本来源记录。两个 `test` 检查会拒绝已存在的目标，包括失效软链接。
+跨项目可用。与 README 使用相同的两行命令，复制 `tdd`、许可证和来源记录。新建 `tdd` 目录时若目标已存在，命令会停止，不执行覆盖复制。
 
 <!-- install:tdd:user -->
 ```bash
-(
-  set -eu
-  dest="$HOME/.agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p "$HOME/.agents/skills" && mkdir "$HOME/.agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} "$HOME/.agents/skills/tdd/"
 ```
 
 ### 项目级安装
 
-选择下面这个替代方案，让 `tdd` 在**当前克隆项目**可用。若要安装到其他项目，只把 `dest` 改为目标项目 `.agents/skills` 的绝对路径；执行命令时仍留在本仓库根目录，以便源文件路径正确。
+选择下面这个替代方案，让 `tdd` 在**当前克隆项目**可用。若要安装到其他项目，将下面每一处目标 `.agents/skills` 替换为该项目 `.agents/skills` 的绝对路径，并保留引号；执行时仍留在本仓库根目录，以便源文件路径正确。
 
 <!-- install:tdd:repo -->
 ```bash
-(
-  set -eu
-  dest=".agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p ".agents/skills" && mkdir ".agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} ".agents/skills/tdd/"
 ```
 
 在这个收藏仓库中，安装副本是本地工作文件，不是第二套上游快照。暂存前检查 `git status`；其他目标项目是否提交自己的安装副本，应单独决定。
@@ -81,9 +65,7 @@ cd awesome-skills
 
 ## 4. 有意识地更新
 
-安装副本与仓库快照相互独立，更新克隆不会自动更新安装。先比较源目录与安装目录，保存本地改动，再决定替换；同时刷新 `LICENSE.mattpocock` 与 `UPSTREAM.mattpocock.json`。来源记录描述的是整个系列，不表示其中全部 Skill 都已安装。
-
-README 简短示例在安装的 `tdd` 目录内保留原名 `LICENSE`、`upstream.json`；如果采用该示例，更新这两个文件即可。上面的详细示例使用带来源后缀的文件名，两种方式保留的许可证与来源内容相同。
+安装副本与仓库快照相互独立，更新克隆不会自动更新安装。先比较源目录与安装目录，保存本地改动，再决定替换；同时刷新安装目录内的 `LICENSE` 与 `upstream.json`。来源记录描述的是整个系列，不表示其中全部 Skill 都已安装。
 
 ## 排错
 

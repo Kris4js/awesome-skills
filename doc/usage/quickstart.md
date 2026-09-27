@@ -21,38 +21,22 @@ Use `$HOME/.agents/skills` for user scope or `.agents/skills` at the target proj
 
 ### User scope
 
-Available across projects. This example copies `tdd`, the series license, and its pinned source record. The two `test` commands reject an existing target, including a dangling symlink.
+Available across projects. Copy `tdd`, its license, and source record with the same two-line command as the README. Creating the new `tdd` directory fails if the target already exists, so the copy will not overwrite it.
 
 <!-- install:tdd:user -->
 ```bash
-(
-  set -eu
-  dest="$HOME/.agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p "$HOME/.agents/skills" && mkdir "$HOME/.agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} "$HOME/.agents/skills/tdd/"
 ```
 
 ### Repository scope
 
-Run this alternative to make `tdd` available in **this clone**. To install into another project, change only `dest` to that project's absolute `.agents/skills` path; keep the working directory here so the source paths still resolve.
+Run this alternative to make `tdd` available in **this clone**. To install into another project, replace every destination `.agents/skills` below with that project's absolute `.agents/skills` path, keeping quotes. Run from this clone's root so the source paths still resolve.
 
 <!-- install:tdd:repo -->
 ```bash
-(
-  set -eu
-  dest=".agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p ".agents/skills" && mkdir ".agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} ".agents/skills/tdd/"
 ```
 
 In this archive repository, treat installed copies as local working files, not a second maintained snapshot. Review `git status` before staging; choose explicitly whether another target project should version its own installed skills.
@@ -81,9 +65,7 @@ Copy verification is not agent discovery verification, and neither proves task q
 
 ## 4. Update deliberately
 
-Installed files are independent copies: updating the clone does not update installations. Compare the selected source folder with your installed copy, save any local edits, and replace only after reviewing the differences. Refresh `LICENSE.mattpocock` and `UPSTREAM.mattpocock.json` together. The source record describes the whole series, not a claim that every listed skill was installed.
-
-The short README example keeps the original names `LICENSE` and `upstream.json` inside the installed `tdd` folder; update those files instead if you used that example. The detailed examples above use namespaced filenames. Both preserve the same license and provenance.
+Installed files are independent copies: updating the clone does not update installations. Compare the selected source folder with your installed copy, save any local edits, and replace only after reviewing the differences. Refresh `LICENSE` and `upstream.json` inside the installed skill folder together. The source record describes the whole series, not a claim that every listed skill was installed.
 
 ## Troubleshooting
 
