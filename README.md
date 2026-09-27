@@ -1,62 +1,64 @@
 # Awesome Skills
 
-以**系列 + 工程领域**组织的 Agent Skill 仓库：Matt Pocock 保留独立系列，其余 Skills 按实际用途归类。每个 `SKILL.md` 所在目录才是独立 Skill，不把集合合并成一个大 Skill。
+可重复使用的代码技能，适用于以证据为基础、注重生产性的项目工作。
 
-## 按场景选择
+这个仓库提供了独立的技能包。首先选择适合您问题的包，然后只安装您需要的功能。
 
-| 场景 | 入口 | 状态 |
-| --- | --- | --- |
-| 工程开发、TDD、审查、交接与生产力 | [Matt Pocock 系列](collections/mattpocock/README.md) | 38 个 Skill，固定版本，MIT |
-| 前端界面、AI 聊天、RAG 与 Canvas 装配 | [Frontend 领域](collections/frontend/README.md) | `awesome-ui-kit` 已收录，外部依赖与授权状态见说明 |
+## 🌟 Acknowledgments: LINUX DO
 
-## 目录约定
+> 🐧 **This project recognizes and thanks the [LINUX DO](https://linux.do/) community.** Many of the ideas, techniques, and production-hardened lessons behind these skills — evidence-first debugging, production-minded review, and real-world ops workflows — were inspired by the generous sharing of the LINUX DO community. Salute to the open-source spirit and pure technical exploration!
+
+## 选择 Skill
+
+| Skill / 系列 | 什么时候用 | 主要用途 | 文档 |
+| --- | --- | --- | --- |
+| Matt Pocock 系列 | 需要工程开发与协作工作流 | 38 个独立 Skill，涵盖 TDD、代码审查、任务拆解与交接 | [系列指南](collections/mattpocock/README.md) |
+| `awesome-ui-kit` | 需要搭建 AI 原生前端页面 | 聊天、RAG 引用、工具调用展示与 Canvas 组件装配 | [使用指南](collections/frontend/awesome-ui-kit/README.md) |
+
+## 推荐起点
+
+- **测试驱动开发**：[TDD](collections/mattpocock/skills/engineering/tdd/SKILL.md)
+- **审查代码变更**：[Code Review](collections/mattpocock/skills/engineering/code-review/SKILL.md)
+- **整理上下文并交接**：[Handoff](collections/mattpocock/skills/productivity/handoff/SKILL.md)
+- **搭建 AI 界面**：[Awesome UI Kit](collections/frontend/awesome-ui-kit/README.md)
+
+## 安装
+
+1. 阅读对应指南，确认授权、外部依赖和目标 Agent 的安装目录。
+2. 复制所选 Skill 的**完整目录**，保留参考文件、许可证与来源记录；不要只复制 `SKILL.md` 或整个系列。
+3. 按目标 Agent 的方式重新加载 Skills。
+
+具体复制示例见 [Matt Pocock 系列指南](collections/mattpocock/README.md)。克隆本仓库不会自动安装 Skills，也不会修改全局配置。
+
+> `awesome-ui-kit` 依赖外部 `awesome-ui` 组件库，授权仍待确认，尚未验证运行效果。使用或再分发前请阅读其 [来源与授权说明](collections/frontend/awesome-ui-kit/NOTICE.md)。
+
+## 文档
+
+- [Matt Pocock 系列](collections/mattpocock/README.md)：完整清单、安装与更新说明
+- [Frontend 领域](collections/frontend/README.md)：前端 Skills 导航
+- [Awesome UI Kit](collections/frontend/awesome-ui-kit/README.md)：组件库依赖与使用边界
+- [变更记录](CHANGELOG.md)
+
+## 仓库结构
+
+采用“系列 + 工程领域”组织：Matt Pocock 保留独立系列，其余 Skills 按用途归类。
 
 ```text
 collections/
-  mattpocock/                  知名系列，保留上游内部结构
-    README.md
-    upstream.json             系列级来源记录（kind: series）
-    LICENSE
-    skills/
-  frontend/                   工程领域，不按作者划分
-    README.md
-    awesome-ui-kit/
-      README.md               使用入口、依赖与验证状态
-      upstream.json           Skill 级来源记录（kind: skill）
-      NOTICE.md               未找到许可证时的状态说明，不是授权
-      SKILL.md
-      references/
-tests/                        仓库自身的离线基础检查
+├── mattpocock/             Matt Pocock 系列，保留上游结构
+└── frontend/
+    └── awesome-ui-kit/    AI 界面组件装配
+tests/                     仓库基础检查
 ```
 
-先按 `frontend` 归类，不提前细分 `ui/ux`。新增领域只在实际收录时创建。不同集合允许同名 Skill，安装时自行避免冲突；同一集合内名称必须唯一。
+## 维护者入口
 
-## 使用
-
-从入口选择 Skill，先阅读授权状态和依赖说明。授权与依赖确认后，按目标 Agent 的要求复制 Skill 的**完整目录**并保留适用许可证与来源记录。收录不等于安装，克隆仓库不会修改全局 Agent 配置。
-
-- Matt Pocock 的固定快照复制示例见 [系列说明](collections/mattpocock/README.md)。
-- Awesome UI Kit 的组件库依赖、版本与授权待确认事项见 [使用说明](collections/frontend/awesome-ui-kit/README.md)。
-
-本仓库不保证所有 Agent 都会自动发现嵌套目录，也不把基础检查通过视为 Skill 的实际运行效果已经验证。
-
-## 验证
-
-只需 Python 3.9+，不需要第三方依赖：
+- 保留上游原文件；来源、固定版本和依赖记录在各目录的 `upstream.json` 中。
+- 更新后同步指南、清单和 [变更记录](CHANGELOG.md)，保留适用许可证；授权不明时记录 NOTICE，不套用其他集合的许可证。
+- 使用 Python 3.9+ 运行离线检查，无需第三方依赖：
 
 ```bash
 python3 -B -m unittest discover -s tests -v
 ```
 
-检查系列/领域布局、来源版本、授权状态记录、Skill 清单完整性、声明的配套文件、基本元数据、集合内名称唯一性、依赖记录和本仓库导航。不联网验证依赖，不执行 Skill，不验证完整 YAML 语法或模型任务效果。
-
-## 维护
-
-- 上游原文件不改写，本仓库说明和来源清单单独维护。
-- `upstream.json` 的 `source_path` 表示上游仓库中的原始目录；`skills`、可选 `files` 和许可证路径相对于该清单所在目录。
-- 系列使用系列级清单；领域下每个 Skill 各自记录来源、固定 commit、文件清单与外部依赖，不能把不同作者的内容挂在同一上游记录下。
-- 更新时审查差异，再替换快照、更新清单与数量说明、运行测试并记录变更。不自动跟随上游分支。
-- 找到适用许可证时保留原文；未找到时记录 `license: null`、`license_status: not-found` 并附 NOTICE，不猜测授权，不套用其他集合的许可证。对外发布前需确认待定项。
-- 测试通过只表示记录与文件符合仓库约定，不表示授权确认或运行验收通过。
-
-变更记录见 [CHANGELOG](CHANGELOG.md)。
+检查覆盖目录、来源记录、Skill 清单、配套文件和导航链接，不代表授权确认或实际运行验收。
