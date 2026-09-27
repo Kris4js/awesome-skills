@@ -41,6 +41,6 @@ The [Frontend collection](../../collections/frontend/README.md) currently contai
 
 A skill name in this table does not mean it is installed or available to the current agent. Read and install the required skill and supporting files before invoking it. This repository's lightweight workflow is an adaptation, not a claim that the full upstream setup has been completed.
 
-The examples use Codex's explicit `$skill-name` selection. Use your agent's explicit skill-invocation mechanism rather than assuming a natural-language mention always loads a skill. Upstream `implement` requests a code review and a commit; agree on the task scope and commit boundary before invoking it, and stage only task-related files.
+The examples use Codex's explicit `$skill-name` selection. For Pi CLI, replace that prefix with `/skill:name` (for example `/skill:handoff`) and use `/reload` after installation. In PI-Desktop, confirm the skill is enabled in Settings → Skills, then ask the agent to call the `Skill` tool with its listed id (for example `handoff`); verify the tool result. See [Quickstart](quickstart.md) for client-specific discovery steps. Upstream `implement` requests a code review and a commit; agree on the task scope and commit boundary before invoking it, and stage only task-related files.
 
 [Docs](../README.md) · [English overview](../../README.md) · [中文概览](../zh/README.zh-CN.md)

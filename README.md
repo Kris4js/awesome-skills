@@ -8,7 +8,7 @@ Reusable agent skills for practical engineering work. Choose a skill for your ta
 
 | Skill / collection | When to use | Best for | Docs |
 | --- | --- | --- | --- |
-| Matt Pocock series | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Series guide (Chinese)](collections/mattpocock/README.md) |
+| Matt Pocock Skills | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Guide (Chinese)](collections/mattpocock/README.md) |
 | `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
 
 ## Recommended Starting Points
@@ -20,32 +20,30 @@ Reusable agent skills for practical engineering work. Choose a skill for your ta
 
 ## Install
 
-For Codex, the [official skill locations](https://developers.openai.com/codex/skills) include:
+This guide covers **Codex, Pi CLI, and PI-Desktop**. We use the portable Agent Skills directories supported by [Codex](https://developers.openai.com/codex/skills) and [Pi](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md); see [PI-Desktop's Skills settings](https://pi-desktop.app/docs/) to confirm the detected path and visibility.
 
 | Scope | Directory |
 | --- | --- |
 | User: available across projects | `$HOME/.agents/skills` |
 | Repository: available within a project | `.agents/skills` at that project's root |
 
-From this clone's root, install **one skill**, for example `tdd`, with its license and source record. This Bash example stops if a `tdd` installation or symlink already exists.
+From the clone root, install `tdd` with its license and source record. If already installed, use the [update guide](doc/usage/quickstart.md) instead.
 
 <!-- install:tdd:user -->
 ```bash
-(
-  set -eu
-  dest="$HOME/.agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p "$HOME/.agents/skills" && mkdir "$HOME/.agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} "$HOME/.agents/skills/tdd/"
 ```
 
-Codex normally detects skill changes automatically. If `tdd` does not appear, restart Codex, then select it with `$tdd`. For repository scope, another project, updates, and troubleshooting, follow the [Quickstart](doc/usage/quickstart.md).
+After copying, choose your client:
 
-Cloning this repository does not install its collections. Other agents may use different discovery paths. `awesome-ui-kit` requires an external component library; its [license status and runtime verification remain unresolved](collections/frontend/awesome-ui-kit/NOTICE.md).
+| Client | Discover and invoke |
+| --- | --- |
+| Codex | Normally detects changes automatically; restart if missing, then select `$tdd`. |
+| Pi CLI | Run `/reload` in an active session, then `/skill:tdd`. |
+| PI-Desktop | Select the project → Settings → Skills; confirm `tdd` is listed and enabled. In a fresh session, ask the agent to call the `Skill` tool with id `tdd`; verify the tool call succeeded. |
+
+Do not install a second copy just because you use both Codex and Pi. For repository scope, desktop discovery troubleshooting, and updates, follow the [Quickstart](doc/usage/quickstart.md).
 
 ## Docs
 

@@ -8,7 +8,7 @@
 
 | Skill / 系列 | 什么时候用 | 主要用途 | 文档 |
 | --- | --- | --- | --- |
-| Matt Pocock 系列 | 需要聚焦的工程工作流 | 38 个 Skill，涵盖规划、TDD、实现、审查与交接 | [系列指南](../../collections/mattpocock/README.md) |
+| Matt Pocock Skills | 需要聚焦的工程工作流 | 38 个 Skill，涵盖规划、TDD、实现、审查与交接 | [使用指南](../../collections/mattpocock/README.md) |
 | `awesome-ui-kit` | 需要搭建 AI 原生界面 | 聊天、RAG 引用、工具调用展示与 Canvas 装配 | [使用与依赖](../../collections/frontend/awesome-ui-kit/README.md) |
 
 ## 推荐起点
@@ -20,32 +20,30 @@
 
 ## 安装
 
-Codex 的[官方 Skill 路径](https://developers.openai.com/codex/skills)包括：
+本指南覆盖 **Codex、Pi CLI 和 PI-Desktop**。统一采用 [Codex](https://developers.openai.com/codex/skills) 和 [Pi](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md) 支持的通用 Agent Skills 目录；PI-Desktop 中请通过[技能设置](https://pi-desktop.app/docs/)确认发现的路径和可见性。
 
 | 范围 | 目录 |
 | --- | --- |
 | 用户级：跨项目可用 | `$HOME/.agents/skills` |
 | 项目级：仅目标项目可用 | 目标项目根目录的 `.agents/skills` |
 
-在本仓库克隆目录的根目录运行以下 Bash 示例，安装单个 `tdd`，同时保留许可证与来源记录。若已有同名目录或软链接，命令会停止，不覆盖已有内容。
+在克隆根目录安装 `tdd`，同时保留许可证与来源记录。已有安装时请改用[更新指南](quickstart.zh-CN.md)。
 
 <!-- install:tdd:user -->
 ```bash
-(
-  set -eu
-  dest="$HOME/.agents/skills"
-  test ! -e "$dest/tdd"
-  test ! -L "$dest/tdd"
-  mkdir -p "$dest"
-  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
-  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
-  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
-)
+mkdir -p "$HOME/.agents/skills" && mkdir "$HOME/.agents/skills/tdd" &&
+cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LICENSE,upstream.json} "$HOME/.agents/skills/tdd/"
 ```
 
-Codex 通常会自动发现 Skill 变更；若未显示，重启 Codex，再通过 `$tdd` 选择。项目级安装、其他项目安装、更新与排错见[快速开始](quickstart.zh-CN.md)。
+复制后，按客户端分别操作：
 
-克隆仓库不等于安装其中的 Skills，其他 Agent 的发现路径也可能不同。`awesome-ui-kit` 需要外部组件库，其[授权状态和运行验证仍待确认](../../collections/frontend/awesome-ui-kit/NOTICE.md)。
+| 客户端 | 发现与调用 |
+| --- | --- |
+| Codex | 通常自动发现；未显示时重启，再通过 `$tdd` 选择。 |
+| Pi CLI | 已有会话执行 `/reload`，再用 `/skill:tdd`。 |
+| PI-Desktop | 选择项目 → 设置 → 技能，确认 `tdd` 已显示并启用。在新会话中要求 Agent 使用 `Skill` 工具加载 id `tdd`，确认工具调用成功。 |
+
+同时使用 Codex 和 Pi 时无需再装一份。项目级安装、桌面端发现排错与更新方式见[快速开始](quickstart.zh-CN.md)。
 
 ## 文档
 

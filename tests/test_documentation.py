@@ -37,6 +37,19 @@ class DocumentationTests(unittest.TestCase):
             text = (ROOT / name).read_text(encoding="utf-8")
             self.assertIn("$HOME/.agents/skills", text)
             self.assertIn(".agents/skills", text)
+            for marker in ("Codex", "Pi CLI", "PI-Desktop", "$tdd", "/skill:tdd", "/reload", "`Skill`"):
+                self.assertIn(marker, text, name)
+
+    def test_bilingual_install_parity(self):
+        for english, chinese in (
+            ("README.md", "doc/zh/README.zh-CN.md"),
+            ("doc/usage/quickstart.md", "doc/zh/quickstart.zh-CN.md"),
+        ):
+            with self.subTest(english=english, chinese=chinese):
+                self.assertEqual(
+                    SNIPPETS.findall((ROOT / english).read_text(encoding="utf-8")),
+                    SNIPPETS.findall((ROOT / chinese).read_text(encoding="utf-8")),
+                )
 
     def test_owned_document_links(self):
         documents = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "CONTEXT.md",
@@ -72,14 +85,17 @@ class DocumentationTests(unittest.TestCase):
                     result = subprocess.run(["bash", "--noprofile", "--norc", "-c", script],
                                             cwd=work, env=env, capture_output=True, text=True)
                     self.assertEqual(result.returncode, 0, result.stderr)
+                    overview = document in ("README.md", "doc/zh/README.zh-CN.md")
+                    license_name = "LICENSE" if overview else "LICENSE.mattpocock"
+                    source_name = "upstream.json" if overview else "UPSTREAM.mattpocock.json"
                     for path in (original / "skills/engineering/tdd").rglob("*"):
                         if path.is_file():
                             relative = path.relative_to(original / "skills/engineering/tdd")
                             self.assertEqual(path.read_bytes(), (target / relative).read_bytes())
                     self.assertEqual((original / "LICENSE").read_bytes(),
-                                     (target / "LICENSE.mattpocock").read_bytes())
+                                     (target / license_name).read_bytes())
                     self.assertEqual(json.loads((original / "upstream.json").read_text()),
-                                     json.loads((target / "UPSTREAM.mattpocock.json").read_text()))
+                                     json.loads((target / source_name).read_text()))
                     sentinel = target / "SKILL.md"
                     sentinel.write_text("local user edits", encoding="utf-8")
                     result = subprocess.run(["bash", "--noprofile", "--norc", "-c", script],

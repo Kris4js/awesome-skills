@@ -15,7 +15,7 @@
 
 这些是本仓库的选择规则，不修改上游 Skill 指令。实际调用前先阅读该 Skill 的前置条件；当前 Agent 未加载某个 Skill 时，不声称已经调用它。
 
-在 Codex 中用 `$skill-name` 显式选择已安装的 Skill，例如 `$implement` 或 `$handoff`；其他 Agent 使用其对应调用机制。上游 `implement` 包含审查和提交步骤，并非只读建议工具，调用前确认提交范围；仅暂存任务相关文件，不包含用户无关修改。
+Codex 用 `$skill-name` 显式选择，Pi CLI 用 `/skill:name`（安装后可 `/reload`）。PI-Desktop 在“设置 → 技能”确认启用后，要求 Agent 通过 `Skill` 工具加载实际 id，例如 `implement` 或 `handoff`，以工具结果确认成功。具体发现步骤见[快速开始](../zh/quickstart.zh-CN.md)。上游 `implement` 包含审查和提交步骤，并非只读建议工具，调用前确认提交范围；仅暂存任务相关文件，不包含用户无关修改。
 
 ## 一次实践的最小闭环
 
