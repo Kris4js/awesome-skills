@@ -19,6 +19,7 @@ Each linked folder is the directory to copy; read its `SKILL.md` first. The path
 | [handoff](../../collections/mattpocock/skills/productivity/handoff/) | Work must continue in another session | Current facts, evidence, and the next action | The task is finished and needs no handoff |
 | [setup-matt-pocock-skills](../../collections/mattpocock/skills/engineering/setup-matt-pocock-skills/) | You want to enable tracker-dependent engineering skills | Confirmed project configuration | You only want to install or try one independent skill |
 | [awesome-ui-kit](../../collections/frontend/awesome-ui-kit/) | You want component-based AI interfaces | A page assembled from the external component library | Source/license and runtime status remain unresolved; see its README |
+| [archify](../../collections/architecture/archify/) | You need architecture, workflow, sequence, data-flow, or state diagrams | Validated interactive HTML diagrams | Requires Node.js 18+; pinned development snapshot; browser/export behavior needs separate verification |
 
 ## Full Snapshot Catalog
 

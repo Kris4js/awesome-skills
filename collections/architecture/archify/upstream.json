@@ -1,0 +1,35 @@
+{
+  "kind": "skill",
+  "repository": "https://github.com/tt-a1i/archify",
+  "commit": "9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993",
+  "source_path": "archify",
+  "version": "2.17.0-dev.1",
+  "channel": "development",
+  "license": "MIT",
+  "license_file": "LICENSE",
+  "third_party_notices": "THIRD_PARTY_NOTICES.md",
+  "imported_on": "2026-09-27",
+  "skills": ["SKILL.md"],
+  "files": [
+    "SKILL.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "package.json",
+    "package-lock.json",
+    "skill-release.json",
+    "bin/archify.mjs",
+    "schemas/common.schema.json",
+    "examples/cache-miss-request.sequence.json",
+    "assets/JetBrainsMono-OFL.txt"
+  ],
+  "snapshot": {
+    "file_count": 219,
+    "tree_sha256": "d64fc3d743be938e79abaf2867356cd8add4d68bb090d92d949d23bd661ddbdd",
+    "algorithm": "SHA-256 of sorted UTF-8 lines: <file-sha256>  <relative-posix-path>\\n",
+    "excluded_owned_files": ["README.md", "upstream.json"]
+  },
+  "runtime_requirements": {
+    "node": ">=18",
+    "notes": "Core CLI validation and HTML delivery are checked without npm install. Browser interaction and export features require separate verification."
+  }
+}

@@ -10,6 +10,7 @@
 | --- | --- | --- | --- |
 | Matt Pocock Skills | 需要聚焦的工程工作流 | 38 个 Skill，涵盖规划、TDD、实现、审查与交接 | [使用指南](../../collections/mattpocock/README.md) |
 | `awesome-ui-kit` | 需要搭建 AI 原生界面 | 聊天、RAG 引用、工具调用展示与 Canvas 装配 | [使用与依赖](../../collections/frontend/awesome-ui-kit/README.md) |
+| `archify` | 需要解释系统结构和技术流程 | 交互式 HTML 架构图、工作流、时序图、数据流与生命周期图 | [使用指南](../../collections/architecture/archify/README.md) |
 
 ## 推荐起点
 
@@ -52,6 +53,7 @@ cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LI
 - [Matt Pocock 个人工作流](../usage/matt-pocock-workflow.md)
 - [工作流设计](../design/personal-skill-workflow-design.md)与[项目术语](../../CONTEXT.md)
 - [Frontend 领域](../../collections/frontend/README.md)
+- [Architecture 领域](../../collections/architecture/README.md)
 - [变更记录](../../CHANGELOG.md)
 
 ## 仓库结构
@@ -59,7 +61,8 @@ cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LI
 ```text
 collections/
 ├── mattpocock/             保留上游结构的独立系列
-└── frontend/               按工程领域收录的 Skills
+├── frontend/               前端界面 Skills
+└── architecture/           架构与技术流程可视化
 doc/
 ├── usage/                  安装、选择与工作流指南
 ├── zh/                     中文概览和快速开始

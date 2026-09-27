@@ -10,6 +10,7 @@ Reusable agent skills for practical engineering work. Choose a skill for your ta
 | --- | --- | --- | --- |
 | Matt Pocock Skills | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Guide (Chinese)](collections/mattpocock/README.md) |
 | `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
+| `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
 
 ## Recommended Starting Points
 
@@ -52,6 +53,7 @@ Do not install a second copy just because you use both Codex and Pi. For reposit
 - [Personal Matt Pocock workflow (Chinese)](doc/usage/matt-pocock-workflow.md)
 - [Workflow design (Chinese)](doc/design/personal-skill-workflow-design.md) and [project vocabulary](CONTEXT.md)
 - [Frontend collection (Chinese)](collections/frontend/README.md)
+- [Architecture collection (Chinese)](collections/architecture/README.md)
 - [Changelog (Chinese)](CHANGELOG.md)
 
 ## Repository Layout
@@ -59,7 +61,8 @@ Do not install a second copy just because you use both Codex and Pi. For reposit
 ```text
 collections/
 ├── mattpocock/             Preserved upstream series
-└── frontend/               Skills grouped by engineering domain
+├── frontend/               Frontend interface skills
+└── architecture/           Architecture and technical visualization
 doc/
 ├── usage/                  Installation, selection, and workflow guides
 ├── zh/                     Chinese overview and quickstart

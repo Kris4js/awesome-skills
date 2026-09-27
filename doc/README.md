@@ -18,6 +18,7 @@ Start with installation or selection; read design documents only when changing t
 - [Agent instructions](../AGENTS.md) — English; task-specific pointers and checks
 - [Matt Pocock collection](../collections/mattpocock/README.md) — 中文；source, scope, and maintenance
 - [Frontend collection](../collections/frontend/README.md) — 中文；domain navigation and collection rules
+- [Architecture collection](../collections/architecture/README.md) — 中文；archify installation, provenance, and validation boundaries
 - [Changelog](../CHANGELOG.md)
 
 ## Language Policy
