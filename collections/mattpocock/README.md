@@ -25,22 +25,11 @@ Matt Pocock 的独立 Agent Skills 集合，作为本仓库的第一个来源集
 
 每个含 `SKILL.md` 的目录都是独立 Skill。复制时必须包含旁边的参考文档、模板和脚本，不能只复制 `SKILL.md`。
 
-例如，在仓库根目录将 `tdd` 复制到自行确认的目标目录：
+Codex 的用户级路径为 `$HOME/.agents/skills`，项目级路径为 `.agents/skills`。可直接运行的单 Skill 安装示例、许可证与来源记录复制方式、更新及排错，统一维护在[中文快速开始](../../doc/zh/quickstart.zh-CN.md)与 [English Quickstart](../../doc/usage/quickstart.md)。
 
-```bash
-# 替换为目标 Agent 支持的 Skills 目录；不要直接运行占位路径。
-DEST="/absolute/path/to/agent/skills"
-mkdir -p "$DEST"
-# 已有同名目录时停止，避免覆盖已有修改。
-if [ -e "$DEST/tdd" ] || [ -L "$DEST/tdd" ]; then
-  printf '%s\n' '目标 tdd 已存在，请先检查差异。' >&2
-else
-  cp -R collections/mattpocock/skills/engineering/tdd "$DEST/tdd"
-  cp collections/mattpocock/LICENSE "$DEST/tdd/LICENSE.mattpocock"
-fi
-```
+按问题选择目录可查阅 [Skill Matrix](../../doc/usage/skill-matrix.md)；在本仓库如何实践见[个人工作流](../../doc/usage/matt-pocock-workflow.md)。
 
-这里仅提供复制示例，本仓库不会自动安装或运行 Skill。部分 Skills 会调用其他 Skills、命令行工具，或要求目标项目先完成配置；使用前阅读对应说明。`setup-matt-pocock-skills` 应在实际使用这些工程 Skills 的目标项目运行，收录文件本身不代表本仓库已经完成其配置。
+本仓库不会自动安装或运行 Skill。部分 Skills 会调用其他 Skills、命令行工具，或要求目标项目先完成配置；使用前阅读对应说明。`setup-matt-pocock-skills` 仅在需要启用其工程配置时于目标项目运行，收录文件本身不代表本仓库已经完成其配置。
 
 ## 更新约定
 

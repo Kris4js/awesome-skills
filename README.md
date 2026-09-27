@@ -1,66 +1,88 @@
 # Awesome Skills
 
-可重复使用的代码技能，适用于以证据为基础、注重生产性的项目工作。
+Reusable agent skills for practical engineering work. Choose a skill for your task, then install only what you need.
 
-这个仓库提供了独立的技能包。首先选择适合您问题的包，然后只安装您需要的功能。
+[中文说明](doc/zh/README.zh-CN.md) · [Quickstart](doc/usage/quickstart.md) · [Skill Matrix](doc/usage/skill-matrix.md)
 
-## 🌟 Acknowledgments: LINUX DO
+## Choose a Skill
 
-> 🐧 **This project recognizes and thanks the [LINUX DO](https://linux.do/) community.** Many of the ideas, techniques, and production-hardened lessons behind these skills — evidence-first debugging, production-minded review, and real-world ops workflows — were inspired by the generous sharing of the LINUX DO community. Salute to the open-source spirit and pure technical exploration!
-
-## 选择 Skill
-
-| Skill / 系列 | 什么时候用 | 主要用途 | 文档 |
+| Skill / collection | When to use | Best for | Docs |
 | --- | --- | --- | --- |
-| Matt Pocock 系列 | 需要工程开发与协作工作流 | 38 个独立 Skill，涵盖 TDD、代码审查、任务拆解与交接 | [系列指南](collections/mattpocock/README.md) |
-| `awesome-ui-kit` | 需要搭建 AI 原生前端页面 | 聊天、RAG 引用、工具调用展示与 Canvas 组件装配 | [使用指南](collections/frontend/awesome-ui-kit/README.md) |
+| Matt Pocock series | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Series guide (Chinese)](collections/mattpocock/README.md) |
+| `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
 
-## 推荐起点
+## Recommended Starting Points
 
-- **测试驱动开发**：[TDD](collections/mattpocock/skills/engineering/tdd/SKILL.md)
-- **审查代码变更**：[Code Review](collections/mattpocock/skills/engineering/code-review/SKILL.md)
-- **整理上下文并交接**：[Handoff](collections/mattpocock/skills/productivity/handoff/SKILL.md)
-- **搭建 AI 界面**：[Awesome UI Kit](collections/frontend/awesome-ui-kit/README.md)
+- **Install your first skill:** [Quickstart](doc/usage/quickstart.md)
+- **Pick by problem:** [Skill Matrix](doc/usage/skill-matrix.md)
+- **Use Matt Pocock's approach in this repo:** [Personal workflow (Chinese)](doc/usage/matt-pocock-workflow.md)
+- **Read in Chinese:** [中文说明](doc/zh/README.zh-CN.md) · [快速开始](doc/zh/quickstart.zh-CN.md)
 
-## 安装
+## Install
 
-1. 阅读对应指南，确认授权、外部依赖和目标 Agent 的安装目录。
-2. 复制所选 Skill 的**完整目录**，保留参考文件、许可证与来源记录；不要只复制 `SKILL.md` 或整个系列。
-3. 按目标 Agent 的方式重新加载 Skills。
+For Codex, the [official skill locations](https://developers.openai.com/codex/skills) include:
 
-具体复制示例见 [Matt Pocock 系列指南](collections/mattpocock/README.md)。克隆本仓库不会自动安装 Skills，也不会修改全局配置。
+| Scope | Directory |
+| --- | --- |
+| User: available across projects | `$HOME/.agents/skills` |
+| Repository: available within a project | `.agents/skills` at that project's root |
 
-> `awesome-ui-kit` 依赖外部 `awesome-ui` 组件库，授权仍待确认，尚未验证运行效果。使用或再分发前请阅读其 [来源与授权说明](collections/frontend/awesome-ui-kit/NOTICE.md)。
+From this clone's root, install **one skill**, for example `tdd`, with its license and source record. This Bash example stops if a `tdd` installation or symlink already exists.
 
-## 文档
+<!-- install:tdd:user -->
+```bash
+(
+  set -eu
+  dest="$HOME/.agents/skills"
+  test ! -e "$dest/tdd"
+  test ! -L "$dest/tdd"
+  mkdir -p "$dest"
+  cp -R collections/mattpocock/skills/engineering/tdd "$dest/tdd"
+  cp collections/mattpocock/LICENSE "$dest/tdd/LICENSE.mattpocock"
+  cp collections/mattpocock/upstream.json "$dest/tdd/UPSTREAM.mattpocock.json"
+)
+```
 
-- [项目文档](doc/README.md)：文档导航与使用说明
-- [Matt Pocock 系列](collections/mattpocock/README.md)：完整清单、安装与更新说明
-- [Frontend 领域](collections/frontend/README.md)：前端 Skills 导航
-- [Awesome UI Kit](collections/frontend/awesome-ui-kit/README.md)：组件库依赖与使用边界
-- [变更记录](CHANGELOG.md)
+Codex normally detects skill changes automatically. If `tdd` does not appear, restart Codex, then select it with `$tdd`. For repository scope, another project, updates, and troubleshooting, follow the [Quickstart](doc/usage/quickstart.md).
 
-## 仓库结构
+Cloning this repository does not install its collections. Other agents may use different discovery paths. `awesome-ui-kit` requires an external component library; its [license status and runtime verification remain unresolved](collections/frontend/awesome-ui-kit/NOTICE.md).
 
-采用“系列 + 工程领域”组织：Matt Pocock 保留独立系列，其余 Skills 按用途归类。
+## Docs
+
+- [Documentation index](doc/README.md)
+- [Quickstart](doc/usage/quickstart.md) and [Skill Matrix](doc/usage/skill-matrix.md)
+- [Personal Matt Pocock workflow (Chinese)](doc/usage/matt-pocock-workflow.md)
+- [Workflow design (Chinese)](doc/design/personal-skill-workflow-design.md) and [project vocabulary](CONTEXT.md)
+- [Frontend collection (Chinese)](collections/frontend/README.md)
+- [Changelog (Chinese)](CHANGELOG.md)
+
+## Repository Layout
 
 ```text
 collections/
-├── mattpocock/             Matt Pocock 系列，保留上游结构
-└── frontend/
-    └── awesome-ui-kit/    AI 界面组件装配
-doc/                       项目文档导航
-tests/                     仓库基础检查
+├── mattpocock/             Preserved upstream series
+└── frontend/               Skills grouped by engineering domain
+doc/
+├── usage/                  Installation, selection, and workflow guides
+├── zh/                     Chinese overview and quickstart
+└── design/                 This repository's design decisions
+AGENTS.md                   Short instructions for work in this repository
+CONTEXT.md                  Shared project vocabulary
+tests/                      Repository and documentation checks
 ```
 
-## 维护者入口
+## For Maintainers
 
-- 保留上游原文件；来源、固定版本和依赖记录在各目录的 `upstream.json` 中。
-- 更新后同步指南、清单和 [变更记录](CHANGELOG.md)，保留适用许可证；授权不明时记录 NOTICE，不套用其他集合的许可证。
-- 使用 Python 3.9+ 运行离线检查，无需第三方依赖：
+Keep upstream snapshots unchanged. Update their source records and guides together. Maintain this English README and its [Chinese counterpart](doc/zh/README.zh-CN.md) in the same change.
+
+Run the checks with Python 3.9+ and Bash:
 
 ```bash
 python3 -B -m unittest discover -s tests -v
 ```
 
-检查覆盖目录、来源记录、Skill 清单、配套文件和导航链接，不代表授权确认或实际运行验收。
+Tests check metadata, local links, and installation examples in temporary directories. They do not certify licenses or runtime behavior. See the [workflow guide (Chinese)](doc/usage/matt-pocock-workflow.md) before changing repository conventions.
+
+## Acknowledgments: LINUX DO
+
+> 🐧 **This project recognizes and thanks the [LINUX DO](https://linux.do/) community.** Many of the ideas, techniques, and production-hardened lessons behind these skills — evidence-first debugging, production-minded review, and real-world ops workflows — were inspired by the generous sharing of the LINUX DO community. Salute to the open-source spirit and pure technical exploration!

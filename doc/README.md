@@ -1,12 +1,27 @@
-# 项目文档
+# Documentation
 
-本仓库的文档导航。各 Skill 的使用方式、来源和依赖说明保留在对应集合目录中。
+Start with installation or selection; read design documents only when changing this repository's conventions.
 
-## 导航
+## Use the Skills
 
-- [Matt Pocock 系列](../collections/mattpocock/README.md)：Skill 清单、安装与更新说明
-- [Frontend 领域](../collections/frontend/README.md)：前端 Skills 导航
-- [Awesome UI Kit](../collections/frontend/awesome-ui-kit/README.md)：组件库依赖与使用边界
-- [变更记录](../CHANGELOG.md)
+| Document | Language | Purpose |
+| --- | --- | --- |
+| [Quickstart](usage/quickstart.md) | English | Copy one skill, choose a scope, verify discovery, and troubleshoot |
+| [快速开始](zh/quickstart.zh-CN.md) | 中文 | 用户级/项目级安装、验证、更新与排错 |
+| [Skill Matrix](usage/skill-matrix.md) | English | Choose a starter skill by problem and find the full snapshot catalog |
+| [Matt Pocock 个人工作流](usage/matt-pocock-workflow.md) | 中文 | Apply selected skills to real tasks without mandatory process overhead |
 
-[返回仓库首页](../README.md)
+## Understand the Repository
+
+- [Workflow design](design/personal-skill-workflow-design.md) — 中文；goals, trade-offs, boundaries, and acceptance criteria
+- [Project vocabulary](../CONTEXT.md) — English; shared terms, not task state
+- [Agent instructions](../AGENTS.md) — English; task-specific pointers and checks
+- [Matt Pocock collection](../collections/mattpocock/README.md) — 中文；source, scope, and maintenance
+- [Frontend collection](../collections/frontend/README.md) — 中文；domain navigation and collection rules
+- [Changelog](../CHANGELOG.md)
+
+## Language Policy
+
+The root [README](../README.md) is the English landing page, with a corresponding [Chinese overview](zh/README.zh-CN.md). Both quickstarts carry the same installation behavior. Update each language pair together. Maintainer design/workflow documents currently use Chinese; upstream skill snapshots retain their original language.
+
+[English overview](../README.md) · [中文概览](zh/README.zh-CN.md)
