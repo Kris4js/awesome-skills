@@ -34,6 +34,7 @@
 
 ## 文档
 
+- [项目文档](doc/README.md)：文档导航与使用说明
 - [Matt Pocock 系列](collections/mattpocock/README.md)：完整清单、安装与更新说明
 - [Frontend 领域](collections/frontend/README.md)：前端 Skills 导航
 - [Awesome UI Kit](collections/frontend/awesome-ui-kit/README.md)：组件库依赖与使用边界
@@ -48,6 +49,7 @@ collections/
 ├── mattpocock/             Matt Pocock 系列，保留上游结构
 └── frontend/
     └── awesome-ui-kit/    AI 界面组件装配
+doc/                       项目文档导航
 tests/                     仓库基础检查
 ```
 
