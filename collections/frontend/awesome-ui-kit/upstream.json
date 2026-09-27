@@ -1,0 +1,29 @@
+{
+  "kind": "skill",
+  "repository": "https://github.com/dengyie/awesome-skills",
+  "commit": "580de912652a2cb912856cc5414f9fa05ef869a8",
+  "source_path": "awesome-ui-kit",
+  "license": null,
+  "license_status": "not-found",
+  "license_file": null,
+  "license_notice": "NOTICE.md",
+  "imported_on": "2026-09-27",
+  "skills": ["SKILL.md"],
+  "files": [
+    "SKILL.md",
+    "references/component-inventory.md",
+    "references/page-recipes.md"
+  ],
+  "dependencies": [
+    {
+      "name": "awesome-ui",
+      "repository": "https://github.com/dengyie/awesome-ui",
+      "commit": "79a7f8186fd33cd7354f7d30534b889d50d83e98",
+      "vendored": false,
+      "license": null,
+      "license_status": "not-found",
+      "required_paths": ["react", "vue", "vanilla", "llms.txt", "llms-full.txt"],
+      "verification": "Source paths and the nine component-inventory entries exist for all three stacks; runtime behavior and API compatibility have not been verified."
+    }
+  ]
+}
