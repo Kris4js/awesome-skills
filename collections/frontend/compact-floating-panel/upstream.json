@@ -1,0 +1,27 @@
+{
+  "kind": "skill",
+  "source_type": "local",
+  "maintainer": "Kris4js",
+  "origin": "~/tmp/skills/compact-floating-panel",
+  "repository": null,
+  "commit": null,
+  "source_path": "compact-floating-panel",
+  "license": null,
+  "license_status": "not-found",
+  "license_file": null,
+  "license_notice": "NOTICE.md",
+  "skills": ["SKILL.md"],
+  "files": [
+    "SKILL.md",
+    "references/design-system.md",
+    "references/markup.md",
+    "assets/panel.css"
+  ],
+  "sha256": {
+    "SKILL.md": "0289763086de8b78bbc251c05669e3fffa5304dc70d5153e34630da0ca47a5f0",
+    "references/design-system.md": "1c73e8d7e8acb58a3c87ae6775751317888cccab5f0f6343d824dc9b74a2913f",
+    "references/markup.md": "5674dc22b0ebbf81cf54c220201ec1ef867c213700b6c2127fac84d27e24d816",
+    "assets/panel.css": "89189cc1fada4c9f28f9f2c4b3158c2111bbda9d4dd7ed231b7c536f5d7237e0"
+  },
+  "dependencies": []
+}

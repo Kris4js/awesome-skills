@@ -10,6 +10,7 @@
 | --- | --- | --- | --- |
 | Matt Pocock Skills | 需要聚焦的工程工作流 | 38 个 Skill，涵盖规划、TDD、实现、审查与交接 | [使用指南](../../collections/mattpocock/README.md) |
 | `awesome-ui-kit` | 需要搭建 AI 原生界面 | 聊天、RAG 引用、工具调用展示与 Canvas 装配 | [使用与依赖](../../collections/frontend/awesome-ui-kit/README.md) |
+| `compact-floating-panel` | 需要网页内紧凑悬浮工具窗口 | 个人维护的浮窗规范、HTML 骨架与隔离样式 | [使用指南](../../collections/frontend/compact-floating-panel/README.md) |
 | `archify` | 需要解释系统结构和技术流程 | 交互式 HTML 架构图、工作流、时序图、数据流与生命周期图 | [使用指南](../../collections/architecture/archify/README.md) |
 
 ## 推荐起点

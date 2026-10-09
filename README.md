@@ -10,6 +10,7 @@ Reusable agent skills for practical engineering work. Choose a skill for your ta
 | --- | --- | --- | --- |
 | Matt Pocock Skills | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Guide (Chinese)](collections/mattpocock/README.md) |
 | `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
+| `compact-floating-panel` | You need compact in-page floating tools | Personally maintained panel guidelines, HTML skeletons, and scoped CSS | [Guide (Chinese)](collections/frontend/compact-floating-panel/README.md) |
 | `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
 
 ## Recommended Starting Points

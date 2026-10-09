@@ -1,4 +1,5 @@
 """Offline checks for series and domain collections, not agent behavior."""
+import hashlib
 import json
 import pathlib
 import re
@@ -56,7 +57,20 @@ class RepositoryTests(unittest.TestCase):
     def test_source_provenance_and_license_status(self):
         for source, metadata in self.sources():
             with self.subTest(source=str(source.relative_to(ROOT))):
-                self.assert_repository_version(metadata)
+                source_type = metadata.get("source_type", "git")
+                self.assertIn(source_type, ("git", "local"))
+                if source_type == "local":
+                    self.assertIsNone(metadata["repository"])
+                    self.assertIsNone(metadata["commit"])
+                    self.assertTrue(metadata["maintainer"].strip())
+                    self.assertTrue(metadata["origin"].strip())
+                    self.assertEqual(set(metadata["sha256"]), set(metadata["files"]))
+                    for name, digest in metadata["sha256"].items():
+                        self.assertRegex(digest, r"^[0-9a-f]{64}$")
+                        path = self.local_path(source, name)
+                        self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), digest)
+                else:
+                    self.assert_repository_version(metadata)
                 self.local_path(source, metadata["source_path"])
                 self.assertTrue((source / "README.md").is_file())
                 if metadata["license"] is None:

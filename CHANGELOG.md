@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- 新增个人维护的 `frontend/compact-floating-panel`：从本地目录原样收录实现规范、两份参考文档及 CSS，补齐双语导航、本地来源与逐文件 SHA-256 检查；排除 `.DS_Store`，许可未声明，未进行 Agent 发现与运行验收。
+
 - 新增 `architecture/archify`，完整收录上游 `9e35d2b0b39b155553ba9fcfe0b4f2a5198dd993` 的 Skill 包（开发版 `2.17.0-dev.1`），保留 MIT 与第三方声明；补齐导航、快照摘要及隔离安装检查。
 - 统一 README 与中英文 quickstart 的两行安装命令、许可证和来源文件命名；新增跨首页/指南一致性检查，防止仅更新部分入口。
 - 双语首页和快速开始补充 Pi CLI / PI-Desktop：共用通用安装目录，区分各客户端刷新、启用和调用方式，增加双语命令一致性检查。
