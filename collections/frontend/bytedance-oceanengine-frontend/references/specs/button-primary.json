@@ -1,0 +1,42 @@
+{
+  "name": "button-primary",
+  "source": "https://business.oceanengine.com/ebp/account-manage/ecp/brand/all/account",
+  "captured": "2026-10-28",
+  "state": "hover first account row",
+  "parts": {
+    "button": {
+      "display": "flex",
+      "font-size": "14px",
+      "font-weight": "400",
+      "line-height": "22px",
+      "color": "rgb(255, 255, 255)",
+      "background-color": "rgb(0, 87, 255)",
+      "background-image": "none",
+      "width": "108px",
+      "height": "32px",
+      "padding-top": "4px",
+      "padding-right": "16px",
+      "padding-bottom": "4px",
+      "padding-left": "16px",
+      "margin-top": "0px",
+      "margin-right": "0px",
+      "margin-bottom": "0px",
+      "margin-left": "0px",
+      "border-top-width": "1px",
+      "border-bottom-width": "1px",
+      "border-left-width": "1px",
+      "border-right-width": "1px",
+      "border-top-color": "rgb(0, 87, 255)",
+      "border-bottom-color": "rgb(0, 87, 255)",
+      "border-top-style": "solid",
+      "border-bottom-style": "solid",
+      "border-radius": "8px",
+      "column-gap": "normal",
+      "row-gap": "normal",
+      "box-shadow": "none",
+      "opacity": "1",
+      "cursor": "pointer",
+      "overflow-y": "visible"
+    }
+  }
+}

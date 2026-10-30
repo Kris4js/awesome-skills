@@ -1,0 +1,2485 @@
+{
+  "product-tabs": {
+    "parts": {
+      "strip": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "height"
+        ]
+      },
+      "tab": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "tab-active": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color",
+          "border-radius"
+        ]
+      },
+      "icon": {
+        "props": [
+          "width",
+          "height"
+        ]
+      },
+      "divider": {
+        "selector": "[data-divider]::before",
+        "props": [
+          "width",
+          "height",
+          "background-color"
+        ]
+      }
+    }
+  },
+  "line-tabs": {
+    "parts": {
+      "tab": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "tab-active": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "indicator": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius"
+        ]
+      }
+    }
+  },
+  "section-header": {
+    "parts": {
+      "title": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height"
+        ]
+      },
+      "tip": {
+        "props": [
+          "font-size",
+          "line-height",
+          "margin-left",
+          "color"
+        ]
+      },
+      "desc": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "link": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "margin-left",
+          "text-decoration-line"
+        ]
+      }
+    }
+  },
+  "hint-text": {
+    "parts": {
+      "hint": {
+        "props": [
+          "font-size",
+          "line-height",
+          "color"
+        ]
+      },
+      "text": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "border-bottom-width",
+          "border-bottom-style",
+          "border-bottom-color"
+        ]
+      }
+    }
+  },
+  "hint-popover": {
+    "parts": {
+      "popover": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "text": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      }
+    },
+    "ready": "[data-ui=\"hint-text\"]",
+    "steps": [
+      {
+        "hover": "[data-ui=\"hint-text\"]"
+      },
+      {
+        "wait": "[data-ui=\"hint-popover\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "page-background": {
+    "parts": {
+      "page": {
+        "props": [
+          "background-image"
+        ]
+      },
+      "toolbar": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "height",
+          "padding-right",
+          "padding-left"
+        ]
+      },
+      "surface": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      }
+    }
+  },
+  "metric-card": {
+    "parts": {
+      "card": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "heading": {
+        "props": [
+          "height",
+          "margin-bottom"
+        ]
+      },
+      "label": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "value": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "decimal": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "sparkline": {
+        "props": [
+          "width",
+          "height"
+        ]
+      }
+    },
+    "root": "[data-ui=\"metric-card\"]"
+  },
+  "metric-card-hover": {
+    "parts": {
+      "card": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      }
+    },
+    "root": "[data-ui=\"metric-card\"]",
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "hover": "[data-ui=\"metric-card\"] [data-ui-part=\"sparkline\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"trend-popover\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "trend-popover": {
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "plot": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius"
+        ]
+      }
+    },
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "hover": "[data-ui=\"metric-card\"] [data-ui-part=\"sparkline\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"trend-popover\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "data-table": {
+    "parts": {
+      "header": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "summary": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "background-color",
+          "border-bottom-width",
+          "border-bottom-color"
+        ]
+      },
+      "cell": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "background-color",
+          "border-bottom-width",
+          "border-bottom-color"
+        ]
+      },
+      "text": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "pagination": {
+        "props": [
+          "height"
+        ]
+      }
+    }
+  },
+  "button-filled": {
+    "parts": {
+      "button": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-top-width",
+          "border-top-color"
+        ]
+      }
+    }
+  },
+  "button-icon": {
+    "parts": {
+      "button": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-top-width",
+          "border-top-color"
+        ]
+      }
+    }
+  },
+  "button-outline": {
+    "parts": {
+      "button": {
+        "selector": "[data-ui=\"button-outline\"]",
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-top-width",
+          "border-top-color"
+        ]
+      }
+    }
+  },
+  "button-dropdown": {
+    "root": "[data-ui=\"button-dropdown\"]",
+    "parts": {
+      "button": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "text": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "margin-right"
+        ]
+      },
+      "icon": {
+        "props": [
+          "width",
+          "height"
+        ]
+      }
+    }
+  },
+  "button-dropdown-open": {
+    "root": "[data-ui=\"button-dropdown\"]",
+    "ready": "[data-ui=\"button-dropdown\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-dropdown\"] button"
+      },
+      {
+        "wait": "[data-ui=\"button-dropdown-popup\"]"
+      },
+      {
+        "pause": 200
+      }
+    ],
+    "parts": {
+      "button": {
+        "props": [
+          "height",
+          "border-radius"
+        ]
+      },
+      "panel": {
+        "selector": "@[data-ui=\"button-dropdown-popup\"]",
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow",
+          "padding-top",
+          "padding-bottom"
+        ]
+      },
+      "item": {
+        "selector": "@[data-ui=\"button-dropdown-popup\"] [data-ui-part=\"item\"]:first-child",
+        "props": [
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "color"
+        ]
+      },
+      "title": {
+        "selector": "@[data-ui=\"button-dropdown-popup\"] [data-ui-part=\"item\"]:first-child [data-ui-part=\"title\"]",
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "desc": {
+        "selector": "@[data-ui=\"button-dropdown-popup\"] [data-ui-part=\"item\"]:first-child [data-ui-part=\"desc\"]",
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      }
+    }
+  },
+  "search-filter": {
+    "parts": {
+      "group": {
+        "props": [
+          "height",
+          "border-radius"
+        ]
+      },
+      "input": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "select": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      }
+    }
+  },
+  "selection-dialog": {
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ]
+      },
+      "title": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      }
+    },
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-filled\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"selection-dialog\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "segmented-tabs": {
+    "parts": {
+      "strip": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "column-gap"
+        ]
+      },
+      "tab": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "active": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "box-shadow"
+        ]
+      }
+    },
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-filled\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"selection-dialog\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "notice-banner": {
+    "parts": {
+      "banner": {
+        "props": [
+          "font-size",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "border-top-width",
+          "border-top-color"
+        ]
+      }
+    }
+  },
+  "selection-list": {
+    "parts": {
+      "row": {
+        "props": [
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-bottom-width",
+          "border-bottom-color"
+        ]
+      },
+      "title": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "description": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      }
+    },
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-filled\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"selection-dialog\"]"
+      },
+      {
+        "pause": 200
+      }
+    ]
+  },
+  "selection-list-hover": {
+    "parts": {
+      "row": {
+        "props": [
+          "background-color",
+          "height",
+          "border-bottom-color"
+        ]
+      }
+    },
+    "root": "[data-ui=\"selection-list\"]",
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-filled\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"selection-dialog\"]"
+      },
+      {
+        "pause": 200
+      },
+      {
+        "hover": "[data-ui=\"selection-list\"] [data-ui-part=\"row\"] >> nth=0"
+      }
+    ]
+  },
+  "button-primary": {
+    "parts": {
+      "button": {
+        "selector": "[data-ui=\"button-primary\"]",
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "border-top-width",
+          "border-top-color"
+        ]
+      }
+    },
+    "root": "[data-ui=\"selection-list\"]",
+    "ready": "[data-ui=\"metric-card\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"button-filled\"] >> nth=0"
+      },
+      {
+        "wait": "[data-ui=\"selection-dialog\"]"
+      },
+      {
+        "pause": 200
+      },
+      {
+        "hover": "[data-ui=\"selection-list\"] [data-ui-part=\"row\"] >> nth=0"
+      }
+    ]
+  },
+  "metric-comparison": {
+    "root": "[data-ui=\"metric-overview\"] [data-ui=\"metric-card\"]:nth-child(1)",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "check": {
+          "selector": "[data-ui=\"metric-overview\"] [role=\"checkbox\"]",
+          "checked": true
+        }
+      }
+    ],
+    "parts": {
+      "card": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "comparison": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "suffix": {
+        "props": [
+          "margin-left",
+          "margin-bottom"
+        ],
+        "selector": "[data-ui-part=\"comparison\"]"
+      }
+    }
+  },
+  "metric-comparison-down": {
+    "root": "[data-ui=\"metric-overview\"] [data-ui=\"metric-card\"]:nth-child(2)",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "check": {
+          "selector": "[data-ui=\"metric-overview\"] [role=\"checkbox\"]",
+          "checked": true
+        }
+      }
+    ],
+    "parts": {
+      "card": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "comparison": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "suffix": {
+        "props": [
+          "margin-left",
+          "margin-bottom"
+        ],
+        "selector": "[data-ui-part=\"comparison\"]"
+      }
+    }
+  },
+  "metric-comparison-unavailable": {
+    "root": "[data-ui=\"metric-overview\"] [data-ui=\"metric-card\"]:nth-child(6)",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "check": {
+          "selector": "[data-ui=\"metric-overview\"] [role=\"checkbox\"]",
+          "checked": true
+        }
+      },
+      {
+        "click": "[data-action=\"toggle-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"metric-overview\"][data-expanded=\"true\"]"
+      }
+    ],
+    "parts": {
+      "card": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height"
+        ]
+      },
+      "comparison": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "suffix": {
+        "props": [
+          "margin-left",
+          "margin-bottom"
+        ],
+        "selector": "[data-ui-part=\"comparison\"]"
+      }
+    }
+  },
+  "trend-comparison": {
+    "root": "[data-ui=\"trend-popover\"]",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "check": {
+          "selector": "[data-ui=\"metric-overview\"] [role=\"checkbox\"]",
+          "checked": true
+        }
+      },
+      {
+        "hover": "[data-ui=\"metric-card\"] [data-ui-part=\"sparkline\"] >> nth=1"
+      },
+      {
+        "wait": "[data-ui=\"trend-popover\"]"
+      },
+      {
+        "pause": 600
+      }
+    ],
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ]
+      },
+      "plot": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius"
+        ]
+      }
+    }
+  },
+  "metric-overview-collapsed": {
+    "root": "[data-ui=\"metric-overview\"]",
+    "steps": [],
+    "parts": {
+      "grid": {
+        "props": [
+          "display",
+          "row-gap",
+          "column-gap",
+          "height"
+        ]
+      },
+      "toggle": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius"
+        ],
+        "selector": "[data-action=\"toggle-metrics\"]"
+      }
+    }
+  },
+  "metric-overview-expanded": {
+    "root": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "check": {
+          "selector": "[data-ui=\"metric-overview\"] [role=\"checkbox\"]",
+          "checked": true
+        }
+      },
+      {
+        "click": "[data-action=\"toggle-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"metric-overview\"][data-expanded=\"true\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "grid": {
+        "props": [
+          "display",
+          "row-gap",
+          "column-gap",
+          "height"
+        ]
+      },
+      "toggle": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius"
+        ],
+        "selector": "[data-action=\"toggle-metrics\"]"
+      }
+    }
+  },
+  "metric-toggle": {
+    "root": "[data-action=\"toggle-metrics\"]",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "hover": "[data-action=\"toggle-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"metric-toggle-tooltip\"]"
+      },
+      {
+        "pause": 200
+      }
+    ],
+    "parts": {
+      "button": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius"
+        ],
+        "selector": ":scope"
+      },
+      "tooltip": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"metric-toggle-tooltip\"]"
+      }
+    },
+    "shot": [
+      "[data-action=\"toggle-metrics\"]",
+      "[data-ui=\"metric-toggle-tooltip\"]"
+    ]
+  },
+  "column-chooser": {
+    "root": "[data-ui=\"column-chooser\"]",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "click": "[data-action=\"configure-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"column-chooser\"]"
+      },
+      {
+        "pause": 250
+      }
+    ],
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ]
+      },
+      "title": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "body": {
+        "props": [
+          "height",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "menu": {
+        "props": [
+          "width",
+          "background-color"
+        ]
+      },
+      "category": {
+        "props": [
+          "height",
+          "padding-left",
+          "padding-right",
+          "color"
+        ]
+      },
+      "options": {
+        "props": [
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "border-right-width",
+          "border-right-color"
+        ]
+      },
+      "option": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "checkbox": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "[data-ui-part=\"checkbox\"][data-state=\"checked\"]"
+      },
+      "search": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "selected": {
+        "props": [
+          "width",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "selected-title": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "color"
+        ]
+      },
+      "selected-row": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "column-gap"
+        ]
+      },
+      "selected-label": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "drag-handle": {
+        "props": [
+          "width",
+          "height"
+        ]
+      },
+      "reset": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "height"
+        ]
+      },
+      "footer": {
+        "props": [
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "cancel": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "width",
+          "height",
+          "border-top-color",
+          "border-top-width"
+        ]
+      },
+      "apply": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "width",
+          "height",
+          "border-top-color",
+          "border-top-width"
+        ]
+      }
+    }
+  },
+  "column-chooser-search": {
+    "root": "[data-ui=\"column-chooser\"]",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "click": "[data-action=\"configure-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"column-chooser\"]"
+      },
+      {
+        "pause": 250
+      },
+      {
+        "fill": {
+          "selector": "[data-ui=\"column-chooser\"] input[type=\"search\"]",
+          "value": "ROI"
+        }
+      },
+      {
+        "pause": 200
+      }
+    ],
+    "parts": {
+      "body": {
+        "props": [
+          "height",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "search": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      },
+      "option": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      },
+      "selected-row": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "column-gap"
+        ]
+      }
+    }
+  },
+  "column-chooser-reordered": {
+    "root": "[data-ui=\"column-chooser\"]",
+    "ready": "[data-ui=\"metric-overview\"]",
+    "steps": [
+      {
+        "click": "[data-action=\"configure-metrics\"]"
+      },
+      {
+        "wait": "[data-ui=\"column-chooser\"]"
+      },
+      {
+        "pause": 250
+      },
+      {
+        "drag": {
+          "source": "[data-ui-part=\"selected-row\"]:nth-child(1) [data-ui-part=\"drag-handle\"]",
+          "target": "[data-ui-part=\"selected-row\"]:nth-child(2)",
+          "position": "after"
+        }
+      },
+      {
+        "wait": "[data-ui-part=\"selected-row\"]:first-child[data-row-id=\"impressions\"]"
+      },
+      {
+        "pause": 350
+      }
+    ],
+    "parts": {
+      "selected-row": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "height",
+          "column-gap"
+        ]
+      },
+      "drag-handle": {
+        "props": [
+          "width",
+          "height"
+        ]
+      }
+    }
+  },
+  "switch-tabs": {
+    "parts": {
+      "strip": {
+        "props": [
+          "height",
+          "border-radius"
+        ]
+      },
+      "active": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color",
+          "border-radius"
+        ]
+      },
+      "tab": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color",
+          "border-radius"
+        ]
+      },
+      "outline": {
+        "props": [
+          "border-top-width",
+          "border-top-color",
+          "border-radius"
+        ],
+        "selector": "[data-ui-part=\"active\"]::after"
+      }
+    }
+  },
+  "switch-tabs-shared": {
+    "root": "[data-ui=\"switch-tabs\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"switch-tabs\"] [role=\"tab\"]:has-text(\"共享给组织的素材\")"
+      },
+      {
+        "wait": "[data-ui=\"material-filter-example\"][data-tab=\"shared\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "active": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color",
+          "border-radius"
+        ]
+      },
+      "tab": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color",
+          "border-radius"
+        ]
+      },
+      "outline": {
+        "props": [
+          "border-top-width",
+          "border-top-color",
+          "border-radius"
+        ],
+        "selector": "[data-ui-part=\"active\"]::after"
+      }
+    }
+  },
+  "material-filters": {
+    "parts": {
+      "toolbar": {
+        "props": [
+          "column-gap",
+          "row-gap"
+        ]
+      },
+      "type": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "[data-ui=\"cascading-filter\"] [data-ui-part=\"trigger\"]"
+      },
+      "scope": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "[data-ui=\"multi-filter-select\"] [data-ui-part=\"trigger\"]"
+      },
+      "audit": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "[data-ui=\"filter-select\"]"
+      }
+    }
+  },
+  "type-filter-open": {
+    "root": "[data-ui=\"cascading-filter\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"cascading-filter\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color",
+          "box-shadow"
+        ]
+      },
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"]"
+      },
+      "search": {
+        "props": [
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "border-bottom-width",
+          "border-bottom-color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"search\"]"
+      },
+      "input": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"input\"]"
+      },
+      "list": {
+        "props": [
+          "height",
+          "padding-top",
+          "padding-bottom"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"list\"]"
+      },
+      "option": {
+        "props": [
+          "height",
+          "padding-right",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"option\"]"
+      },
+      "checkbox": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"checkbox\"]"
+      },
+      "label": {
+        "props": [
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"option\"] > span:last-child"
+      }
+    },
+    "shot": [
+      "[data-ui=\"cascading-filter\"]",
+      "[data-ui=\"cascading-filter-popup\"]"
+    ]
+  },
+  "type-filter-cascade": {
+    "root": "[data-ui=\"cascading-filter\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"cascading-filter\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"cascading-filter-popup\"] button:has-text(\"基础组件\")"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"child\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"]"
+      },
+      "columns": {
+        "props": [
+          "width",
+          "height"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"columns\"]"
+      },
+      "category": {
+        "props": [
+          "width",
+          "border-right-width",
+          "border-right-color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"category\"]"
+      },
+      "active": {
+        "props": [
+          "height",
+          "background-color",
+          "padding-left",
+          "padding-right"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-active=\"true\"]"
+      },
+      "label": {
+        "props": [
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-active=\"true\"] [data-ui-part=\"label\"]"
+      },
+      "child": {
+        "props": [
+          "width"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"child\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"cascading-filter\"]",
+      "[data-ui=\"cascading-filter-popup\"]"
+    ]
+  },
+  "type-filter-search": {
+    "root": "[data-ui=\"cascading-filter\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"cascading-filter\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "fill": {
+          "selector": "[data-ui=\"cascading-filter-popup\"] input[type=\"search\"]",
+          "value": "推广"
+        }
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"results\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "panel": {
+        "props": [
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"]"
+      },
+      "search": {
+        "props": [
+          "height",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"search\"]"
+      },
+      "option": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"option\"]"
+      },
+      "label": {
+        "props": [
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"label\"]"
+      },
+      "match": {
+        "props": [
+          "color",
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"match\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"cascading-filter\"]",
+      "[data-ui=\"cascading-filter-popup\"]"
+    ]
+  },
+  "type-filter-selected": {
+    "root": "[data-ui=\"cascading-filter\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"cascading-filter\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"cascading-filter-popup\"] button:has-text(\"基础组件\")"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"child\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"cascading-filter-popup\"] [data-option-id=\"promotion\"]"
+      },
+      {
+        "click": "[data-ui=\"switch-tabs\"] [aria-selected=\"true\"]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter\"] [data-ui-part=\"count\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "tag": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "count": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      }
+    }
+  },
+  "type-filter-partial": {
+    "root": "[data-ui=\"cascading-filter\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"cascading-filter\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"cascading-filter-popup\"] button:has-text(\"互动组件\")"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"child\"]"
+      },
+      {
+        "click": "[data-ui=\"cascading-filter-popup\"] [data-option-id=\"choice\"]"
+      },
+      {
+        "wait": "[data-ui=\"cascading-filter-popup\"] [aria-checked=\"mixed\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"]"
+      },
+      "mixed": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [aria-checked=\"mixed\"]"
+      },
+      "checked": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-ui-part=\"child\"] [aria-checked=\"true\"]"
+      },
+      "label": {
+        "props": [
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color"
+        ],
+        "selector": "@[data-ui=\"cascading-filter-popup\"] [data-active=\"true\"] [data-ui-part=\"label\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"cascading-filter\"]",
+      "[data-ui=\"cascading-filter-popup\"]"
+    ]
+  },
+  "scope-filter-open": {
+    "root": "[data-ui=\"multi-filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"multi-filter-select\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"]"
+      },
+      "list": {
+        "props": [
+          "padding-top",
+          "padding-bottom"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [data-ui-part=\"list\"]"
+      },
+      "option": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [data-option-id=\"douyin\"]"
+      },
+      "checkbox": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [data-ui-part=\"checkbox\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"multi-filter-select\"]",
+      "[data-ui=\"multi-filter-popup\"]"
+    ]
+  },
+  "scope-filter-selected": {
+    "root": "[data-ui=\"multi-filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"multi-filter-select\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"multi-filter-popup\"] [data-option-id=\"douyin\"]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-popup\"] [aria-checked=\"mixed\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color",
+          "box-shadow"
+        ]
+      },
+      "tag": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "mixed": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [aria-checked=\"mixed\"]"
+      },
+      "checked": {
+        "props": [
+          "width",
+          "height",
+          "background-color",
+          "border-radius",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [aria-checked=\"true\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"multi-filter-select\"]",
+      "[data-ui=\"multi-filter-popup\"]"
+    ]
+  },
+  "scope-filter-all": {
+    "root": "[data-ui=\"multi-filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"multi-filter-select\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"multi-filter-popup\"] [data-option-id=\"all\"]"
+      },
+      {
+        "click": "[data-ui=\"switch-tabs\"] [aria-selected=\"true\"]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-select\"] [data-ui-part=\"count\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "tag": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "border-top-width",
+          "border-top-color"
+        ]
+      },
+      "count": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ]
+      }
+    }
+  },
+  "scope-filter-hover": {
+    "root": "[data-ui=\"multi-filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"multi-filter-select\"] button[aria-expanded]"
+      },
+      {
+        "wait": "[data-ui=\"multi-filter-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "hover": "[data-ui=\"multi-filter-popup\"] [data-option-id=\"toutiao\"]"
+      }
+    ],
+    "parts": {
+      "option": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "background-color"
+        ],
+        "selector": "@[data-ui=\"multi-filter-popup\"] [data-option-id=\"toutiao\"]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"multi-filter-select\"]",
+      "[data-ui=\"multi-filter-popup\"]"
+    ]
+  },
+  "audit-filter-open": {
+    "root": "[data-ui=\"filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"filter-select\"]"
+      },
+      {
+        "wait": "[data-ui=\"filter-select-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color",
+          "box-shadow"
+        ],
+        "selector": ":scope"
+      },
+      "panel": {
+        "props": [
+          "width",
+          "background-color",
+          "border-radius",
+          "box-shadow"
+        ],
+        "selector": "@[data-ui=\"filter-select-popup\"]"
+      },
+      "list": {
+        "props": [
+          "height",
+          "padding-top",
+          "padding-bottom"
+        ],
+        "selector": "@[data-ui=\"filter-select-popup\"] [data-ui-part=\"list\"]"
+      },
+      "option": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"filter-select-popup\"] [data-option-id=\"pending\"]"
+      },
+      "selected": {
+        "props": [
+          "height",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left"
+        ],
+        "selector": "@[data-ui=\"filter-select-popup\"] [data-selected]"
+      }
+    },
+    "shot": [
+      "[data-ui=\"filter-select\"]",
+      "[data-ui=\"filter-select-popup\"]"
+    ]
+  },
+  "audit-filter-selected": {
+    "root": "[data-ui=\"filter-select\"]",
+    "steps": [
+      {
+        "click": "[data-ui=\"filter-select\"]"
+      },
+      {
+        "wait": "[data-ui=\"filter-select-popup\"]"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      },
+      {
+        "click": "[data-ui=\"filter-select-popup\"] [data-option-id=\"approved\"]"
+      },
+      {
+        "wait": "[data-ui=\"filter-select\"]:has-text(\"审核通过\")"
+      },
+      {
+        "move": {
+          "x": 5,
+          "y": 600
+        }
+      }
+    ],
+    "parts": {
+      "trigger": {
+        "props": [
+          "height",
+          "background-color",
+          "border-radius",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "font-size",
+          "line-height",
+          "font-weight",
+          "color",
+          "width",
+          "border-top-width",
+          "border-top-color"
+        ],
+        "selector": ":scope"
+      },
+      "value": {
+        "props": [
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color"
+        ]
+      }
+    }
+  }
+}

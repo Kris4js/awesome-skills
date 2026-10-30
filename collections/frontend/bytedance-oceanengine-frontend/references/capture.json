@@ -1,0 +1,1277 @@
+{
+  "site": "巨量引擎工作台 (business.oceanengine.com)",
+  "pages": [
+    {
+      "url": "https://business.oceanengine.com/ebp/home?ebpid=1855360595318788",
+      "ready": ".home-overview-tabs .ovui-tabs__tab",
+      "targets": [
+        {
+          "name": "product-tabs",
+          "root": ".home-overview-tabs",
+          "parts": {
+            "strip": ".ovui-tabs__nav",
+            "tab": ".ovui-tabs__tab:not(.ovui-tabs__tab--active)",
+            "tab-active": ".ovui-tabs__tab--active",
+            "icon": ".ovui-tabs__tab img",
+            "divider": ".ovui-tabs__tab--active ~ .ovui-tabs__tab ~ .ovui-tabs__tab::before"
+          }
+        },
+        {
+          "name": "line-tabs",
+          "root": ".home-overview-mode-tabs",
+          "steps": [
+            {
+              "click": ".home-overview-tabs .ovui-tabs__tab:nth-of-type(2)"
+            },
+            {
+              "wait": ".home-overview-mode-tabs"
+            },
+            {
+              "pause": 800
+            }
+          ],
+          "parts": {
+            "tab": ".ovui-tabs__tab:not(.ovui-tabs__tab--active)",
+            "tab-active": ".ovui-tabs__tab--active",
+            "indicator": ".ovui-tabs__bar"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://business.oceanengine.com/ebp/account-manage/ecp/bidding/universe/account?ebpid=1855360595318788",
+      "ready": ".oc-promotion-data-overview .card-top-content",
+      "targets": [
+        {
+          "name": "section-header",
+          "root": ".oc-promotion-data-overview .card-top-content",
+          "parts": {
+            "title": ".font-semibold",
+            "tip": ".tip-content",
+            "desc": ".tip-content > span",
+            "link": ".tip-content > a"
+          },
+          "shot": [
+            ".card-top-content .font-semibold",
+            ".card-top-content .tip-content"
+          ]
+        },
+        {
+          "name": "hint-text",
+          "root": ".oc-promotion-data-overview-control-bar .oc-typography-dashed",
+          "parts": {
+            "hint": ":scope",
+            "text": ".oc-typography-value-int"
+          }
+        },
+        {
+          "name": "hint-popover",
+          "root": ".oc-promotion-data-overview-control-bar .oc-typography-dashed",
+          "steps": [
+            {
+              "hover": ".oc-promotion-data-overview-control-bar .oc-typography-dashed"
+            },
+            {
+              "wait": ".ovui-popover .oc-popover-text__content"
+            },
+            {
+              "pause": 300
+            }
+          ],
+          "parts": {
+            "popover": "@.ovui-popover:has(.oc-popover-text__content)",
+            "text": "@.ovui-popover .oc-popover-text__content .oc-typography-value-int"
+          },
+          "shot": [
+            ".oc-promotion-data-overview-control-bar .oc-typography-dashed",
+            "@.ovui-popover:has(.oc-popover-text__content)"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://business.oceanengine.com/ebp/account-manage/ecp/brand/all/account?ebpid=1855360595318788",
+      "ready": ".oc-promotion-metric-card",
+      "targets": [
+        {
+          "name": "page-background",
+          "root": ".main-app-container",
+          "parts": {
+            "page": ":scope",
+            "toolbar": ".oc-card-trans",
+            "surface": ".bg-style"
+          },
+          "shot": [
+            ".ebp-app"
+          ]
+        },
+        {
+          "name": "metric-card",
+          "root": ".oc-promotion-metric-card",
+          "parts": {
+            "card": ".oc-statistic",
+            "heading": ".oc-statistic-title",
+            "label": ".oc-statistic-title .oc-typography",
+            "value": ".oc-promotion-metric-card-number-val",
+            "decimal": ".oc-promotion-metric-card-number-tail",
+            "sparkline": ".metric-card-chart"
+          }
+        },
+        {
+          "name": "metric-card-hover",
+          "root": ".oc-promotion-metric-card",
+          "steps": [
+            {
+              "hover": ".metric-card-chart >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-chart"
+            },
+            {
+              "pause": 350
+            }
+          ],
+          "parts": {
+            "card": ".oc-statistic"
+          }
+        },
+        {
+          "name": "trend-popover",
+          "root": ".oc-promotion-metric-chart",
+          "steps": [
+            {
+              "hover": ".metric-card-chart >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-chart"
+            },
+            {
+              "pause": 350
+            }
+          ],
+          "parts": {
+            "panel": "@.ovui-popover:has(.oc-promotion-metric-chart)",
+            "plot": ":scope"
+          },
+          "shot": [
+            ".oc-promotion-metric-card",
+            ".ovui-popover:has(.oc-promotion-metric-chart)"
+          ]
+        },
+        {
+          "name": "data-table",
+          "root": ".oc-table-wrapper",
+          "parts": {
+            "header": ".ovui-th",
+            "summary": ".ovui-t-summary-cell",
+            "row": ".ovui-tbody .ovui-tr",
+            "cell": ".ovui-td",
+            "text": ".ovui-td .oc-typography",
+            "status": ".oc-promotion-status-card",
+            "pagination": ".oc-table-pagination"
+          },
+          "shot": [
+            ".ovui-table__head-wrapper",
+            ".ovui-tbody .ovui-tr"
+          ]
+        },
+        {
+          "name": "button-filled",
+          "root": ".oc-more-filter-tile-body",
+          "parts": {
+            "button": "button"
+          },
+          "shot": [
+            ".oc-more-filter-tile-body button"
+          ]
+        },
+        {
+          "name": "button-icon",
+          "root": ".oc-promotion-custom-column",
+          "parts": {
+            "button": "button"
+          }
+        },
+        {
+          "name": "search-filter",
+          "root": ".oc-more-filter-tile-body",
+          "parts": {
+            "group": ".ovui-input-group",
+            "input": ".ovui-input__wrapper:not(.ovui-cascader__input)",
+            "select": ".ovui-cascader__input"
+          },
+          "shot": [
+            ".oc-row-input"
+          ]
+        },
+        {
+          "name": "selection-dialog",
+          "root": ".ebp-main-tool-modal",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            }
+          ],
+          "parts": {
+            "panel": ":scope",
+            "title": ".org-select-panel__title",
+            "body": ".org-switch-popup__modal-body",
+            "search": ".org-select-panel__inline-input .ebp-main-tool-input__wrapper"
+          }
+        },
+        {
+          "name": "segmented-tabs",
+          "root": ".org-select-panel__pills",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            }
+          ],
+          "parts": {
+            "strip": ":scope",
+            "tab": ".org-select-panel__pill:not(.org-select-panel__pill--active)",
+            "active": ".org-select-panel__pill--active"
+          }
+        },
+        {
+          "name": "notice-banner",
+          "root": ".ebp-main-ocean-oc-banner-tip",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            }
+          ],
+          "parts": {
+            "banner": ":scope"
+          }
+        },
+        {
+          "name": "selection-list",
+          "root": ".org-select-panel__list",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            }
+          ],
+          "parts": {
+            "list": ":scope",
+            "row": ".account-card",
+            "title": ".account-card__title",
+            "description": ".account-card__id"
+          }
+        },
+        {
+          "name": "selection-list-hover",
+          "root": ".org-select-panel__list",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            },
+            {
+              "hover": ".account-card >> nth=0"
+            }
+          ],
+          "parts": {
+            "row": ".account-card"
+          },
+          "shot": [
+            ".account-card"
+          ]
+        },
+        {
+          "name": "button-primary",
+          "root": ".account-card",
+          "steps": [
+            {
+              "click": ".bp-tree-container"
+            },
+            {
+              "wait": ".ebp-team-switch-opper-container"
+            },
+            {
+              "click": "text=\"访问其他组织/账户\""
+            },
+            {
+              "wait": ".org-switch-popup__modal"
+            },
+            {
+              "hover": ".account-card >> nth=0"
+            }
+          ],
+          "parts": {
+            "button": "button"
+          },
+          "shot": [
+            ".account-card button"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://business.oceanengine.com/ebp/account-manage/ecp/bidding/universe/account?ebpid=1855360595318788",
+      "ready": ".oc-promotion-data-overview-control-bar",
+      "targets": [
+        {
+          "name": "metric-comparison",
+          "root": ".ovui-grid-item:first-child .oc-promotion-metric-card",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": true
+              }
+            },
+            {
+              "wait": ".oc-statistic-content-suffix"
+            },
+            {
+              "pause": 500
+            }
+          ],
+          "parts": {
+            "card": ".oc-statistic",
+            "comparison": ".oc-statistic-content-suffix .oc-typography",
+            "suffix": ".oc-statistic-content-suffix"
+          }
+        },
+        {
+          "name": "metric-comparison-down",
+          "root": ".ovui-grid-item:nth-child(2) .oc-promotion-metric-card",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": true
+              }
+            },
+            {
+              "wait": ".oc-statistic-content-suffix"
+            },
+            {
+              "pause": 500
+            }
+          ],
+          "parts": {
+            "card": ".oc-statistic",
+            "comparison": ".oc-statistic-content-suffix .oc-typography",
+            "suffix": ".oc-statistic-content-suffix"
+          }
+        },
+        {
+          "name": "metric-comparison-unavailable",
+          "root": ".ovui-grid-item:nth-child(6) .oc-promotion-metric-card",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": true
+              }
+            },
+            {
+              "wait": ".oc-statistic-content-suffix"
+            },
+            {
+              "pause": 500
+            },
+            {
+              "click": "[data-auto-id=\"expanded-btn\"]"
+            },
+            {
+              "wait": ".ovui-grid-item:nth-child(6) .oc-promotion-metric-card"
+            }
+          ],
+          "parts": {
+            "card": ".oc-statistic",
+            "comparison": ".oc-statistic-content-suffix .oc-typography",
+            "suffix": ".oc-statistic-content-suffix"
+          }
+        },
+        {
+          "name": "trend-comparison",
+          "root": ".oc-promotion-metric-chart",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": true
+              }
+            },
+            {
+              "wait": ".oc-statistic-content-suffix"
+            },
+            {
+              "pause": 500
+            },
+            {
+              "hover": ".metric-card-chart >> nth=1"
+            },
+            {
+              "wait": ".oc-promotion-metric-chart"
+            },
+            {
+              "pause": 800
+            }
+          ],
+          "parts": {
+            "panel": "@.ovui-popover:has(.oc-promotion-metric-chart)",
+            "plot": ":scope"
+          },
+          "shot": [
+            ".ovui-grid-item:nth-child(2) .oc-promotion-metric-card",
+            ".ovui-popover:has(.oc-promotion-metric-chart)"
+          ]
+        },
+        {
+          "name": "metric-overview-collapsed",
+          "root": ".oc-promotion-data-overview",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": false
+              }
+            }
+          ],
+          "parts": {
+            "grid": ".ovui-grid",
+            "toggle": "[data-auto-id=\"expanded-btn\"]"
+          },
+          "shot": [
+            ".oc-promotion-data-overview"
+          ]
+        },
+        {
+          "name": "metric-overview-expanded",
+          "root": ".oc-promotion-data-overview",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "check": {
+                "selector": ".data-overview-ratio-checkbox input",
+                "click": ".data-overview-ratio-checkbox label",
+                "checked": true
+              }
+            },
+            {
+              "wait": ".oc-statistic-content-suffix"
+            },
+            {
+              "pause": 500
+            },
+            {
+              "click": "[data-auto-id=\"expanded-btn\"]"
+            },
+            {
+              "wait": ".ovui-grid-item:nth-child(6) .oc-promotion-metric-card"
+            }
+          ],
+          "parts": {
+            "grid": ".ovui-grid",
+            "toggle": "[data-auto-id=\"expanded-btn\"]"
+          },
+          "shot": [
+            ".oc-promotion-data-overview"
+          ]
+        },
+        {
+          "name": "metric-toggle",
+          "root": "[data-auto-id=\"expanded-btn\"]",
+          "steps": [
+            {
+              "click": "input[placeholder=\"请选择开始日期\"]"
+            },
+            {
+              "wait": "td[title=\"2026-10-28\"]"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "click": "td[title=\"2026-10-28\"] >> nth=0"
+            },
+            {
+              "wait": ".oc-promotion-metric-card"
+            },
+            {
+              "hover": "[data-auto-id=\"expanded-btn\"]"
+            },
+            {
+              "wait": ".ovui-popover--dark .oc-popover-text__content"
+            },
+            {
+              "pause": 250
+            }
+          ],
+          "parts": {
+            "button": ":scope",
+            "tooltip": "@.ovui-popover--dark:has(.oc-popover-text__content)"
+          },
+          "shot": [
+            "[data-auto-id=\"expanded-btn\"]",
+            ".ovui-popover--dark:has(.oc-popover-text__content)"
+          ]
+        },
+        {
+          "name": "column-chooser",
+          "root": ".ovui-modal:has(.oc-custom-column-modal-body)",
+          "steps": [
+            {
+              "click": ".oc-control-bar-right .oc-promotion-custom-column button"
+            },
+            {
+              "wait": ".oc-custom-column-modal-body"
+            },
+            {
+              "pause": 250
+            }
+          ],
+          "parts": {
+            "panel": ":scope",
+            "title": ".ovui-modal__header",
+            "body": ".oc-custom-column-modal-body",
+            "menu": ".menu-list",
+            "category": ".oc-sub-side-bar-item.active",
+            "options": ".metric-select-container",
+            "option": ".metric-item-checkbox label",
+            "checkbox": ".ovui-checkbox--checked .ovui-checkbox__inner",
+            "search": ".metric-search .ovui-input__wrapper",
+            "selected": ".selected-container",
+            "selected-title": ".selected-title .text",
+            "selected-row": ".oc-drag-list-item-content",
+            "selected-label": ".oc-selected-item-wrapper .text",
+            "drag-handle": ".oc-drag-list-item-icon",
+            "reset": ".selected-title button",
+            "footer": ".oc-custom-column-modal-footer",
+            "cancel": ".oc-custom-column-modal-footer button:not(.ovui-button--primary)",
+            "apply": ".oc-custom-column-modal-footer button[data-okee-fill=\"true\"]"
+          }
+        },
+        {
+          "name": "column-chooser-search",
+          "root": ".ovui-modal:has(.oc-custom-column-modal-body)",
+          "steps": [
+            {
+              "click": ".oc-control-bar-right .oc-promotion-custom-column button"
+            },
+            {
+              "wait": ".oc-custom-column-modal-body"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "fill": {
+                "selector": ".metric-search input",
+                "value": "ROI"
+              }
+            },
+            {
+              "pause": 300
+            }
+          ],
+          "parts": {
+            "body": ".oc-custom-column-modal-body",
+            "search": ".metric-search .ovui-input__wrapper",
+            "option": ".metric-item-checkbox label",
+            "selected-row": ".oc-drag-list-item-content"
+          }
+        },
+        {
+          "name": "column-chooser-reordered",
+          "root": ".ovui-modal:has(.oc-custom-column-modal-body)",
+          "steps": [
+            {
+              "click": ".oc-control-bar-right .oc-promotion-custom-column button"
+            },
+            {
+              "wait": ".oc-custom-column-modal-body"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "drag": {
+                "source": ".oc-custom-column-modal-body .oc-drag-list-item:nth-child(1) .oc-drag-list-item-icon",
+                "target": ".oc-custom-column-modal-body .oc-drag-list-item:nth-child(2)",
+                "position": "after"
+              }
+            },
+            {
+              "wait": ".oc-custom-column-modal-body .oc-drag-list-item:first-child:has-text(\"整体成交订单数\")"
+            },
+            {
+              "pause": 350
+            }
+          ],
+          "parts": {
+            "selected-row": ".oc-drag-list-item-content",
+            "drag-handle": ".oc-drag-list-item-icon"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://business.oceanengine.com/ebp/material/management/creative-component/team-creative-component?ebpid=1855360595318788",
+      "ready": ".filter-bar .ovui-cascader",
+      "targets": [
+        {
+          "name": "switch-tabs",
+          "root": ".filter-bar .ovui-radio-group",
+          "parts": {
+            "strip": ":scope",
+            "active": ".ovui-radio-item--checked",
+            "tab": ".ovui-radio-item:not(.ovui-radio-item--checked)",
+            "outline": ".ovui-radio-item--checked::after"
+          }
+        },
+        {
+          "name": "switch-tabs-shared",
+          "root": ".filter-bar .ovui-radio-group",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-radio-item >> nth=1"
+            },
+            {
+              "wait": ".filter-bar .ovui-radio-item:nth-child(2).ovui-radio-item--checked"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "active": ".ovui-radio-item--checked",
+            "tab": ".ovui-radio-item:not(.ovui-radio-item--checked)",
+            "outline": ".ovui-radio-item--checked::after"
+          }
+        },
+        {
+          "name": "material-filters",
+          "root": ".filter-bar",
+          "parts": {
+            "toolbar": ":scope",
+            "type": ".ovui-cascader__input",
+            "scope": ".ovui-select .ovui-input__wrapper",
+            "audit": ".oc-row-select.max-w-208 .ovui-input__wrapper"
+          },
+          "shot": [
+            ".filter-bar"
+          ]
+        },
+        {
+          "name": "type-filter-open",
+          "root": ".filter-bar .ovui-cascader",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-cascader"
+            },
+            {
+              "wait": ".ovui-cascader__popper--show"
+            },
+            {
+              "pause": 250
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-cascader__input",
+            "panel": "@.ovui-cascader__popper--show",
+            "search": "@.ovui-cascader-search__filter",
+            "input": "@.ovui-cascader-search__filter .ovui-input__wrapper",
+            "list": "@.ovui-cascader-panel__selection-list",
+            "option": "@.ovui-cascader-panel__selection-item",
+            "checkbox": "@.ovui-cascader-panel__selection-item .ovui-checkbox__inner",
+            "label": "@.ovui-cascader-panel__item-label"
+          },
+          "shot": [
+            ".filter-bar .ovui-cascader",
+            "@.ovui-cascader__popper--show"
+          ]
+        },
+        {
+          "name": "type-filter-cascade",
+          "root": ".filter-bar .ovui-cascader",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-cascader"
+            },
+            {
+              "wait": ".ovui-cascader__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "click": ".ovui-cascader-panel__item-label:text-is(\"基础组件\")"
+            },
+            {
+              "wait": ".ovui-cascader-panel__selection-block:nth-child(2)"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "panel": "@.ovui-cascader__popper--show",
+            "columns": "@.ovui-cascader-panel__main",
+            "category": "@.ovui-cascader-panel__selection-block:first-child",
+            "active": "@.ovui-cascader-panel__selection-item--active",
+            "label": "@.ovui-cascader-panel__selection-item--active .ovui-cascader-panel__item-label",
+            "child": "@.ovui-cascader-panel__selection-block:nth-child(2)"
+          },
+          "shot": [
+            ".filter-bar .ovui-cascader",
+            "@.ovui-cascader__popper--show"
+          ]
+        },
+        {
+          "name": "type-filter-search",
+          "root": ".filter-bar .ovui-cascader",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-cascader"
+            },
+            {
+              "wait": ".ovui-cascader__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "fill": {
+                "selector": ".ovui-cascader-search__filter input",
+                "value": "推广"
+              }
+            },
+            {
+              "wait": ".ovui-cascader-search-option"
+            },
+            {
+              "pause": 350
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "panel": "@.ovui-cascader__popper--show",
+            "search": "@.ovui-cascader-search__filter",
+            "option": "@.ovui-cascader-search-option",
+            "label": "@.ovui-cascader-search__text",
+            "match": "@.ovui-cascader-search__em"
+          },
+          "shot": [
+            ".filter-bar .ovui-cascader",
+            "@.ovui-cascader__popper--show"
+          ]
+        },
+        {
+          "name": "type-filter-selected",
+          "root": ".filter-bar .ovui-cascader",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-cascader"
+            },
+            {
+              "wait": ".ovui-cascader__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "click": ".ovui-cascader-panel__item-label:text-is(\"基础组件\")"
+            },
+            {
+              "wait": ".ovui-cascader-panel__selection-block:nth-child(2)"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "click": ".ovui-cascader-panel__selection-block:nth-child(2) li:nth-child(2) label"
+            },
+            {
+              "click": ".filter-bar .ovui-radio-item--checked"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "wait": ".filter-bar .ovui-cascader .ovui-tag"
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-custom-input",
+            "tag": ".ovui-tag",
+            "count": ".ovui-cascader__tips"
+          }
+        },
+        {
+          "name": "type-filter-partial",
+          "root": ".filter-bar .ovui-cascader",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-cascader"
+            },
+            {
+              "wait": ".ovui-cascader__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "click": ".ovui-cascader-panel__item-label:text-is(\"互动组件\")"
+            },
+            {
+              "wait": ".ovui-cascader-panel__selection-block:nth-child(2)"
+            },
+            {
+              "click": ".ovui-cascader-panel__selection-block:nth-child(2) li:nth-child(2) label"
+            },
+            {
+              "wait": ".ovui-cascader-panel__selection-block:first-child .ovui-checkbox--indeterminate"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "panel": "@.ovui-cascader__popper--show",
+            "mixed": "@.ovui-cascader-panel__selection-block:first-child .ovui-checkbox--indeterminate .ovui-checkbox__inner",
+            "checked": "@.ovui-cascader-panel__selection-block:nth-child(2) .ovui-checkbox--checked .ovui-checkbox__inner",
+            "label": "@.ovui-cascader-panel__selection-item--active .ovui-cascader-panel__item-label"
+          },
+          "shot": [
+            ".filter-bar .ovui-cascader",
+            "@.ovui-cascader__popper--show"
+          ]
+        },
+        {
+          "name": "scope-filter-open",
+          "root": ".filter-bar .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=0"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-select__input",
+            "panel": "@.ovui-select__popper--show",
+            "list": "@.ovui-select__popper--show .ovui-select__options",
+            "option": "@.ovui-select__popper--show .ovui-option",
+            "checkbox": "@.ovui-select__popper--show .ovui-checkbox__inner"
+          },
+          "shot": [
+            ".filter-bar .ovui-select",
+            "@.ovui-select__popper--show"
+          ]
+        },
+        {
+          "name": "scope-filter-selected",
+          "root": ".filter-bar .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=0"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "click": ".ovui-select__popper--show .ovui-option:has-text(\"抖音\")"
+            },
+            {
+              "wait": ".ovui-select__popper--show .ovui-checkbox--indeterminate"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-custom-input",
+            "tag": ".ovui-tag",
+            "mixed": "@.ovui-select__popper--show .ovui-checkbox--indeterminate .ovui-checkbox__inner",
+            "checked": "@.ovui-select__popper--show .ovui-checkbox--checked .ovui-checkbox__inner"
+          },
+          "shot": [
+            ".filter-bar .ovui-select",
+            "@.ovui-select__popper--show"
+          ]
+        },
+        {
+          "name": "scope-filter-all",
+          "root": ".filter-bar .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=0"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "click": ".ovui-select__popper--show .oc-select-check-all label"
+            },
+            {
+              "click": ".filter-bar .ovui-radio-item--checked"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "wait": ".filter-bar .ovui-select .ovui-select__tips"
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-custom-input",
+            "tag": ".ovui-tag",
+            "count": ".ovui-select__tips"
+          }
+        },
+        {
+          "name": "scope-filter-hover",
+          "root": ".filter-bar .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=0"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "hover": ".ovui-select__popper--show .ovui-option:has-text(\"头条\")"
+            }
+          ],
+          "parts": {
+            "option": "@.ovui-select__popper--show .ovui-option:hover"
+          },
+          "shot": [
+            ".filter-bar .ovui-select",
+            "@.ovui-select__popper--show"
+          ]
+        },
+        {
+          "name": "audit-filter-open",
+          "root": ".filter-bar .oc-row-select.max-w-208 .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=1"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-input__wrapper",
+            "panel": "@.ovui-select__popper--show",
+            "list": "@.ovui-select__popper--show .ovui-select__options",
+            "option": "@.ovui-select__popper--show .ovui-option:not(.ovui-option--selected)",
+            "selected": "@.ovui-select__popper--show .ovui-option--selected"
+          },
+          "shot": [
+            ".filter-bar .oc-row-select.max-w-208 .ovui-select",
+            "@.ovui-select__popper--show"
+          ]
+        },
+        {
+          "name": "audit-filter-selected",
+          "root": ".filter-bar .oc-row-select.max-w-208 .ovui-select",
+          "steps": [
+            {
+              "click": ".filter-bar .ovui-select >> nth=1"
+            },
+            {
+              "wait": ".ovui-select__popper--show"
+            },
+            {
+              "pause": 250
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            },
+            {
+              "click": ".ovui-select__popper--show .ovui-option:has-text(\"审核通过\")"
+            },
+            {
+              "wait": ".filter-bar .oc-row-select.max-w-208 .ovui-select input[value=\"审核通过\"]"
+            },
+            {
+              "move": {
+                "x": 5,
+                "y": 600
+              }
+            }
+          ],
+          "parts": {
+            "trigger": ".ovui-input__wrapper",
+            "value": "input"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://business.oceanengine.com/ebp/material/management/video/team-video?ebpid=1855360595318788",
+      "ready": ".group-card-right button",
+      "targets": [
+        {
+          "name": "button-dropdown",
+          "root": ".group-card-right .oc-dropdown-wrapper",
+          "parts": {
+            "button": "button",
+            "text": ".oc-dropdown-button-text",
+            "icon": "iconpark-icon"
+          },
+          "shot": [
+            ".group-card-right .oc-dropdown-wrapper button"
+          ]
+        },
+        {
+          "name": "button-dropdown-open",
+          "root": ".group-card-right .oc-dropdown-wrapper",
+          "steps": [
+            {
+              "click": ".group-card-right [data-auto-id=\"OCDropdownButton\"]"
+            },
+            {
+              "wait": ".ovui-dropdown-content"
+            },
+            {
+              "pause": 300
+            }
+          ],
+          "parts": {
+            "button": "button",
+            "panel": "@.ovui-dropdown-content",
+            "item": "@.ovui-dropdown-item:first-child",
+            "title": "@.ovui-dropdown-item:first-child .oc-typography-size-sm",
+            "desc": "@.ovui-dropdown-item:first-child .oc-typography-size-xs"
+          },
+          "shot": [
+            ".group-card-right .oc-dropdown-wrapper button",
+            "@.ovui-dropdown-content"
+          ]
+        },
+        {
+          "name": "button-outline",
+          "root": ".group-card-right [data-auto-id=\"oc-button\"]",
+          "parts": {
+            "button": "button"
+          },
+          "shot": [
+            ".group-card-right [data-auto-id=\"oc-button\"] button"
+          ]
+        }
+      ]
+    }
+  ]
+}

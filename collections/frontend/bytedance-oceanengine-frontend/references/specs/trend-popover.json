@@ -1,0 +1,44 @@
+{
+  "name": "trend-popover",
+  "source": "https://business.oceanengine.com/ebp/account-manage/ecp/brand/all/account",
+  "captured": "2026-10-28",
+  "state": "hover first .metric-card-chart",
+  "parts": {
+    "panel": {
+      "font-size": "12px",
+      "font-weight": "400",
+      "line-height": "18px",
+      "color": "rgb(98, 101, 108)",
+      "background-color": "rgb(255, 255, 255)",
+      "width": "600px",
+      "height": "242px",
+      "padding-top": "0px",
+      "padding-right": "0px",
+      "padding-bottom": "0px",
+      "padding-left": "0px",
+      "border-radius": "12px",
+      "box-shadow": "rgba(0, 0, 0, 0.08) 0px 3px 9px 0px",
+      "border-bottom-width": "0px",
+      "border-bottom-style": "none",
+      "border-bottom-color": "rgb(98, 101, 108)"
+    },
+    "plot": {
+      "font-size": "12px",
+      "font-weight": "400",
+      "line-height": "18px",
+      "color": "rgb(98, 101, 108)",
+      "background-color": "rgb(255, 255, 255)",
+      "width": "590px",
+      "height": "242px",
+      "padding-top": "0px",
+      "padding-right": "0px",
+      "padding-bottom": "0px",
+      "padding-left": "0px",
+      "border-radius": "8px",
+      "box-shadow": "none",
+      "border-bottom-width": "0px",
+      "border-bottom-style": "none",
+      "border-bottom-color": "rgb(98, 101, 108)"
+    }
+  }
+}

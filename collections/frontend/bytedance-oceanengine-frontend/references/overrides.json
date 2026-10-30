@@ -1,0 +1,12 @@
+{
+  "hint-text": {
+    "text": { "border-bottom-style": "dashed" },
+    "hint": { "margin-right": "0px" }
+  },
+  "section-header": {
+    "link": { "margin-left": "12px" }
+  },
+  "page-background": {
+    "surface": { "border-radius": "12px" }
+  }
+}

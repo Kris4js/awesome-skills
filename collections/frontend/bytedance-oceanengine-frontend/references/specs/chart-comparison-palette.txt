@@ -1,0 +1,10 @@
+Light mode, white chart surface. Comparison roles: current #0057ff; previous #8a8da3.
+
+Single blue emphasis: validate_palette.js '#0057ff' --mode light --surface '#ffffff'
+PASS lightness band, chroma, contrast. Pair checks n/a.
+
+Neutral baseline contrast: 3.27:1 against #ffffff.
+Pair distinction: CVD worst protan 20.2, tritan 11.7; normal vision 25.2 (all pass).
+Categorical chroma check: FAIL for neutral #8a8da3 (0.033 below 0.10), expected for a neutral comparison baseline. This is an emphasis + gray baseline chart, not two nominal categories.
+
+Secondary encoding: labeled legend, dashed previous-period line, endpoint labels, tooltip names, and accessible table columns. Default reference uses solid lines and no persistent legend; this accessible difference is documented in references/metrics.md.

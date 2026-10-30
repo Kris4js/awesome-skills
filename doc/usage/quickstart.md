@@ -4,7 +4,7 @@
 
 ## 1. Get the files
 
-Choose an installed client: **Codex, Pi CLI, or PI-Desktop**. The manual copy examples require Git and Bash; the clone command uses GitHub CLI (`gh`). PI-Desktop users do not need a separate Pi CLI just to follow the desktop workflow. Python 3.9+ is needed only for repository checks. Authenticate to GitHub before cloning this private repository:
+Choose an installed client: **Codex, Pi CLI, or PI-Desktop**. The manual copy examples require Git and Bash; the clone command uses GitHub CLI (`gh`). PI-Desktop users do not need a separate Pi CLI just to follow the desktop workflow. Python 3.9+ is needed for repository checks and the optional link sync below. Authenticate to GitHub before cloning this private repository:
 
 ```bash
 gh repo clone Kris4js/awesome-skills
@@ -66,6 +66,22 @@ Copy verification is not agent discovery verification, and neither proves task q
 ## 4. Update deliberately
 
 Installed files are independent copies: updating the clone does not update installations. Compare the selected source folder with your installed copy, save any local edits, and replace only after reviewing the differences. Refresh `LICENSE` and `upstream.json` inside the installed skill folder together. The source record describes the whole series, not a claim that every listed skill was installed.
+
+## Optional: sync all missing skills with links
+
+For a personal checkout that should supply all collected skills, run from the clone root (Python 3.9+, POSIX symlinks):
+
+<!-- sync:skills -->
+```bash
+python3 -B scripts/sync_skills.py --dry-run
+python3 -B scripts/sync_skills.py
+```
+
+The script scans `collections/**/SKILL.md` and creates absolute directory links under `$HOME/.agents/skills`. Use `--target /path/to/skills` to choose another location. Existing directories, files, external links, and dangling links are skipped without replacement; existing links to the same source are reported as `managed`. Duplicate or invalid source names abort before writes. This installs development-stage entries too; it does not configure prerequisites or resolve license questions.
+
+Linked content follows repository changes immediately. **Rerun the command after adding skills or pulling new entries**; no scheduler, Git hook, or background watcher is installed. Existing independent copies remain independent and are not upgraded. The clone must stay at its current path; do not edit installed links unless you intend to edit the source snapshot. Series-level licenses and source records remain in the repository, not duplicated inside each linked skill. Removed source skills are not automatically pruned.
+
+[Codex officially supports symlinked skill folders](https://developers.openai.com/codex/skills). For every client, confirm discovery using the steps above; filesystem checks alone do not verify Pi/PI-Desktop discovery or runtime behavior.
 
 ## Troubleshooting
 

@@ -1,6 +1,6 @@
 # Awesome Skills
 
-Reusable agent skills for practical engineering work. Choose a skill for your task, then install only what you need.
+Reusable agent skills for practical engineering work, organized as upstream series and engineering domain collections. Choose a skill for your task, then install only what you need. Files under `collections/` are source snapshots; cloning this repository does not make them available to your agent.
 
 [中文说明](doc/zh/README.zh-CN.md) · [Quickstart](doc/usage/quickstart.md) · [Skill Matrix](doc/usage/skill-matrix.md)
 
@@ -10,6 +10,7 @@ Reusable agent skills for practical engineering work. Choose a skill for your ta
 | --- | --- | --- | --- |
 | Matt Pocock Skills | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Guide (Chinese)](collections/mattpocock/README.md) |
 | `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
+| `bytedance-oceanengine-frontend` | You need OceanEngine-style React interfaces | A standalone skill with component guidelines, templates, reference screenshots, an interactive gallery, and verification scripts | [Guide (Chinese)](collections/frontend/bytedance-oceanengine-frontend/README.md) |
 | `compact-floating-panel` | You need compact in-page floating tools | Personally maintained panel guidelines, HTML skeletons, and scoped CSS | [Guide (Chinese)](collections/frontend/compact-floating-panel/README.md) |
 | `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
 
@@ -29,6 +30,13 @@ This guide covers **Codex, Pi CLI, and PI-Desktop**. We use the portable Agent S
 | User: available across projects | `$HOME/.agents/skills` |
 | Repository: available within a project | `.agents/skills` at that project's root |
 
+| Method | Use when | Updates |
+| --- | --- | --- |
+| Copy one skill | You want selected skills and an independent installation | Compare and replace deliberately using the [Quickstart](doc/usage/quickstart.md#4-update-deliberately) |
+| Link all missing skills | You want a personal checkout to supply the entire collection | Linked content follows the checkout; rerun the script for new entries |
+
+### Copy one skill
+
 From the clone root, install `tdd` with its license and source record. If already installed, use the [update guide](doc/usage/quickstart.md) instead.
 
 <!-- install:tdd:user -->
@@ -46,6 +54,35 @@ After copying, choose your client:
 | PI-Desktop | Select the project → Settings → Skills; confirm `tdd` is listed and enabled. In a fresh session, ask the agent to call the `Skill` tool with id `tdd`; verify the tool call succeeded. |
 
 Do not install a second copy just because you use both Codex and Pi. For repository scope, desktop discovery troubleshooting, and updates, follow the [Quickstart](doc/usage/quickstart.md).
+
+### Link all missing skills
+
+From the clone root, preview the changes, then create links with Python 3.9+ on a system supporting POSIX symlinks:
+
+<!-- sync:skills -->
+```bash
+python3 -B scripts/sync_skills.py --dry-run
+python3 -B scripts/sync_skills.py
+```
+
+The script scans every `collections/**/SKILL.md`, including development-stage skills, and creates absolute directory links under `$HOME/.agents/skills`. Use `--target /path/to/skills` for another destination. Existing files, directories, and links, including dangling links, are preserved; links already pointing to the same source are reported as `managed`. Duplicate or invalid source names stop the sync before writes.
+
+Keep the clone at the same path. Linked content follows repository changes immediately; rerun the script after collecting or pulling new skills. Existing copies are not upgraded, removed sources are not pruned, and no background sync is installed. Editing a linked skill edits its source snapshot. Series-level licenses and source records stay in the repository.
+
+[Codex supports symlinked skill folders](https://developers.openai.com/codex/skills). Verify discovery in your client using the steps above. See the [full link sync guide](doc/usage/quickstart.md#optional-sync-all-missing-skills-with-links) for details.
+
+## Prerequisites and Verification
+
+Installation does not prepare a skill's tools or external dependencies. Read its `SKILL.md` and guide before use:
+
+| Skill | Prerequisites and limits |
+| --- | --- |
+| `awesome-ui-kit` | Requires the external component library and a compatible host project; component source is not bundled and licensing remains unresolved |
+| `bytedance-oceanengine-frontend` | The standalone gallery requires Node.js 20.19+ or 22.12+ and npm; reference capture and browser comparison also require `ego-browser` and reference-page access; no license is declared |
+| `compact-floating-panel` | Provides guidelines and assets; implement interactions and business logic in the host project; no license is declared |
+| `archify` | Requires Node.js 18+; the collected version is a pinned development snapshot; browser and export behavior need separate verification |
+
+Each collection keeps its own source and license records. File integrity and installation checks do not establish agent discovery, runtime behavior, or permission to redistribute. Check the linked guides and `upstream.json` records for each skill's status.
 
 ## Docs
 
@@ -70,6 +107,7 @@ doc/
 └── design/                 This repository's design decisions
 AGENTS.md                   Short instructions for work in this repository
 CONTEXT.md                  Shared project vocabulary
+scripts/                    Optional skill link synchronization
 tests/                      Repository and documentation checks
 ```
 
@@ -83,7 +121,7 @@ Run the checks with Python 3.9+ and Bash:
 python3 -B -m unittest discover -s tests -v
 ```
 
-Tests check metadata, local links, and installation examples in temporary directories. They do not certify licenses or runtime behavior. See the [workflow guide (Chinese)](doc/usage/matt-pocock-workflow.md) before changing repository conventions.
+Tests check metadata, source integrity, local links, installation examples, and link synchronization. Installation and sync checks run in temporary directories, never against real user installations. Report source-copy checks, agent discovery, runtime verification, and unresolved license status separately. See the [workflow guide (Chinese)](doc/usage/matt-pocock-workflow.md) before changing repository conventions.
 
 ## Acknowledgments: LINUX DO
 

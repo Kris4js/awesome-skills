@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@source "../templates";
+@source "./";
+
+@theme {
+  --font-sans:
+    "PingFang SC", -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Microsoft YaHei",
+    sans-serif;
+  --color-brand-50: #edf2ff;
+  --color-brand-100: #e0e8ff;
+  --color-brand-200: #c5d3fb;
+  --color-brand-500: #4260ee;
+  --color-brand-600: #3550d6;
+  --color-brand-700: #2f54e8;
+  --color-ink: #27364b;
+  --color-ink-muted: #6b7a93;
+  --color-line: #dce5f2;
+  --color-canvas: #f3f7ff;
+  --color-danger: #d4380d;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply text-ink font-sans antialiased; }
+  :is(h1, h2, h3, h4) { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :is(p, li, h1, h2, h3, h4) > svg.lucide:only-of-type { vertical-align: -0.125em; }
+}
+html { color-scheme: light; }
+body { margin: 0; min-width: 320px; background: #e8f4ff; }

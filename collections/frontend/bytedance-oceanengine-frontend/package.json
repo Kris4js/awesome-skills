@@ -1,0 +1,31 @@
+{
+  "name": "bytedance-oceanengine-frontend-skill",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gallery": "node gallery/serve.mjs",
+    "capture": "bash scripts/capture.sh",
+    "verify": "bash scripts/verify.sh http://127.0.0.1:5191",
+    "check": "bash scripts/typecheck-templates.sh",
+    "check:scripts": "node scripts/check-scripts.mjs"
+  },
+  "dependencies": {
+    "echarts": "6.0.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "@base-ui/react": "1.9.0",
+    "lucide-react": "1.59.0",
+    "framer-motion": "11.18.2",
+    "clsx": "2.1.1",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.4",
+    "typescript": "7.0.2",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

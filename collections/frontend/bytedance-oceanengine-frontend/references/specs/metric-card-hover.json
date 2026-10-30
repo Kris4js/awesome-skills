@@ -1,0 +1,31 @@
+{
+  "name": "metric-card-hover",
+  "source": "https://business.oceanengine.com/ebp/account-manage/ecp/brand/all/account",
+  "captured": "2026-10-28",
+  "viewport": {
+    "width": 1908,
+    "height": 963,
+    "dpr": 1
+  },
+  "state": "hover first sparkline",
+  "parts": {
+    "card": {
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "18.4px",
+      "color": "rgb(0, 0, 0)",
+      "background-color": "rgba(42, 85, 229, 0.06)",
+      "width": "312px",
+      "height": "84px",
+      "padding-top": "16px",
+      "padding-right": "16px",
+      "padding-bottom": "16px",
+      "padding-left": "16px",
+      "border-radius": "8px",
+      "box-shadow": "none",
+      "border-bottom-width": "0px",
+      "border-bottom-style": "none",
+      "border-bottom-color": "rgb(0, 0, 0)"
+    }
+  }
+}

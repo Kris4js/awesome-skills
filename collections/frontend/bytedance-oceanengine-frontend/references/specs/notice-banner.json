@@ -1,0 +1,47 @@
+{
+  "name": "notice-banner",
+  "source": "https://business.oceanengine.com/ebp/account-manage/ecp/brand/all/account",
+  "captured": "2026-10-28",
+  "viewport": {
+    "width": 1908,
+    "height": 963,
+    "dpr": 1
+  },
+  "state": "organization chooser / assigned accounts",
+  "parts": {
+    "banner": {
+      "display": "flex",
+      "font-size": "14px",
+      "font-weight": "400",
+      "line-height": "normal",
+      "color": "rgb(49, 52, 59)",
+      "background-color": "rgb(232, 244, 255)",
+      "background-image": "none",
+      "width": "752px",
+      "height": "54px",
+      "padding-top": "8px",
+      "padding-right": "16px",
+      "padding-bottom": "8px",
+      "padding-left": "16px",
+      "margin-top": "0px",
+      "margin-right": "0px",
+      "margin-bottom": "0px",
+      "margin-left": "0px",
+      "border-top-width": "1px",
+      "border-bottom-width": "1px",
+      "border-left-width": "1px",
+      "border-right-width": "1px",
+      "border-top-color": "rgba(42, 85, 229, 0.2)",
+      "border-bottom-color": "rgba(42, 85, 229, 0.2)",
+      "border-top-style": "solid",
+      "border-bottom-style": "solid",
+      "border-radius": "8px",
+      "column-gap": "normal",
+      "row-gap": "normal",
+      "box-shadow": "none",
+      "opacity": "1",
+      "cursor": "auto",
+      "overflow-y": "visible"
+    }
+  }
+}

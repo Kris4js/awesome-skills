@@ -4,7 +4,7 @@
 
 ## 1. 获取文件
 
-选择已安装的客户端：**Codex、Pi CLI 或 PI-Desktop**。手动复制示例需要 Git 和 Bash，克隆命令使用 GitHub CLI（`gh`）。使用桌面端流程无需另装 Pi CLI。Python 3.9+ 仅用于仓库检查。登录有权限的 GitHub 账号后克隆这个私有仓库：
+选择已安装的客户端：**Codex、Pi CLI 或 PI-Desktop**。手动复制示例需要 Git 和 Bash，克隆命令使用 GitHub CLI（`gh`）。使用桌面端流程无需另装 Pi CLI。Python 3.9+ 用于仓库检查和下方可选的链接同步。登录有权限的 GitHub 账号后克隆这个私有仓库：
 
 ```bash
 gh repo clone Kris4js/awesome-skills
@@ -66,6 +66,22 @@ cp -R collections/mattpocock/skills/engineering/tdd/. collections/mattpocock/{LI
 ## 4. 有意识地更新
 
 安装副本与仓库快照相互独立，更新克隆不会自动更新安装。先比较源目录与安装目录，保存本地改动，再决定替换；同时刷新安装目录内的 `LICENSE` 与 `upstream.json`。来源记录描述的是整个系列，不表示其中全部 Skill 都已安装。
+
+## 可选：链接同步全部缺少的 Skill
+
+个人使用并希望接入全部收录内容时，在仓库根目录运行（需要 Python 3.9+ 和 POSIX 符号链接）：
+
+<!-- sync:skills -->
+```bash
+python3 -B scripts/sync_skills.py --dry-run
+python3 -B scripts/sync_skills.py
+```
+
+脚本扫描 `collections/**/SKILL.md`，在 `$HOME/.agents/skills` 中创建指向源目录的绝对路径链接。可用 `--target /path/to/skills` 指定其他位置。已有目录、文件、外部链接和失效链接全部跳过，不覆盖；已指向同一源目录的链接显示为 `managed`。源名称重复或不合法时，在写入前终止。扫描包括开发阶段 Skill，不会配置其前置依赖或解决许可问题。
+
+链接内容随仓库修改即时更新。**新增 Skill 或拉取新条目后重跑命令**；不安装定时任务、Git hook 或后台监听。已有独立副本保持独立，不自动升级。仓库必须保留在当前路径；编辑安装链接中的文件就是编辑源快照。系列级许可证和来源记录仍保留在仓库中，不重复放入各链接目录。源 Skill 被删除后不会自动清理旧链接。
+
+[Codex 官方明确支持符号链接目录](https://developers.openai.com/codex/skills)。各客户端仍应按上面的步骤确认发现；文件系统检查不代表 Pi/PI-Desktop 已发现或运行有效。
 
 ## 排错
 
