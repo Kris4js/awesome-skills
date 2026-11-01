@@ -15,6 +15,7 @@
 | `compact-floating-panel` | 需要网页内紧凑悬浮工具窗口 | 个人维护的浮窗规范、HTML 骨架与隔离样式 | [使用指南](../../collections/frontend/compact-floating-panel/README.md) |
 | `archify` | 需要解释系统结构和技术流程 | 交互式 HTML 架构图、工作流、时序图、数据流与生命周期图 | [使用指南](../../collections/architecture/archify/README.md) |
 | `deploy-dsh-superagent` | 需要部署自托管编码智能体 | DSH、飞书、仓库认证、固定基线 GitLab 补丁与分阶段验收 | [使用指南](../../collections/devops/deploy-dsh-superagent/README.md) |
+| `speed-up-github-actions` | GitHub Actions CI 太慢 | 排队/准备/执行耗时拆分、按证据提速且不删减校验、前后对比 | [使用指南](../../collections/devops/speed-up-github-actions/README.md) |
 
 ## 推荐起点
 
@@ -133,3 +134,5 @@ python3 -B -m unittest discover -s tests -v
 ## DevOps 部署技能
 
 [DevOps 集合](../../collections/devops/README.md)收录 `deploy-dsh-superagent`。离线辅助脚本需要 Python 3.9+；实际部署需要授权的 Linux/SSH、DSH、平台 CLI 与凭据。技能许可未声明，补丁的上游 MIT 声明已保留；尚未完成全新环境重放和 Agent 发现验证。
+
+`speed-up-github-actions` 用于在不删减必要校验的前提下缩短 GitHub Actions 耗时。需要 Python 3.9+ 和已登录的 `gh`；推送验证分支、修改必需检查需仓库授权。许可未声明；尚未完成完整仓库优化重放和 Agent 发现验证。

@@ -1,0 +1,29 @@
+{
+  "kind": "skill",
+  "source_type": "local",
+  "maintainer": "Kris4js",
+  "origin": "Ten GitHub Actions speed-up practices from a public post about optimizing CI for Mole, Kaku and Pake (post URL not recorded), expanded into a reusable skill with a timing helper",
+  "repository": null,
+  "commit": null,
+  "source_path": ".",
+  "license": null,
+  "license_status": "not-found",
+  "license_file": null,
+  "license_notice": "NOTICE.md",
+  "skills": [
+    "SKILL.md"
+  ],
+  "files": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "references/playbook.md",
+    "scripts/ci_timing.py"
+  ],
+  "sha256": {
+    "SKILL.md": "3f414a9c426236e1836eb2e6d310f8143556697e94ae2383f508a75729ef08d0",
+    "agents/openai.yaml": "516ed1b220f10138dcc6147ac781756081ed89d3e19073f629b48aeaf1cd1ae2",
+    "references/playbook.md": "5efdcf47cd2e9ab33bdca1d50945c7a952fbbfc0d28f2fff310470b4376a1c5b",
+    "scripts/ci_timing.py": "1e50b668fcbdfa9995e8593153cc10da9c4c66afb46459b1d5eadbdc7717ce63"
+  },
+  "dependencies": []
+}

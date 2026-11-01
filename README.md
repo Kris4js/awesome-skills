@@ -15,6 +15,7 @@ Reusable agent skills for practical engineering work, organized as upstream seri
 | `compact-floating-panel` | You need compact in-page floating tools | Personally maintained panel guidelines, HTML skeletons, and scoped CSS | [Guide (Chinese)](collections/frontend/compact-floating-panel/README.md) |
 | `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
 | `deploy-dsh-superagent` | You are deploying a self-hosted coding agent | DSH, Feishu, repository authentication, a pinned GitLab adapter, and staged verification | [Guide (Chinese)](collections/devops/deploy-dsh-superagent/README.md) |
+| `speed-up-github-actions` | Your GitHub Actions CI is slow | Queue/setup/work timing, evidence-driven speed-ups without dropping checks, and a before/after comparison | [Guide (Chinese)](collections/devops/speed-up-github-actions/README.md) |
 
 ## Recommended Starting Points
 
@@ -85,6 +86,7 @@ Installation does not prepare a skill's tools or external dependencies. Read its
 | `compact-floating-panel` | Provides guidelines and assets; implement interactions and business logic in the host project; no license is declared |
 | `archify` | Requires Node.js 18+; the collected version is a pinned development snapshot; browser and export behavior need separate verification |
 | `deploy-dsh-superagent` | Python 3.9+ for helpers; authorized Linux/SSH, DSH, platform CLIs and credentials for deployment; skill license undeclared, upstream patch notice retained |
+| `speed-up-github-actions` | Python 3.9+ and an authenticated `gh` CLI; pushing test branches or changing required checks needs repository authorization; no license is declared |
 
 Each collection keeps its own source and license records. File integrity and installation checks do not establish agent discovery, runtime behavior, or permission to redistribute. Check the linked guides and `upstream.json` records for each skill's status.
 

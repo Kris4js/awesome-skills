@@ -24,6 +24,7 @@ Each linked folder is the directory to copy; read its `SKILL.md` first. The path
 | [compact-floating-panel](../../collections/frontend/compact-floating-panel/) | You need compact in-page floating tools | Panel implementation guidelines, HTML skeletons, and scoped CSS | Not a ready-to-run plugin; implement interactions and business logic in the host project; license not declared |
 | [archify](../../collections/architecture/archify/) | You need architecture, workflow, sequence, data-flow, or state diagrams | Validated interactive HTML diagrams | Requires Node.js 18+; pinned development snapshot; browser/export behavior needs separate verification |
 | [deploy-dsh-superagent](../../collections/devops/deploy-dsh-superagent/) | You are deploying DSH with Feishu and GitHub/GitLab | Verified installation, model tools, channels and task configuration | Authorized Linux/SSH and credentials; pinned GitLab patch, not a universal upgrader; skill license undeclared |
+| [speed-up-github-actions](../../collections/devops/speed-up-github-actions/) | Your GitHub Actions CI is slow | Per-job queue/setup/work timing, targeted workflow changes, and a before/after comparison | Python 3.9+ and authenticated `gh`; never trades away required checks; no license declared |
 
 ## Full Snapshot Catalog
 

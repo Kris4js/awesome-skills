@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Actions 提速"
+  short_description: "测量 CI 排队、准备、执行耗时，在不删减校验的前提下优化并给出前后对比"
+  default_prompt: "使用 $speed-up-github-actions 测量这个仓库最近 50 次 CI，在不减少必要测试的前提下尽量缩短耗时，并给出优化前后对比。"
