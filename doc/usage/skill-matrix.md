@@ -20,6 +20,7 @@ Each linked folder is the directory to copy; read its `SKILL.md` first. The path
 | [setup-matt-pocock-skills](../../collections/mattpocock/skills/engineering/setup-matt-pocock-skills/) | You want to enable tracker-dependent engineering skills | Confirmed project configuration | You only want to install or try one independent skill |
 | [awesome-ui-kit](../../collections/frontend/awesome-ui-kit/) | You want component-based AI interfaces | A page assembled from the external component library | Source/license and runtime status remain unresolved; see its README |
 | [bytedance-oceanengine-frontend](../../collections/frontend/bytedance-oceanengine-frontend/) | You need OceanEngine-style React components | A standalone skill with component guidelines, templates, reference screenshots, an interactive gallery, and verification scripts | Node.js and npm for preview; ego-browser CLI for capture/comparison; license not declared |
+| [tencent-beacon-frontend](../../collections/frontend/tencent-beacon-frontend/) | You need Tencent Beacon-style data workspaces | Three-pane React workbench, chat composer, dataset browser, MySQL connection form, and local interaction checks | Node.js and npm; ego-browser CLI for browser checks; local preview only; license not declared |
 | [compact-floating-panel](../../collections/frontend/compact-floating-panel/) | You need compact in-page floating tools | Panel implementation guidelines, HTML skeletons, and scoped CSS | Not a ready-to-run plugin; implement interactions and business logic in the host project; license not declared |
 | [archify](../../collections/architecture/archify/) | You need architecture, workflow, sequence, data-flow, or state diagrams | Validated interactive HTML diagrams | Requires Node.js 18+; pinned development snapshot; browser/export behavior needs separate verification |
 | [deploy-dsh-superagent](../../collections/devops/deploy-dsh-superagent/) | You are deploying DSH with Feishu and GitHub/GitLab | Verified installation, model tools, channels and task configuration | Authorized Linux/SSH and credentials; pinned GitLab patch, not a universal upgrader; skill license undeclared |
@@ -34,7 +35,7 @@ The Matt Pocock snapshot includes 38 skills. Browse its original groups without 
 - [In progress](../../collections/mattpocock/skills/in-progress/) — upstream development-stage content, not a recommended default
 - [Machine-readable source and complete skill list](../../collections/mattpocock/upstream.json)
 
-The [Frontend collection](../../collections/frontend/README.md) contains `awesome-ui-kit`, `bytedance-oceanengine-frontend`, and the personally maintained `compact-floating-panel`, tracked separately from the Matt Pocock series.
+The [Frontend collection](../../collections/frontend/README.md) contains `awesome-ui-kit`, `bytedance-oceanengine-frontend`, `tencent-beacon-frontend`, and the personally maintained `compact-floating-panel`, tracked separately from the Matt Pocock series.
 
 ## Prompt Starters
 

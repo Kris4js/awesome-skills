@@ -11,6 +11,7 @@
 | Matt Pocock Skills | 需要聚焦的工程工作流 | 38 个 Skill，涵盖规划、TDD、实现、审查与交接 | [使用指南](../../collections/mattpocock/README.md) |
 | `awesome-ui-kit` | 需要搭建 AI 原生界面 | 聊天、RAG 引用、工具调用展示与 Canvas 装配 | [使用与依赖](../../collections/frontend/awesome-ui-kit/README.md) |
 | `bytedance-oceanengine-frontend` | 需要巨量引擎风格的 React 界面 | 独立 Skill，提供组件规范、模板、参考截图、交互预览与验证脚本 | [使用指南](../../collections/frontend/bytedance-oceanengine-frontend/README.md) |
+| `tencent-beacon-frontend` | 需要腾讯灯塔风格的数据工作台 | 独立 Skill，包含三栏工作台、对话输入区、数据集浏览、MySQL 连接表单与本地交互检查 | [使用指南](../../collections/frontend/tencent-beacon-frontend/README.md) |
 | `compact-floating-panel` | 需要网页内紧凑悬浮工具窗口 | 个人维护的浮窗规范、HTML 骨架与隔离样式 | [使用指南](../../collections/frontend/compact-floating-panel/README.md) |
 | `archify` | 需要解释系统结构和技术流程 | 交互式 HTML 架构图、工作流、时序图、数据流与生命周期图 | [使用指南](../../collections/architecture/archify/README.md) |
 | `deploy-dsh-superagent` | 需要部署自托管编码智能体 | DSH、飞书、仓库认证、固定基线 GitLab 补丁与分阶段验收 | [使用指南](../../collections/devops/deploy-dsh-superagent/README.md) |
@@ -80,6 +81,7 @@ python3 -B scripts/sync_skills.py
 | --- | --- |
 | `awesome-ui-kit` | 依赖外部组件库和兼容的宿主项目；未附组件源码，授权仍待确认 |
 | `bytedance-oceanengine-frontend` | 独立预览需要 Node.js 20.19+ 或 22.12+ 和 npm；原站采集与浏览器比较另需 `ego-browser` 和参考页面访问权限；许可未声明 |
+| `tencent-beacon-frontend` | 需要 Node.js 20.19+ 或 22.12+ 和 npm；浏览器检查需要 `ego-browser` CLI；预览使用本地状态，不连接模型或数据库服务；许可未声明 |
 | `compact-floating-panel` | 提供规范与资源；交互和业务逻辑需在宿主项目实现；许可未声明 |
 | `archify` | 需要 Node.js 18+；收录版本为固定的开发快照；浏览器与导出行为需单独验证 |
 

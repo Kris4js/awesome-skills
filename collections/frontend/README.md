@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | [awesome-ui-kit](awesome-ui-kit/README.md) | AI 聊天、RAG、工具调用展示、Canvas 页面组件装配 | 固定版本已收录；依赖外部组件库；授权待确认 |
 | [bytedance-oceanengine-frontend](bytedance-oceanengine-frontend/README.md) | 巨量引擎风格 React 组件、独立预览与样式验证 | 独立 Skill，含组件规范、模板与验证脚本；许可未声明 |
+| [tencent-beacon-frontend](tencent-beacon-frontend/README.md) | 腾讯灯塔风格三栏数据工作台、对话输入区、数据集与 MySQL 连接表单 | 独立 Skill，含可运行复刻与本地交互检查；许可未声明 |
 | [compact-floating-panel](compact-floating-panel/README.md) | 网页内紧凑浮窗、拖动与收起恢复规范、组件样式 | 个人维护的本地内容已收录；交互需实现；许可未声明 |
 
 ## 收录约定

@@ -11,6 +11,7 @@ Reusable agent skills for practical engineering work, organized as upstream seri
 | Matt Pocock Skills | You need focused engineering workflows | 38 skills for planning, TDD, implementation, review, and handoff | [Guide (Chinese)](collections/mattpocock/README.md) |
 | `awesome-ui-kit` | You are assembling AI-native interfaces | Chat, RAG citations, tool-call views, and canvas layouts | [Usage and dependencies (Chinese)](collections/frontend/awesome-ui-kit/README.md) |
 | `bytedance-oceanengine-frontend` | You need OceanEngine-style React interfaces | A standalone skill with component guidelines, templates, reference screenshots, an interactive gallery, and verification scripts | [Guide (Chinese)](collections/frontend/bytedance-oceanengine-frontend/README.md) |
+| `tencent-beacon-frontend` | You need Tencent Beacon-style data workspaces | A standalone skill with a three-pane workbench, chat composer, dataset browser, MySQL connection form, and local interaction checks | [Guide (Chinese)](collections/frontend/tencent-beacon-frontend/README.md) |
 | `compact-floating-panel` | You need compact in-page floating tools | Personally maintained panel guidelines, HTML skeletons, and scoped CSS | [Guide (Chinese)](collections/frontend/compact-floating-panel/README.md) |
 | `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
 | `deploy-dsh-superagent` | You are deploying a self-hosted coding agent | DSH, Feishu, repository authentication, a pinned GitLab adapter, and staged verification | [Guide (Chinese)](collections/devops/deploy-dsh-superagent/README.md) |
@@ -80,6 +81,7 @@ Installation does not prepare a skill's tools or external dependencies. Read its
 | --- | --- |
 | `awesome-ui-kit` | Requires the external component library and a compatible host project; component source is not bundled and licensing remains unresolved |
 | `bytedance-oceanengine-frontend` | The standalone gallery requires Node.js 20.19+ or 22.12+ and npm; reference capture and browser comparison also require `ego-browser` and reference-page access; no license is declared |
+| `tencent-beacon-frontend` | Requires Node.js 20.19+ or 22.12+ and npm; browser checks require `ego-browser` CLI; preview uses local state without model or database services; no license is declared |
 | `compact-floating-panel` | Provides guidelines and assets; implement interactions and business logic in the host project; no license is declared |
 | `archify` | Requires Node.js 18+; the collected version is a pinned development snapshot; browser and export behavior need separate verification |
 | `deploy-dsh-superagent` | Python 3.9+ for helpers; authorized Linux/SSH, DSH, platform CLIs and credentials for deployment; skill license undeclared, upstream patch notice retained |

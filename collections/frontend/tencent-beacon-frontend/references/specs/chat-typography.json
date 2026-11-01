@@ -1,0 +1,119 @@
+{
+  "header": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "14px",
+    "font-weight": "500",
+    "line-height": "20px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "title": {
+    "font-family": "\"Noto Sans SC Variable\", \"Noto Sans SC\", \"PingFang SC\", sans-serif",
+    "font-size": "20px",
+    "font-weight": "600",
+    "line-height": "28px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "-0.4px"
+  },
+  "brand": {
+    "font-family": "\"Chiron GoRound Brand\"",
+    "font-size": "20px",
+    "font-weight": "600",
+    "line-height": "28px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "-0.4px"
+  },
+  "description": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "24px",
+    "color": "rgb(113, 113, 122)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "context": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "11px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(113, 113, 122)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "suggestion": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "11px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(113, 113, 122)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "skill": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "12px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "mode": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "12px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "style": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "12px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "model": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "12px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "editor": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "24px",
+    "color": "rgb(9, 9, 11)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "placeholder": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "24px",
+    "color": "rgb(113, 113, 122)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  },
+  "footer": {
+    "font-family": "-apple-system, \"system-ui\", \"PingFang SC\", \"Segoe UI\", sans-serif",
+    "font-size": "11px",
+    "font-weight": "400",
+    "line-height": "16px",
+    "color": "rgb(161, 161, 170)",
+    "-webkit-font-smoothing": "antialiased",
+    "letter-spacing": "normal"
+  }
+}

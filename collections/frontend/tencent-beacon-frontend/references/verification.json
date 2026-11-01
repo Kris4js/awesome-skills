@@ -1,0 +1,149 @@
+{
+  "url": "http://127.0.0.1:5192/",
+  "checked": "2026-10-30T07:39:57.645Z",
+  "checks": [
+    {
+      "name": "chat typography matches source",
+      "pass": true
+    },
+    {
+      "name": "initial empty state",
+      "pass": true
+    },
+    {
+      "name": "desktop reference geometry",
+      "pass": true,
+      "details": {
+        "chat": {
+          "x": 180,
+          "y": 12,
+          "width": 657.046875,
+          "height": 951
+        },
+        "workspace": {
+          "x": 845.046875,
+          "y": 12,
+          "width": 1062.953125,
+          "height": 951
+        },
+        "composer": {
+          "x": 201,
+          "y": 796,
+          "width": 615.046875,
+          "height": 132
+        }
+      }
+    },
+    {
+      "name": "source menu options",
+      "pass": true
+    },
+    {
+      "name": "menu escape restores focus",
+      "pass": true
+    },
+    {
+      "name": "dataset creates local table",
+      "pass": true
+    },
+    {
+      "name": "dataset query filters list",
+      "pass": true
+    },
+    {
+      "name": "source filters independently",
+      "pass": true
+    },
+    {
+      "name": "connection empty state",
+      "pass": true
+    },
+    {
+      "name": "connection form reference layout",
+      "pass": true
+    },
+    {
+      "name": "form matches captured source presentation",
+      "pass": true
+    },
+    {
+      "name": "empty connection cannot submit",
+      "pass": true
+    },
+    {
+      "name": "missing connection fields show source message",
+      "pass": true
+    },
+    {
+      "name": "administrators support keyboard selection",
+      "pass": true
+    },
+    {
+      "name": "administrators accept pasted ids",
+      "pass": true
+    },
+    {
+      "name": "connection test reports preview boundary",
+      "pass": true
+    },
+    {
+      "name": "editing clears stale test status",
+      "pass": true
+    },
+    {
+      "name": "connection saves without password",
+      "pass": true
+    },
+    {
+      "name": "new connection resets draft",
+      "pass": true
+    },
+    {
+      "name": "cancel preserves existing connections",
+      "pass": true
+    },
+    {
+      "name": "tab keyboard navigation",
+      "pass": true
+    },
+    {
+      "name": "sidebar collapses",
+      "pass": true
+    },
+    {
+      "name": "workspace expands",
+      "pass": true
+    },
+    {
+      "name": "suggestion fills composer",
+      "pass": true
+    },
+    {
+      "name": "message stays local",
+      "pass": true
+    },
+    {
+      "name": "mobile chat fits viewport",
+      "pass": true
+    },
+    {
+      "name": "mobile workspace fits viewport",
+      "pass": true
+    },
+    {
+      "name": "mobile connection form and footer fit",
+      "pass": true
+    },
+    {
+      "name": "type scale and text-menu chevrons",
+      "pass": true,
+      "details": {
+        "sizes": [
+          13,
+          12
+        ],
+        "chevrons": true
+      }
+    }
+  ]
+}
