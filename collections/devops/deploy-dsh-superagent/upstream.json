@@ -1,0 +1,53 @@
+{
+  "kind": "skill",
+  "source_type": "local",
+  "maintainer": "Kris4js",
+  "origin": "Local DSH + Feishu + GitLab deployment workflow, generalized into a reusable skill",
+  "repository": null,
+  "commit": null,
+  "source_path": ".",
+  "license": null,
+  "license_status": "not-found",
+  "license_file": null,
+  "license_notice": "NOTICE.md",
+  "skills": [
+    "SKILL.md"
+  ],
+  "files": [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "assets/dsh-superagent-LICENSE",
+    "assets/gitlab-adapter.patch",
+    "references/acceptance.md",
+    "references/feishu.md",
+    "references/gitlab.md",
+    "references/runtime.md",
+    "scripts/configure_credentials.py",
+    "scripts/probe_model.py",
+    "scripts/render_config.py"
+  ],
+  "sha256": {
+    "SKILL.md": "a8562dc13b76cc3a9d8c375cd69b5c621e66576c2e9579893b9c5a34715a69cb",
+    "agents/openai.yaml": "a78ca678479fb7dfbabb6ad0ed3373d71f7aa5acdaa5713644d86781b6896b9c",
+    "assets/dsh-superagent-LICENSE": "6d66f91815b720e18cfb2b3552043a0359236aec9a1a6917787900546f6ce550",
+    "assets/gitlab-adapter.patch": "05c348f8a7ca88b172f6a22e81367fe6430c0a547c851b12451e11bdec1a32ad",
+    "references/acceptance.md": "7aad2132c275b0ab45dce3d957d3c4b469c340ebdbee8cd83557ac11ef41d1f2",
+    "references/feishu.md": "5ceb44a42cba4ae4449f08e915b3c12f9dd2b5e7591d5a5cd277c48921e7636b",
+    "references/gitlab.md": "7e20a96bd47a921fc5fc2c89990033af473ff6f4bc3b3b60a6cd3a21cbd5e8a9",
+    "references/runtime.md": "bd0ce3a9f0fe67d000c2d3b5b98acac51ee47971214de28959e425345fe89aa8",
+    "scripts/configure_credentials.py": "294be5732ce68923636db84f0e41f6def5afb941046cf605e13e34fe50e7cbe2",
+    "scripts/probe_model.py": "81fd970a9cf09d2ddf922a99f8ca3cd5b586744505e5f8950e9ed9244cf7d4f9",
+    "scripts/render_config.py": "860a2eedbe9e9dbad93a9b8bb7ed15c9fc4416f3985a054ad3fe6f69aa03a1a8"
+  },
+  "dependencies": [],
+  "component_sources": [
+    {
+      "path": "assets/gitlab-adapter.patch",
+      "repository": "https://github.com/deepseek-ai/dsh-superagent-prototype",
+      "base_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "description": "Locally authored GitLab adaptation patch against this base; not an upstream release",
+      "upstream_license": "MIT",
+      "upstream_license_file": "assets/dsh-superagent-LICENSE"
+    }
+  ]
+}

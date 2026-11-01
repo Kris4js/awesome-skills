@@ -1,0 +1,751 @@
+diff --git a/README.md b/README.md
+index 39e1c4a..8b8fdc7 100644
+--- a/README.md
++++ b/README.md
+@@ -30,6 +30,10 @@ Read the numbered documents in order; each builds only on the ones before it.
+ - [007 Architecture](docs/007-architecture.md)
+ - [008 Cookbook](docs/008-cookbook.md): adding a Source
+ 
++## GitLab pilot in this fork
++
++This fork adds a GitLab adapter for Feishu-origin tasks, task branches, MR binding, discussion/pipeline polling and final replies. See [GitLab pilot adapter](docs/009-gitlab.md) for configuration and current limits.
++
+ ## Development
+ 
+ `pnpm check` runs the typecheck, the tests and the build.
+diff --git a/cordis.patch.yml b/cordis.patch.yml
+index 5ada6df..f603baa 100644
+--- a/cordis.patch.yml
++++ b/cordis.patch.yml
+@@ -6,6 +6,9 @@
+       name: dsh-superagent
+     - id: dsh-superagent-github
+       name: dsh-superagent/github-watch
++    - id: dsh-superagent-gitlab
++      name: dsh-superagent/gitlab-watch
++      disabled: true
+     # Optional Feishu Source; requires configuring a bot CLI after enabling.
+     - id: dsh-superagent-feishu
+       name: dsh-superagent/feishu-watch
+diff --git a/docs/007-architecture.md b/docs/007-architecture.md
+index 184ea54..f9cdf02 100644
+--- a/docs/007-architecture.md
++++ b/docs/007-architecture.md
+@@ -362,6 +362,7 @@ Some generic modules still refer directly to GitHub or Feishu:
+ | `src/sources/registry.ts` | `SourceRegistry` |
+ | `src/sources/host.ts` | `SourceHost`, `SourceContext`, `Health`, `health` and the fixed health texts |
+ | `src/sources/poll.ts` | What GitHub and Feishu polling share: `POLL_HORIZON_MS`, `polled`, `cursorAt`, and `pollThreads`, which keeps a failure on its Thread as `pollError` |
++| `src/sources/gitlab.ts` | GitLab source: verified MR ownership, bound discussion and pipeline polling, terminal chat notices |
+ | `src/sources/github.ts` | The GitHub kind and plugin entry, exported as `./github-watch`: a poll round of notifications, the pull requests of open Tickets with their CI, and subscribed Threads |
+ | `src/sources/github-trigger.ts` | GitHub comments, reviews, Issue bodies and CI changes as Triggers, and GitHub addresses |
+ | `src/sources/github-pull.ts` | The pull request rules: which pull requests a Ticket follows (`claimPull`, `observePull`), the closes it reports to the Engine, and `pullEndNotices`, the chat notice of a Ticket that ended merged or closed |
+@@ -397,7 +398,7 @@ Some generic modules still refer directly to GitHub or Feishu:
+ | `src/client/locales.ts` | All copy in both languages, and the glossary of [001 Domain model](001-domain.md) |
+ | `src/client/client.css`, `css.d.ts` | The panel's stylesheet, loaded as text |
+ 
+-`src/sources/github.ts` and `src/sources/feishu.ts` are also the entries of the two Source plugins, built by `tsdown.config.ts` and exported in `package.json` as `./github-watch` and `./feishu-watch`. The bundle's `cordis.patch.yml` inserts the three plugins, with Feishu disabled.
++`src/sources/github.ts` and `src/sources/feishu.ts` are also the entries of the two Source plugins, built by `tsdown.config.ts` and exported in `package.json` as `./github-watch` and `./feishu-watch`. The bundle also exports `./gitlab-watch`; GitLab and Feishu are disabled by default. Enable exactly one repository source.
+ 
+ ## Tests
+ 
+@@ -435,6 +436,7 @@ Some generic modules still refer directly to GitHub or Feishu:
+ | `tests/prompts.spec.ts` | Prompt validation, assembly and versions |
+ | `tests/cards.spec.ts` | The rules the built-in text must state, file by file |
+ | `tests/model-surface.spec.ts` | Everything models read: tools, prompts, skills and inputs, checked against the tool schemas, the execution environment and the glossary, within a size budget per role |
++| `tests/gitlab.spec.ts` | GitLab setup, project API scope, MR ownership and terminal notices |
+ | `tests/deployment.spec.ts`, `tests/environment.spec.ts`, `tests/index.spec.ts` | The plugin configuration and setup, the agent's process environment, the plugin entry |
+ | `tests/service-script.spec.ts` | `scripts/dsh-superagent` against fake `ps`, `tmux` and `dsh` |
+ | `tests/client.spec.tsx`, `tests/navigation.spec.ts`, `tests/controls.spec.tsx` | The client plugin's registration and polling, Session navigation and route memory, the local controls, and the panel's imports, which have no cycle |
+diff --git a/package.json b/package.json
+index 6afd24b..12f7142 100644
+--- a/package.json
++++ b/package.json
+@@ -17,7 +17,8 @@
+     "./github-watch": "./lib/github-watch.js",
+     "./feishu-watch": "./lib/feishu-watch.js",
+     "./package.json": "./package.json",
+-    "./locale/*.json": "./locale/*.json"
++    "./locale/*.json": "./locale/*.json",
++    "./gitlab-watch": "./lib/gitlab-watch.js"
+   },
+   "files": [
+     "lib",
+diff --git a/src/app/execution-environment.ts b/src/app/execution-environment.ts
+index 155ca6f..fe6dba8 100644
+--- a/src/app/execution-environment.ts
++++ b/src/app/execution-environment.ts
+@@ -42,5 +42,8 @@ export function ticketEnvironment(input: { deployment: Deployment; sources: Sour
+   return environmentOf({ ...rest, ticket: values, ...trigger ? { trigger } : {} })
+ }
+ export function environmentLines(variables: Variable[]): string {
+-  return variables.map(variable => `- ${variable.key} = ${JSON.stringify(variable.value)}: ${variable.description.en}.`).join('\n')
++  const platform = variables.some(v => v.key === 'DSH_SUPERAGENT_GITLAB_HOST' && v.value)
++    ? '\nThis deployment uses GitLab, not GitHub. In these instructions PR means GitLab MR. Use glab with the configured host and repository; never use gh or github.com. Report an MR with orchestrator_report mr_number=<IID>, immediately after creating it; do not use pr_number. Create only a task branch whose final segment equals DSH_SUPERAGENT_NAME. Never push to the default branch, merge an MR or enable auto-merge. The first release receives new tasks only from Feishu; bound MR discussions and pipeline results continue the same Ticket. If asked to create an issue, use GitLab issues in this repository. Keep private Feishu content out of MR/issue descriptions.'
++    : ''
++  return variables.map(variable => `- ${variable.key} = ${JSON.stringify(variable.value)}: ${variable.description.en}.`).join('\n') + platform
+ }
+diff --git a/src/app/runtime.ts b/src/app/runtime.ts
+index a8cfe52..c10a4df 100644
+--- a/src/app/runtime.ts
++++ b/src/app/runtime.ts
+@@ -33,6 +33,7 @@ import { registerHttp, type HttpHost } from './http.ts'
+ import type { LinkTarget } from './views/records.ts'
+ import { candidateCard, repliedTo, sourceLink, type LinkHost } from './links.ts'
+ import { eventNotice, followupNotice } from './notices.ts'
++import { mergeEndNotices } from '../sources/gitlab.ts'
+ import { pullEndNotices } from '../sources/github-pull.ts'
+ import { HealthBoard } from '../infra/health.ts'
+ import { Outbox } from './outbox.ts'
+@@ -148,7 +149,7 @@ export class Runtime extends Service implements SourceHost {
+           const ended = event.type === 'ticket.ended' ? store.tickets.get(event.data.ticketId) : undefined
+           if (ended && setup.configured()) {
+             const request = store.triggers.get(ended.origin.triggerId)?.text ?? ''
+-            for (const message of pullEndNotices(ended, request, setup.deployment.repository)) outbox.send(message)
++            for (const message of setup.deployment.gitlab ? mergeEndNotices(ended, setup.deployment.gitlab.webUrl) : pullEndNotices(ended, request, setup.deployment.repository)) outbox.send(message)
+           }
+         } })
+       // Update the `evals` health entry on every pass if an evaluation failed as unavailable within the last hour.
+@@ -160,7 +161,7 @@ export class Runtime extends Service implements SourceHost {
+         get deployment() { return setup.deployment }, configured: () => setup.configured(),
+         get setupProblem() { return setup.problem }, get feishuProblem() { return setup.feishuProblem }, receive: trigger => passes.receive(trigger) }
+       this.toolHost = { context: ctx, engine, store, prompts, sessions, settings: this.settings, assessor, resources,
+-        get github() { return runtime.context({ kind: 'github', health: ['github'] }) },
++        get github() { return runtime.context(setup.deployment.gitlab ? { kind: 'gitlab', health: ['gitlab'] } : { kind: 'github', health: ['github'] }) },
+         requestPass: () => { passes.request() }, sendReplies: () => outbox.sent(),
+         quietly: run => { this.quiet++; try { return run() } finally { this.quiet-- } } }
+       this.ready = this.initialize()
+@@ -182,7 +183,7 @@ export class Runtime extends Service implements SourceHost {
+   get feishuProblem(): SetupProblem | undefined { return this.setup.feishuProblem }
+   links(): LinkTarget {
+     const resolved = this.setup.configured() ? this.setup.deployment : undefined
+-    const links = resolved ? { repository: resolved.repository, ...(resolved.feishu ? { feishu: resolved.feishu } : {}) } : {}
++    const links = resolved ? { repository: resolved.repository, ...(resolved.gitlab ? { gitlab: resolved.gitlab } : {}), ...(resolved.feishu ? { feishu: resolved.feishu } : {}) } : {}
+     return channel => this.sources.link(channel, links)
+   }
+   ticketEnvironment(ticket: Ticket): Variable[] {
+diff --git a/src/app/setup.ts b/src/app/setup.ts
+index a1d353f..0d35124 100644
+--- a/src/app/setup.ts
++++ b/src/app/setup.ts
+@@ -1,7 +1,7 @@
+ /** Probes repository and account CLIs, configures the worker execution environment and command shims, and tracks setup readiness. */
+ import type { Context } from '@deepseek-ai/cordis'
+ import { UserError } from '../core/index.ts'
+-import { SETUP_FIELDS, resolveDeployment, resolveFeishuBot, workerProbe, type Deployment, type Machine } from '../deployment.ts'
++import { SETUP_FIELDS, resolveDeployment, resolveGitlabDeployment, resolveFeishuBot, workerProbe, type Deployment, type Machine } from '../deployment.ts'
+ import { agentVariables, applyEnvironment, verifyEnvironment, withoutDirectory, workerBin, writeEnvironment } from '../infra/environment.ts'
+ import type { Settings, SettingsBlock } from '../policy.ts'
+ import { SetupError, type SetupProblem } from '../setup.ts'
+@@ -14,7 +14,7 @@ export interface SetupHost {
+ }
+ 
+ const setupFields = (settings: Settings) =>
+-  JSON.stringify(Object.entries(SETUP_FIELDS).map(([id, keys]) => keys.map(key => settings.sources[id]?.config[key] ?? '')))
++  JSON.stringify([settings.sources.gitlab?.enabled ?? false, Object.entries(SETUP_FIELDS).map(([id, keys]) => keys.map(key => settings.sources[id]?.config[key] ?? ''))])
+ export const setupChanged = (before: Settings, after: Settings): boolean => setupFields(before) !== setupFields(after)
+ 
+ /**
+@@ -61,6 +61,7 @@ export class Setup {
+   async checkAccounts(block: SettingsBlock, settings: Settings): Promise<void> {
+     const { machine } = this.host
+     const check = block === 'source:feishu' ? resolveFeishuBot(machine, settings.sources.feishu?.config, this.probe())
++      : settings.sources.gitlab?.enabled ? resolveGitlabDeployment(machine, settings.sources.gitlab.config, this.probe())
+       : resolveDeployment(machine, settings.sources.github?.config, this.probe())
+     await check.catch((error: unknown) => { if (!(error instanceof SetupError) || error.place === block.slice(7)) throw error })
+   }
+@@ -76,7 +77,10 @@ export class Setup {
+   private async resolve(settings: Settings): Promise<Deployment> {
+     const { context, machine, lifetime } = this.host
+     const probe = this.probe()
+-    const deployment = await resolveDeployment(machine, settings.sources.github?.config, probe)
++    if (settings.sources.gitlab?.enabled && settings.sources.github?.enabled) throw new SetupError('gitlabSetupFailed', { output: 'Enable only one repository source: GitHub or GitLab' })
++    const deployment = settings.sources.gitlab?.enabled
++      ? await resolveGitlabDeployment(machine, settings.sources.gitlab.config, probe)
++      : await resolveDeployment(machine, settings.sources.github?.config, probe)
+     const feishu = await resolveFeishuBot(machine, settings.sources.feishu?.config, probe).catch((error: unknown) => {
+       if (!(error instanceof SetupError)) throw error
+       this.feishuProblem = error.problem
+diff --git a/src/app/tools/executor.ts b/src/app/tools/executor.ts
+index b1a6099..1f9d05f 100644
+--- a/src/app/tools/executor.ts
++++ b/src/app/tools/executor.ts
+@@ -2,6 +2,7 @@
+ import { z } from 'zod'
+ import { liveTicket, type EngineForExecutor, type Ticket } from '../../core/index.ts'
+ import { IM_WORDS } from '../../infra/text.ts'
++import { claimMergeRequest, readMergeRequest } from '../../sources/gitlab.ts'
+ import { claimPull, readPull } from '../../sources/github-pull.ts'
+ import type { SourceContext } from '../../sources/host.ts'
+ import { readResource, type ResourceHost } from '../resources.ts'
+@@ -79,16 +80,20 @@ export function executorTools(host: ExecutorToolsHost, ticket: Ticket): Tool[] {
+         summary: z.string().min(1),
+         human_action: z.string().trim().min(1).max(1000).nullish().describe('One concrete question for a person, also with state=progress; omit to keep the pending one, null to clear it.'),
+         question_for_trigger_id: z.string().optional().describe('With human_action: the human message that raised the question, which is asked where that person wrote.'),
+-        pr_number: z.number().int().positive().nullish().describe(`The ticket's PR: its source PR, or one by ${host.github.deployment.github.login} from a branch named after this ticket (DSH_SUPERAGENT_NAME).`),
++        pr_number: z.number().int().positive().nullish().describe('GitHub PR number; do not use in a GitLab deployment.'),
++        mr_number: z.number().int().positive().nullish().describe('GitLab MR IID, authored by the configured bot on this ticket branch (DSH_SUPERAGENT_NAME).'),
+         reply_to_trigger_id: z.string().optional().describe('The explicit human question this report answers; never for ordinary progress.'),
+       }).strict(),
+       execute: async (args, signal) => {
+         const current = host.store.tickets.get(ticketId)
+         if (!current || !liveTicket(current)) throw new Error('Ticket ended (PR was closed or work finished); do not resume it')
++        if (args.pr_number != null && host.github.deployment.gitlab) throw new Error('Use mr_number for GitLab')
++        if (args.mr_number != null && !host.github.deployment.gitlab) throw new Error('Use pr_number for GitHub')
++        const mr = args.mr_number != null ? await readMergeRequest(host.github, args.mr_number, signal) : undefined
+         const pull = args.pr_number != null ? await readPull(host.github, args.pr_number, signal) : undefined
+         // Claim the PR, record the report, and queue the relay atomically so a rejected PR claim or invalid report leaves no partial state, and a recorded report always reaches the main Session.
+         return host.store.atomic(() => {
+-          const refused = pull && claimPull(host.github, ticketId, pull)
++          const refused = mr ? claimMergeRequest(host.github, ticketId, mr) : pull && claimPull(host.github, ticketId, pull)
+           if (refused) throw new Error(refused)
+           const report = { state: args.state, summary: args.summary, ...(args.human_action !== undefined ? { question: args.human_action } : {}),
+             ...(args.question_for_trigger_id ? { askedBy: args.question_for_trigger_id } : {}),
+diff --git a/src/client/locales.ts b/src/client/locales.ts
+index d81d0d4..2c989ec 100644
+--- a/src/client/locales.ts
++++ b/src/client/locales.ts
+@@ -139,6 +139,7 @@ const TEXT = {
+   idleLabel: ['等待新触发', 'Waiting for a Trigger'],
+   problemNoAllowed: ['没有人能发起工作：各来源上的名单都为空，任何请求都不会成为工单', 'No one may originate work: the lists on every Source are empty, so no request can become a Ticket'],
+   actionAddAllowed: ['去添加', 'Add senders'],
++  'problemSetupFix.gitlab': ['在来源设置的 GitLab 卡片修正配置；外部登录完成后点重新检查。', 'Fix the GitLab source settings; after external login, choose Check again.'],
+   'problemSetupFix.github': ['在设置 › 来源的 GitHub 卡片修正后保存，会重新检查；在 dsh-superagent 之外修复的（例如登录 CLI），点“重新检查”。', 'Fix it on the GitHub card of the Source settings and save to check again; after a fix outside dsh-superagent, such as signing a CLI in, choose Check again.'],
+   'problemSetupFix.feishu': ['在设置 › 来源的飞书卡片修正后保存，会重新检查；在 dsh-superagent 之外修复的（例如配置机器人），点“重新检查”。', 'Fix it on the Feishu card of the Source settings and save to check again; after a fix outside dsh-superagent, such as configuring the bot, choose Check again.'],
+   'problemSetupFix.deployment': ['在部署设置里修正后保存，会重新检查；在 dsh-superagent 之外修复的（例如升级 git），点“重新检查”。', 'Fix it in the Deployment settings and save to check again; after a fix outside dsh-superagent, such as upgrading git, choose Check again.'],
+@@ -725,6 +726,7 @@ const TEXT = {
+   'userError.noLabels': ['这个来源没有可以刷新的名称。', USER_ERRORS.noLabels[1]],
+   'userError.nothingToSync': ['{source} 来源上的策略没有指定从哪里同步，或者这个来源已关闭或在等待部署检查。', USER_ERRORS.nothingToSync[1]],
+   // Setup problems and health codes; English reuses the host's own text read by the log and main Session
++  'setup.gitlabSetupFailed': ['GitLab 仓库或机器人账号验证失败。', SETUP_PROBLEMS.gitlabSetupFailed[1]],
+   'setup.repositoryUnset': ['GitHub 来源没有设置监听的仓库。', SETUP_PROBLEMS.repositoryUnset[1]],
+   'setup.foreignFile': ['{file} 不是 dsh-superagent 写入的文件；移走它，或换一个状态目录。', SETUP_PROBLEMS.foreignFile[1]],
+   'setup.gitTooOld': ['git 没有读取 dsh-superagent 为 github.com 写的凭据配置；需要 git 2.32 或更新版本。', SETUP_PROBLEMS.gitTooOld[1]],
+diff --git a/src/deployment.ts b/src/deployment.ts
+index 76340cb..cee6947 100644
+--- a/src/deployment.ts
++++ b/src/deployment.ts
+@@ -47,14 +47,46 @@ export const GithubAccountsSchema = z.object({
+   cli: z.string().trim().default(''),
+ })
+ export const FeishuBotSchema = z.object({ cli: z.string().trim().default('') })
++export const GitlabAccountsSchema = z.object({
++  host: z.string().trim().regex(/^[a-zA-Z0-9][a-zA-Z0-9.-]*(?::[0-9]+)?$/).default('gitlab.com'),
++  repository: z.string().trim().regex(/^(?:[\w.-]+(?:\/[\w.-]+)+)?$/).default(''),
++  cli: z.string().trim().default(''),
++})
+ /** Source configuration keys that affect deployment setup and trigger a restart when changed. */
+-export const SETUP_FIELDS: Readonly<Record<string, readonly string[]>> = { github: Object.keys(GithubAccountsSchema.shape), feishu: Object.keys(FeishuBotSchema.shape) }
++export const SETUP_FIELDS: Readonly<Record<string, readonly string[]>> = { github: Object.keys(GithubAccountsSchema.shape), gitlab: Object.keys(GitlabAccountsSchema.shape), feishu: Object.keys(FeishuBotSchema.shape) }
+ 
+ export interface Deployment extends Machine {
+   repository: string
+   github: { cli: string; login: string; noreply: string }
++  /** GitLab deployments retain github's account fields as a legacy execution identity; GitHub API calls are disabled. */
++  gitlab?: { host: string; projectId: number; webUrl: string; cloneUrl: string; defaultBranch: string }
+   feishu?: FeishuBot
+ }
++
++/** Resolve a GitLab project and verify the configured bot can create development branches. */
++export async function resolveGitlabDeployment(machine: Machine, input: unknown, probe: Probe, path = process.env.PATH ?? ''): Promise<Deployment> {
++  try {
++    const config = GitlabAccountsSchema.parse(input)
++    if (!config.repository || !config.cli) throw new Error('Configure the GitLab repository and glab executable')
++    const cli = executable(config.cli, path, workerBin(machine.stateDir))
++    const api = async (endpoint: string) => JSON.parse(await probe([cli, 'api', '--hostname', config.host, endpoint]))
++    const user = z.object({ id: z.number(), username: z.string().min(1), is_admin: z.boolean().optional(), public_email: z.string().nullable().optional() }).parse(await api('user'))
++    if (user.is_admin) throw new Error('Use a non-administrator GitLab automation account')
++    const project = z.object({ id: z.number().int().positive(), path_with_namespace: z.string(), web_url: z.url(), http_url_to_repo: z.url(),
++      default_branch: z.string().min(1), archived: z.boolean(), permissions: z.object({
++        project_access: z.object({ access_level: z.number() }).nullish(), group_access: z.object({ access_level: z.number() }).nullish(),
++      }) }).parse(await api(`projects/${encodeURIComponent(config.repository)}`))
++    if (project.archived || Math.max(project.permissions.project_access?.access_level ?? 0, project.permissions.group_access?.access_level ?? 0) < 30)
++      throw new Error('An unarchived project and Developer access are required')
++    if (project.path_with_namespace !== config.repository)
++      throw new Error('GitLab returned a different project')
++    // Reverse-proxied GitLab may advertise an internal external_url. Never send credentials there.
++    const webUrl = `https://${config.host}/${project.path_with_namespace}`
++    return { ...machine, repository: project.path_with_namespace,
++      github: { cli, login: user.username, noreply: user.public_email || `${user.id}-${user.username}@users.noreply.${config.host.split(':')[0]}` },
++      gitlab: { host: config.host, projectId: project.id, webUrl, cloneUrl: `${webUrl}.git`, defaultBranch: project.default_branch } }
++  } catch (error) { throw new SetupError('gitlabSetupFailed', { output: reason(error) }) }
++}
+ export interface FeishuBot { cli: string; appId: string; brand: 'feishu' | 'lark'; botId: string; name: string }
+ 
+ /** Resolve a command name or absolute path to an executable file, ignoring the worker shim directory. */
+diff --git a/src/infra/commands.ts b/src/infra/commands.ts
+index 120f5a4..cca1d5d 100644
+--- a/src/infra/commands.ts
++++ b/src/infra/commands.ts
+@@ -73,7 +73,7 @@ export class Commands {
+     } catch (error) { throw commandError(error, program) }
+   }
+   /** Runs the agent's GitHub CLI and parses its JSON output; callers should prefer `api`, which is restricted to the configured repository and validates output. */
+-  async gh<T>(args: string[]): Promise<T> { return JSON.parse(await this.run(this.deployment.github.cli, args)) as T }
++  async gh<T>(args: string[]): Promise<T> { if (this.deployment.gitlab) throw new Error('GitHub API unavailable in GitLab deployment'); return JSON.parse(await this.run(this.deployment.github.cli, args)) as T }
+   /**
+    * Calls the GitHub API on a path within the configured repository, validating JSON output when a schema is provided
+    * or returning raw CLI output (such as raw files or `--include` headers) when omitted.
+@@ -82,10 +82,20 @@ export class Commands {
+   async api<T>(schema: z.ZodType<T>, path: string, ...flags: string[]): Promise<T>
+   async api(path: string, ...flags: string[]): Promise<string>
+   async api<T>(schema: z.ZodType<T> | string, ...rest: string[]): Promise<T | string> {
++    if (this.deployment.gitlab) throw new Error('GitHub API unavailable in GitLab deployment')
+     if (typeof schema === 'string') return this.run(this.deployment.github.cli, ['api', this.path(schema), ...rest])
+     const [path = '', ...flags] = rest
+     return schema.parse(await this.gh(['api', this.path(path), ...flags]))
+   }
++  /** GitLab calls are restricted to the configured numeric project ID. */
++  async gitlab<T>(schema: z.ZodType<T>, path: string, ...flags: string[]): Promise<T> {
++    const config = this.deployment.gitlab
++    if (!config) throw new Error('GitLab is not configured')
++    if (!/^[a-zA-Z0-9_/?=&.,:%+-]*$/.test(path) || path.startsWith('/') || path.includes('://') || path.includes('..') || /%2f|%2e/i.test(path))
++      throw new Error('GitLab calls are restricted to the configured project')
++    return schema.parse(JSON.parse(await this.run(this.deployment.github.cli,
++      ['api', '--hostname', config.host, `projects/${config.projectId}${path ? '/' + path : ''}`, ...flags])))
++  }
+   /** Fetches all pages of a GitHub API list within the configured repository, skipping items that fail schema validation. */
+   async pages<T>(item: z.ZodType<T>, path: string, tally?: Tally): Promise<T[]> {
+     const pages = z.array(z.array(z.unknown())).parse(await this.gh(['api', this.path(path), '--paginate', '--slurp']))
+diff --git a/src/infra/environment.ts b/src/infra/environment.ts
+index b6d92c3..7149666 100644
+--- a/src/infra/environment.ts
++++ b/src/infra/environment.ts
+@@ -15,7 +15,7 @@ const MARKER = '# Written by dsh-superagent on every start; edits are lost.'
+ /** Markers of files written under the project's earlier names (`dsh-tag`, `dsh-go`, `dsh-freelancer`), which `dsh-superagent` owns and replaces too. */
+ const LEGACY_MARKERS = ['dsh-tag', 'dsh-go', 'dsh-freelancer'].map(name => `# Written by ${name} on every start; edits are lost.`)
+ /** Commands workers need, which `blockedCommands` cannot block: the shims and git. */
+-export const WORKER_COMMANDS: readonly string[] = ['gh', 'git', 'lark-cli']
++export const WORKER_COMMANDS: readonly string[] = ['gh', 'glab', 'git', 'lark-cli']
+ export const workerBin = (stateDir: string): string => join(stateDir, 'worker-bin')
+ export const workerGitConfig = (stateDir: string): string => join(stateDir, 'worker-gitconfig')
+ const shellQuote = (value: string): string => `'${value.replaceAll("'", "'\\''")}'`
+@@ -44,7 +44,7 @@ export const GIT_LOCATION: readonly string[] = ['GIT_DIR', 'GIT_WORK_TREE', 'GIT
+  */
+ export function agentVariables(stateDir: string): Record<string, string | undefined> {
+   return {
+-    GH_TOKEN: undefined, GITHUB_TOKEN: undefined,
++    GH_TOKEN: undefined, GITHUB_TOKEN: undefined, GITLAB_TOKEN: undefined, GITLAB_ACCESS_TOKEN: undefined, OAUTH_TOKEN: undefined,
+     // A worker's git finds the repository from its directory, never from the host's environment.
+     ...Object.fromEntries(GIT_LOCATION.map(name => [name, undefined])),
+     GIT_CONFIG_GLOBAL: workerGitConfig(stateDir), GIT_CONFIG_NOSYSTEM: '1',
+@@ -76,8 +76,9 @@ async function own(file: string, text: string, mode = 0o644): Promise<void> {
+  * Atomically writes worker CLI shims and the isolated git configuration file into the state directory, refusing to overwrite foreign files.
+  * Each shim strips the shim directory from PATH before exec so wrapper scripts resolving `gh` or `lark-cli` by name reach the real binary.
+  */
+-export async function writeEnvironment(deployment: Pick<Deployment, 'stateDir' | 'repository' | 'github' | 'feishu'>, blockedCommands: readonly string[]): Promise<void> {
+-  const { stateDir, repository, github, feishu } = deployment
++export async function writeEnvironment(deployment: Pick<Deployment, 'stateDir' | 'repository' | 'github' | 'gitlab' | 'feishu'>, blockedCommands: readonly string[]): Promise<void> {
++  const { stateDir, repository, github, gitlab, feishu } = deployment
++  const host = gitlab?.host ?? 'github.com'
+   const dir = workerBin(stateDir)
+   await mkdir(dir, { recursive: true })
+   const before = await readdir(dir)
+@@ -97,7 +98,8 @@ export async function writeEnvironment(deployment: Pick<Deployment, 'stateDir' |
+   ].join('\n')
+   const run = (program: string): string => `${withoutShims}\nexec ${shellQuote(program)} "$@"`
+   const fail = (message: string): string => `echo ${shellQuote(message)} >&2\nexit 1`
+-  await shim('gh', run(github.cli))
++  await shim('gh', gitlab ? fail('This deployment uses GitLab; use glab.') : run(github.cli))
++  if (gitlab) await shim('glab', run(github.cli))
+   await shim('lark-cli', feishu ? run(feishu.cli) : fail('lark-cli is unavailable: this installation has no Feishu bot.'))
+   for (const name of new Set(blockedCommands.filter(name => !WORKER_COMMANDS.includes(name)))) {
+     await shim(name, fail(`${name} is blocked in this installation; use gh, which acts as ${github.login}.`))
+@@ -108,8 +110,8 @@ export async function writeEnvironment(deployment: Pick<Deployment, 'stateDir' |
+     // Make git refuse to commit without an explicit identity set by the worker instead of guessing from the operator's OS user.
+     '[user]', '\tuseConfigOnly = true',
+     '[credential]', '\thelper =',
+-    '[credential "https://github.com"]', `\thelper = ${gitQuote(credentialHelper(github.cli))}`,
+-    '[url "https://github.com/"]', '\tinsteadOf = git@github.com:', '\tinsteadOf = ssh://git@github.com/',
++    `[credential "https://${host}"]`, `\thelper = ${gitQuote(credentialHelper(github.cli))}`,
++    `[url "https://${host}/"]`, `\tinsteadOf = git@${host}:`, `\tinsteadOf = ssh://git@${host}/`,
+     // Include Git LFS filters because the operator's global gitconfig (which usually holds them) is ignored.
+     '[filter "lfs"]', '\tclean = git-lfs clean -- %f', '\tsmudge = git-lfs smudge -- %f', '\tprocess = git-lfs filter-process', '\trequired = true',
+   ].join('\n') + '\n')
+@@ -135,10 +137,10 @@ export async function runAsWorker(subprocess: SubprocessRuntime, argv: string[],
+ }
+ 
+ /** Verifies that worker git invocations resolve the deployment's GitHub credential helper. */
+-export async function verifyEnvironment(deployment: Pick<Deployment, 'github' | 'stateDir'>, subprocess: SubprocessRuntime, signal: AbortSignal): Promise<void> {
++export async function verifyEnvironment(deployment: Pick<Deployment, 'github' | 'gitlab' | 'stateDir'>, subprocess: SubprocessRuntime, signal: AbortSignal): Promise<void> {
+   const { github, stateDir } = deployment
+   // `-z` separates fields with NUL and never quotes paths.
+-  const helpers = (await runAsWorker(subprocess, ['git', 'config', '-z', '--show-origin', '--get-all', 'credential.https://github.com.helper'], stateDir, AbortSignal.any([signal, AbortSignal.timeout(60_000)])).catch(() => '')).split('\0')
++  const helpers = (await runAsWorker(subprocess, ['git', 'config', '-z', '--show-origin', '--get-all', `credential.https://${deployment.gitlab?.host ?? 'github.com'}.helper`], stateDir, AbortSignal.any([signal, AbortSignal.timeout(60_000)])).catch(() => '')).split('\0')
+   if (helpers.join('\0') !== [`file:${workerGitConfig(stateDir)}`, credentialHelper(github.cli), ''].join('\0')) throw new SetupError('gitTooOld')
+ }
+ 
+diff --git a/src/setup.ts b/src/setup.ts
+index ecae26e..f116fb1 100644
+--- a/src/setup.ts
++++ b/src/setup.ts
+@@ -1,8 +1,9 @@
+ /** Structured startup and configuration errors with the settings location where the operator can fix them. */
+ import { fill } from './infra/text.ts'
+ 
+-export type SetupPlace = 'deployment' | 'github' | 'feishu'
++export type SetupPlace = 'deployment' | 'github' | 'gitlab' | 'feishu'
+ export const SETUP_PROBLEMS = {
++  gitlabSetupFailed: ['gitlab', 'GitLab repository or automation account verification failed.'],
+   foreignFile: ['deployment', '{file} was not written by dsh-superagent; move it, or choose another state directory.'],
+   gitTooOld: ['deployment', 'git does not read the github.com credential configuration dsh-superagent writes; dsh-superagent needs git 2.32 or later.'],
+   environmentFailed: ['deployment', 'Preparing the agent environment failed.'],
+diff --git a/src/sources/kind.ts b/src/sources/kind.ts
+index 3a8b32e..ef4ac0c 100644
+--- a/src/sources/kind.ts
++++ b/src/sources/kind.ts
+@@ -41,7 +41,7 @@ export interface SourcePolicyPart<P extends Record<string, unknown>> {
+ }
+ /** UI link for a channel address; `triggerId` names the Trigger whose own deep link is preferred when available. */
+ export interface ChannelLink { url: string; label: Localized; triggerId?: string }
+-export type ChannelLinks = Partial<Pick<Deployment, 'repository' | 'feishu'>>
++export type ChannelLinks = Partial<Pick<Deployment, 'repository' | 'feishu' | 'gitlab'>>
+ /** Outbound messaging adapter for a source kind's threads. */
+ export interface SourceChannel<C> {
+   /** Whether a reply may still go to `address`; without it, every address may receive replies. */
+diff --git a/tests/bundle-patch.spec.ts b/tests/bundle-patch.spec.ts
+index 33c027a..6a39ef2 100644
+--- a/tests/bundle-patch.spec.ts
++++ b/tests/bundle-patch.spec.ts
+@@ -28,7 +28,7 @@ const presetOf = (rows: readonly Row[], id: string) => rows.map(row => row.confi
+ 
+ it('defines the worker preset Executor Sessions run under, with a shell that moves long commands to the background', async () => {
+   const rows = await patched()
+-  expect(rows.map(row => row.id)).toEqual(['dsh-superagent', 'dsh-superagent-github', 'dsh-superagent-feishu', 'dsh-superagent-worker-preset',
++  expect(rows.map(row => row.id)).toEqual(['dsh-superagent', 'dsh-superagent-github', 'dsh-superagent-gitlab', 'dsh-superagent-feishu', 'dsh-superagent-worker-preset',
+     'dsh-superagent-router-preset'])
+   const preset = presetOf(rows, WORKER_PRESET)
+   expect(preset.id).toBe(WORKER_PRESET)
+diff --git a/tsdown.config.ts b/tsdown.config.ts
+index 0aabd00..af23caa 100644
+--- a/tsdown.config.ts
++++ b/tsdown.config.ts
+@@ -7,7 +7,7 @@ const raw = { name: 'raw',
+   load: (id: string) => id.endsWith('?raw') ? { code: `export default ${JSON.stringify(readFileSync(id.slice(0, -4), 'utf8'))}`, moduleType: 'js' as const }
+     : undefined }
+ export default defineConfig([
+-  { entry: { index: 'src/index.ts', 'github-watch': 'src/sources/github.ts', 'feishu-watch': 'src/sources/feishu.ts' }, outDir: 'lib', format: 'esm', fixedExtension: false, platform: 'node', target: 'es2024', dts: true, clean: true, deps: { neverBundle: [/^@deepseek-ai\//, 'zod', 'proper-lockfile'] } },
++  { entry: { index: 'src/index.ts', 'github-watch': 'src/sources/github.ts', 'feishu-watch': 'src/sources/feishu.ts', 'gitlab-watch': 'src/sources/gitlab.ts' }, outDir: 'lib', format: 'esm', fixedExtension: false, platform: 'node', target: 'es2024', dts: true, clean: true, deps: { neverBundle: [/^@deepseek-ai\//, 'zod', 'proper-lockfile'] } },
+   { entry: { client: 'src/client/index.tsx' }, outDir: 'lib', format: 'cjs', platform: 'browser', dts: false, clean: false, plugins: [raw],
+     deps: { neverBundle: ['react', 'react/jsx-runtime', 'react-dom'] },
+     outputOptions: { entryFileNames: 'client.js', banner: 'window.__ModuleLoader__.load({ id: "dsh-superagent", factory: (require) => {', footer: 'return module.exports; } });', intro: 'var module = { exports: {} }; var exports = module.exports;' } },
+diff --git a/src/sources/gitlab.ts b/src/sources/gitlab.ts
+new file mode 100644
+index 0000000..d60f75f
+--- /dev/null
++++ b/src/sources/gitlab.ts
+@@ -0,0 +1,184 @@
++/** GitLab MR lifecycle adapter. Work starts in Feishu; only bound MR discussions are received. */
++import type { Context } from '@deepseek-ai/cordis'
++import { z } from 'zod'
++import { GitlabAccountsSchema } from '../deployment.ts'
++import { key, liveTicket, type OutboundMessage, type Ticket } from '../core/index.ts'
++import type { Commands } from '../infra/commands.ts'
++import type { SourceKind } from './kind.ts'
++import { sourceContext, type SourceContext } from './host.ts'
++import { pause, polled } from './poll.ts'
++import { ticketBranch } from './github-pull.ts'
++
++export const SOURCE = 'gitlab'
++const Author = z.object({ id: z.number(), username: z.string(), bot: z.boolean().optional() })
++export const MergeRequestSchema = z.object({ iid: z.number().int().positive(), title: z.string(), state: z.enum(['opened', 'closed', 'merged', 'locked']),
++  web_url: z.url(), author: Author, source_branch: z.string(), target_branch: z.string(), source_project_id: z.number().nullable(), target_project_id: z.number(),
++  description: z.string().nullable(), created_at: z.string(), updated_at: z.string(), merged_at: z.string().nullable(), closed_at: z.string().nullable(),
++  head_pipeline: z.object({ id: z.number(), sha: z.string(), status: z.string() }).nullable().optional() })
++export type MergeRequest = z.infer<typeof MergeRequestSchema>
++const Note = z.object({ id: z.number(), body: z.string(), author: Author, created_at: z.string(), system: z.boolean() })
++type Note = z.infer<typeof Note>
++const ConfigSchema = GitlabAccountsSchema.extend({ pollSeconds: z.number().int().min(15).max(3600).default(30) })
++const ref = (iid: number) => ({ source: SOURCE, id: `mr:${iid}` })
++const threadKey = (iid: number) => `${SOURCE}:mr:${iid}`
++const iidOf = (thread: string): number | undefined => /^gitlab:mr:([1-9]\d*)$/.test(thread) ? Number(thread.split(':')[2]) : undefined
++export const readMergeRequest = async (ctx: SourceContext, iid: number, signal?: AbortSignal): Promise<MergeRequest> => {
++  const mr = await ctx.commands.withSignal(signal).gitlab(MergeRequestSchema, `merge_requests/${iid}`)
++  if (mr.iid !== iid || mr.target_project_id !== ctx.deployment.gitlab?.projectId) throw new Error('GitLab returned a different MR or project')
++  return { ...mr, web_url: `${ctx.deployment.gitlab.webUrl}/-/merge_requests/${iid}` }
++}
++
++/** Refuse cross-project, wrong-author and wrong-branch claims before subscribing a ticket. */
++export function claimMergeRequest(ctx: SourceContext, ticketId: string, mr: MergeRequest): string | undefined {
++  const ticket = ctx.tickets.get(ticketId), config = ctx.deployment.gitlab
++  if (!ticket || !liveTicket(ticket) || !config) return 'No live GitLab ticket'
++  if (mr.source_project_id !== config.projectId || mr.target_project_id !== config.projectId ||
++      mr.author.username !== ctx.deployment.github.login || !ticketBranch(ticket, mr.source_branch))
++    return 'MR must be authored by the configured bot in this project, on this ticket branch'
++  if (new URL(mr.web_url).origin !== new URL(config.webUrl).origin) return 'MR URL is outside the configured GitLab host'
++  const owner = ctx.tickets.open().find(t => (t.follows ?? []).some(f => f.thread === threadKey(mr.iid) && !f.closed))
++  if (owner && owner.id !== ticketId) return 'MR already belongs to another ticket'
++  const prior = ticket.follows?.find(f => f.thread === threadKey(mr.iid))
++  if (mr.state === 'closed' || mr.state === 'merged') {
++    if (!prior) return 'Cannot attach an already-closed MR as a new deliverable'
++    return
++  }
++  if (!prior || prior.closed) {
++    ctx.tickets.bindThread(ticketId, ref(mr.iid), true)
++    ctx.threads.patch(threadKey(mr.iid), { iid: mr.iid, url: mr.web_url, boundAt: new Date().toISOString() })
++  }
++  ctx.threads.describe(threadKey(mr.iid), { label: `MR !${mr.iid}: ${mr.title}`, url: mr.web_url })
++}
++
++async function notes(commands: Commands, iid: number): Promise<Note[]> {
++  const result: Note[] = []
++  for (let page = 1; ; page++) {
++    const items = await commands.gitlab(z.array(Note), `merge_requests/${iid}/notes?sort=asc&order_by=created_at&per_page=100&page=${page}`)
++    result.push(...items)
++    if (items.length < 100) return result
++    if (page >= 100) throw new Error('MR discussion exceeds polling page limit; cursor not advanced')
++  }
++}
++async function send(ctx: Pick<SourceContext, 'commands'>, message: OutboundMessage): Promise<'sent'> {
++  const iid = Number(message.channel.address.iid)
++  if (!Number.isSafeInteger(iid) || iid <= 0) throw new Error('Invalid MR reply target')
++  const marker = `<!-- dsh-superagent:${message.id} -->`
++  if ((await notes(ctx.commands, iid)).some(n => n.author.username === ctx.commands.deployment.github.login && n.body.includes(marker))) return 'sent'
++  await ctx.commands.gitlab(z.unknown(), `merge_requests/${iid}/notes`, '--method', 'POST', '-f', `body=${message.text}\n\n${marker}`)
++  return 'sent'
++}
++
++export const gitlabKind: SourceKind<z.infer<typeof ConfigSchema>> = {
++  kind: SOURCE, title: { zh: 'GitLab', en: 'GitLab' },
++  description: { zh: '从飞书接单，跟踪工单关联的 MR、讨论和流水线。', en: 'Feishu-origin work with bound MR discussions, pipelines and lifecycle.' },
++  schema: ConfigSchema, health: ['gitlab'],
++  fields: [
++    { key: 'host', type: 'text', label: { zh: 'GitLab 主机', en: 'GitLab host' } },
++    { key: 'repository', type: 'text', label: { zh: '项目路径', en: 'Project path' } },
++    { key: 'cli', type: 'text', label: { zh: '智能体 glab', en: 'Agent glab' } },
++    { key: 'pollSeconds', type: 'number', min: 15, max: 3600, label: { zh: '轮询间隔 / 秒', en: 'Polling interval / seconds' } },
++  ],
++  scope: () => ({ listened: true, observed: false }),
++  find: query => { const iid = /^!?(\d+)$/.exec(query.trim())?.[1]; return { threads: iid ? [threadKey(Number(iid))] : [], terms: [] } },
++  channel: { send, link: (address, links) => ({ url: links.gitlab ? `${links.gitlab.webUrl}/-/merge_requests/${Number(address.iid)}` : '', label: { zh: `MR !${address.iid}`, en: `MR !${address.iid}` } }) },
++  threadContext: {
++    messageId: t => String(t.meta.noteId ?? ''),
++    async read(commands, trigger, part, cursor) {
++      const iid = Number(trigger.meta.iid)
++      if (!Number.isSafeInteger(iid) || iid <= 0) throw new Error('Invalid MR context')
++      const mr = await commands.gitlab(MergeRequestSchema, `merge_requests/${iid}`)
++      if (mr.target_project_id !== commands.deployment.gitlab?.projectId) throw new Error('GitLab returned a different project')
++      mr.web_url = `${commands.deployment.gitlab.webUrl}/-/merge_requests/${iid}`
++      if (part !== 'thread') return { messages: [{ id: `mr:${iid}`, from: mr.author.username, at: mr.created_at, text: mr.description ?? mr.title, url: mr.web_url }], body: {} }
++      const page = cursor === undefined ? 1 : Number(cursor)
++      if (!Number.isSafeInteger(page) || page < 1) throw new Error('Invalid cursor')
++      const list = await commands.gitlab(z.array(Note), `merge_requests/${iid}/notes?sort=asc&order_by=created_at&per_page=50&page=${page}`)
++      return { messages: list.map(n => ({ id: String(n.id), from: n.author.username, at: n.created_at, text: n.body, url: `${mr.web_url}#note_${n.id}`, ...(n.system || n.author.bot ? { bot: true as const } : {}) })),
++        body: { title: mr.title, state: mr.state }, ...(list.length === 50 ? { next: String(page + 1) } : {}) }
++    },
++  },
++  policy: {
++    schema: z.object({ allowed: z.array(z.object({ id: z.string().min(1) })).default([]) }),
++    fields: [{ key: 'allowed', type: 'rows', label: { zh: '能发起工作的账号', en: 'Allowed accounts' }, columns: [{ key: 'id', type: 'text', label: { zh: '账号', en: 'Account' } }] }],
++    explicit: { zh: '首版仅接收已关联 MR 的后续讨论；新任务从飞书发起。', en: 'Only bound MR discussions are received; start new work in Feishu.' },
++  },
++  environment: {
++    variables: [
++      { key: 'DSH_SUPERAGENT_GITLAB_REPOSITORY', description: { zh: 'GitLab 项目路径', en: 'GitLab project path' } },
++      { key: 'DSH_SUPERAGENT_GITLAB_HOST', description: { zh: 'GitLab 主机', en: 'GitLab host' } },
++      { key: 'DSH_SUPERAGENT_GITLAB_ACCOUNT', description: { zh: '智能体账号', en: 'Agent account' } },
++      { key: 'DSH_SUPERAGENT_GITLAB_COMMIT_EMAIL', description: { zh: '提交邮箱', en: 'Commit email' } },
++      { key: 'DSH_SUPERAGENT_GITLAB_CLONE_URL', description: { zh: '仓库 HTTPS 地址', en: 'Repository HTTPS URL' } },
++    ],
++    values: ({ deployment: d }) => ({ DSH_SUPERAGENT_GITLAB_REPOSITORY: d.repository, DSH_SUPERAGENT_GITLAB_HOST: d.gitlab?.host ?? '',
++      DSH_SUPERAGENT_GITLAB_ACCOUNT: d.github.login, DSH_SUPERAGENT_GITLAB_COMMIT_EMAIL: d.github.noreply, DSH_SUPERAGENT_GITLAB_CLONE_URL: d.gitlab?.cloneUrl ?? '' }),
++  },
++}
++
++export async function pollMergeRequests(ctx: SourceContext, signal: AbortSignal): Promise<void> {
++  const commands = ctx.commands.withSignal(signal)
++  // Recover MR binding if a worker created the MR but crashed before its report.
++  for (let page = 1; ; page++) {
++    const list = await commands.gitlab(z.array(z.object({ iid: z.number(), source_branch: z.string() })),
++      `merge_requests?state=opened&author_username=${encodeURIComponent(ctx.deployment.github.login)}&per_page=100&page=${page}`)
++    for (const item of list) {
++      const candidates = ctx.tickets.open().filter(t => ticketBranch(t, item.source_branch))
++      if (candidates.length === 1) {
++        const mr = await readMergeRequest(ctx, item.iid, signal)
++        ctx.atomic(() => { const error = claimMergeRequest(ctx, candidates[0]!.id, mr); if (error) throw new Error(error) })
++      }
++    }
++    if (list.length < 100) break
++    if (page >= 100) throw new Error('Open MR list exceeds page limit')
++  }
++  for (const thread of ctx.threads.subscribed(SOURCE)) {
++    if (signal.aborted || !polled(ctx, thread)) continue
++    const iid = iidOf(thread.key)
++    if (!iid) continue
++    const mr = await readMergeRequest(ctx, iid, signal)
++    for (const note of await notes(commands, iid)) {
++      if (note.system || note.author.username === ctx.deployment.github.login || Date.parse(note.created_at) < Date.parse(String(thread.meta.boundAt ?? mr.created_at))) continue
++      await ctx.receive({ id: key(SOURCE, String(ctx.deployment.gitlab!.projectId), 'note', String(note.id)), source: SOURCE, threads: [ref(iid)],
++        actor: { source: SOURCE, id: note.author.username }, human: !note.author.bot, at: note.created_at, text: note.body,
++        ...(note.body.includes(`@${ctx.deployment.github.login}`) ? { addressed: 'mention' as const } : {}),
++        url: `${mr.web_url}#note_${note.id}`, channel: { source: SOURCE, thread: threadKey(iid), address: { iid: String(iid) } }, meta: { iid, noteId: note.id } })
++    }
++    const pipeline = mr.head_pipeline
++    if (pipeline) await ctx.receive({ id: key(SOURCE, 'pipeline', String(pipeline.id), pipeline.status), source: SOURCE, threads: [ref(iid)], actor: { source: SOURCE, id: 'gitlab-ci' }, human: false,
++      at: mr.updated_at, text: `MR !${iid} pipeline ${pipeline.id}: ${pipeline.status}, SHA ${pipeline.sha}`, meta: { iid, pipeline: pipeline.id },
++      channel: { source: SOURCE, thread: threadKey(iid), address: { iid: String(iid) } } })
++    if (mr.state === 'merged' || mr.state === 'closed') ctx.tickets.threadClosed(ref(iid), mr.state, mr.merged_at ?? mr.closed_at ?? mr.updated_at)
++  }
++}
++
++export function mergeEndNotices(ticket: Ticket, webUrl: string): OutboundMessage[] {
++  const outcome = ticket.ended?.outcome
++  const follows = (ticket.follows ?? []).filter(f => f.closed && iidOf(f.thread))
++  const own = follows.filter(f => f.own)
++  const last = (own.length ? own : follows).sort((a, b) => b.closed!.at.localeCompare(a.closed!.at))[0]
++  if (!last || (outcome !== 'merged' && outcome !== 'closed')) return []
++  const iid = iidOf(last.thread)!
++  const text = `[MR !${iid}](${webUrl}/-/merge_requests/${iid}) ${outcome === 'merged' ? '已合并。' : '已关闭，未合并。'}`
++  return ticket.channels.filter(c => c.source !== SOURCE).map(channel => ({ id: key('mr-terminal', ticket.id, String(iid), outcome, JSON.stringify(channel)),
++    channel, text, kind: 'notice', ticketId: ticket.id }))
++}
++export const name = 'dsh-superagent-gitlab'
++export const inject = ['orchestrator']
++export function apply(ctx: Context): void {
++  ctx.effect(() => ctx.orchestrator.sources.register(gitlabKind), 'gitlab: source kind')
++  ctx.effect(() => {
++    const stop = new AbortController(), host = sourceContext(ctx.orchestrator, gitlabKind)
++    const running = (async () => {
++      await host.ready
++      while (!stop.signal.aborted) {
++        const config = host.config<z.infer<typeof ConfigSchema>>(SOURCE)
++        if (config && host.configured() && host.deployment.gitlab) {
++          try { await pollMergeRequests(host, stop.signal); host.report('gitlab', { state: 'ready', detail: 'Watching bound merge requests' }) }
++          catch (error) { if (!stop.signal.aborted) host.report('gitlab', { state: 'error', detail: String(error) }) }
++        }
++        await pause((config?.pollSeconds ?? 30) * 1000, stop.signal)
++      }
++    })()
++    return async () => { stop.abort(); await running }
++  })
++}
+diff --git a/tests/gitlab.spec.ts b/tests/gitlab.spec.ts
+new file mode 100644
+index 0000000..057b6ba
+--- /dev/null
++++ b/tests/gitlab.spec.ts
+@@ -0,0 +1,86 @@
++import { describe, expect, it, vi } from 'vitest'
++import { z } from 'zod'
++import { resolveGitlabDeployment } from '../src/deployment.ts'
++import { Commands } from '../src/infra/commands.ts'
++import { claimMergeRequest, gitlabKind, mergeEndNotices, type MergeRequest } from '../src/sources/gitlab.ts'
++import type { SourceContext } from '../src/sources/host.ts'
++import type { Ticket } from '../src/core/index.ts'
++import { testDeployment, testMachine } from './fixtures/deployment.ts'
++
++const gitlab = { host: 'git.example.com', projectId: 12, webUrl: 'https://git.example.com/team/sub/repo', cloneUrl: 'https://git.example.com/team/sub/repo.git', defaultBranch: 'main' }
++const deployment = () => testDeployment({ repository: 'team/sub/repo', gitlab })
++const mr = (): MergeRequest => ({ iid: 7, title: 'Fix', state: 'opened', web_url: `${gitlab.webUrl}/-/merge_requests/7`,
++  author: { id: 2, username: 'agent-bot' }, source_branch: 'agent/fix-date', target_branch: 'main', source_project_id: 12, target_project_id: 12,
++  description: '', created_at: '2026-11-01T00:00:00Z', updated_at: '2026-11-01T00:00:00Z', merged_at: null, closed_at: null })
++function context() {
++  const ticket = { id: 't1', execution: { name: 'fix-date' }, follows: [] } as unknown as Ticket
++  const bindThread = vi.fn(), patch = vi.fn()
++  const ctx = { deployment: deployment(), tickets: { get: () => ticket, open: () => [ticket], bindThread }, threads: { patch, describe: vi.fn() } } as unknown as SourceContext
++  return { ctx, ticket, bindThread, patch }
++}
++
++describe('GitLab setup', () => {
++  const config = { host: gitlab.host, repository: 'team/sub/repo', cli: '/usr/bin/true' }
++  const project = (access = 30) => ({ id: 12, path_with_namespace: config.repository, web_url: gitlab.webUrl, http_url_to_repo: gitlab.cloneUrl,
++    default_branch: 'main', archived: false, permissions: { project_access: { access_level: access }, group_access: null } })
++  it('supports nested groups and verifies the API host explicitly', async () => {
++    const probe = vi.fn(async (args: string[]) => JSON.stringify(args.at(-1) === 'user' ? { id: 2, username: 'bot.user', is_admin: false } : project()))
++    const result = await resolveGitlabDeployment(testMachine(), config, probe)
++    expect(result.gitlab).toEqual(gitlab)
++    expect(probe.mock.calls[1]![0]).toContain('projects/team%2Fsub%2Frepo')
++    expect(probe.mock.calls[0]![0]).toEqual(['/usr/bin/true', 'api', '--hostname', gitlab.host, 'user'])
++  })
++  it('refuses a read-only account and mismatched project', async () => {
++    for (const repo of [project(20), { ...project(), path_with_namespace: 'other/repo' }, { ...project(), archived: true }]) {
++      await expect(resolveGitlabDeployment(testMachine(), config, async args => JSON.stringify(args.at(-1) === 'user' ? { id: 2, username: 'bot' } : repo)))
++        .rejects.toMatchObject({ code: 'gitlabSetupFailed' })
++    }
++  })
++  it('uses the configured HTTPS origin when GitLab advertises an internal URL', async () => {
++    const probe = async (args: string[]) => JSON.stringify(args.at(-1) === 'user' ? { id: 2, username: 'bot' }
++      : { ...project(), web_url: 'http://10.0.0.1:8088/team/sub/repo', http_url_to_repo: 'http://10.0.0.1:8088/team/sub/repo.git' })
++    const result = await resolveGitlabDeployment(testMachine(), config, probe)
++    expect(result.gitlab?.webUrl).toBe(gitlab.webUrl)
++    expect(result.gitlab?.cloneUrl).toBe(gitlab.cloneUrl)
++  })
++  it('has valid empty defaults for source registration', () => { expect(gitlabKind.schema.parse({}).host).toBe('gitlab.com') })
++})
++
++describe('MR ownership', () => {
++  it('binds an agent MR from this ticket branch', () => {
++    const h = context()
++    expect(claimMergeRequest(h.ctx, 't1', mr())).toBeUndefined()
++    expect(h.bindThread).toHaveBeenCalledWith('t1', { source: 'gitlab', id: 'mr:7' }, true)
++  })
++  it('rejects wrong authors, forks, other branches and previously closed deliverables', () => {
++    for (const value of [{ ...mr(), author: { id: 3, username: 'other' } }, { ...mr(), source_project_id: 13 },
++      { ...mr(), source_branch: 'main' }, { ...mr(), state: 'merged' as const }]) {
++      const h = context()
++      expect(claimMergeRequest(h.ctx, 't1', value)).toBeTypeOf('string')
++      expect(h.bindThread).not.toHaveBeenCalled()
++    }
++  })
++  it('does not claim an MR owned by another ticket', () => {
++    const h = context()
++    h.ctx.tickets.open = () => [h.ticket, { id: 'other', follows: [{ thread: 'gitlab:mr:7', own: true }] } as unknown as Ticket]
++    expect(claimMergeRequest(h.ctx, 't1', mr())).toContain('another ticket')
++  })
++  it('sends one deterministic terminal notice with an actual GitLab URL', () => {
++    const h = context()
++    const ticket = { ...h.ticket, ended: { outcome: 'merged' }, follows: [{ thread: 'gitlab:mr:7', own: true, closed: { at: '2026-11-01T00:00:00Z', outcome: 'merged' } }],
++      channels: [{ source: 'feishu', thread: 'x', address: { messageId: 'm' } }] } as unknown as Ticket
++    const messages = mergeEndNotices(ticket, gitlab.webUrl)
++    expect(messages).toHaveLength(1)
++    expect(messages[0]!.text).toContain(`${gitlab.webUrl}/-/merge_requests/7`)
++    expect(messages).toEqual(mergeEndNotices(ticket, gitlab.webUrl))
++  })
++})
++
++it('restricts GitLab API calls and rejects GitHub calls in GitLab mode', async () => {
++  const commands = new Commands(deployment, {}, new AbortController().signal)
++  const run = vi.spyOn(commands, 'run').mockResolvedValue('{}')
++  await commands.gitlab(z.object({}), 'merge_requests/7')
++  expect(run.mock.calls[0]![1]).toContain('projects/12/merge_requests/7')
++  for (const path of ['../13', '/projects/13', 'https://evil.test', '%2e%2e/13']) await expect(commands.gitlab(z.object({}), path)).rejects.toThrow('restricted')
++  await expect(commands.api('')).rejects.toThrow('GitHub API unavailable')
++})
+diff --git a/docs/009-gitlab.md b/docs/009-gitlab.md
+new file mode 100644
+index 0000000..2fdfb88
+--- /dev/null
++++ b/docs/009-gitlab.md
+@@ -0,0 +1,33 @@
++# GitLab pilot adapter
++
++This fork supports Feishu-origin tickets against one GitLab project. Enable `dsh-superagent-gitlab` and disable `dsh-superagent-github` in the DSH profile. Engine, ticket lifecycle, executor sessions, worktree preparation and Feishu outbox remain shared with the original implementation.
++
++## Source configuration
++
++Save `source:gitlab` with `enabled: true` and a config containing `host`, `repository` (including nested groups), `cli` (absolute glab wrapper path) and `pollSeconds` (default 30).
++
++Setup checks a non-administrator account, Developer-or-higher access, exact project path and non-archived state. Source API requests use the returned numeric project ID and explicitly configured host. Internal URLs advertised by reverse-proxied GitLab are replaced by the configured HTTPS origin, including MR links and clone URLs.
++
++`Deployment.github` remains a legacy execution-identity field. Optional `Deployment.gitlab` selects the platform. GitHub API methods and the worker gh shim reject calls in GitLab mode. A glab shim and host-specific Git credential helper use the bot account.
++
++## Delivery and follow-up
++
++A worker branch must end with `DSH_SUPERAGENT_NAME`. Workers report `mr_number` (project-local MR IID), not `pr_number`. Before binding, the host verifies author, source/target project, branch and competing active ticket ownership. Polling recovers an unreported open bot-authored MR that uniquely matches a ticket branch.
++
++The source polls bound MR notes, head pipeline status and merged/closed state. Stable Trigger IDs deduplicate repeated reads. A ready report with an open MR leaves the ticket awaiting review. Closure uses the Engine's existing completion rules and emits a terminal chat notice. MR replies include a marker to suppress sequential retry duplicates; this is not distributed exactly-once delivery.
++
++## Pilot boundaries
++
++- New work starts in Feishu; repository-wide issue/MR intake is not implemented.
++- Workers may create GitLab issues when authorized, but mandatory issue registration is not implemented.
++- Bound MR discussions, top-level note replies and pipeline events are supported. Inline discussion resolution and automated review approvals are not implemented.
++- GitLab execution instructions prohibit automatic merging and default-branch pushes. Repository protection should independently enforce the team's rules.
++- The service is single-process and retains the existing state-directory lock.
++- The pilot allows all members of its configured Feishu group to originate work by mentioning the bot. Private chats and other groups remain off.
++- Concurrency is two Workers on the current approximately 2 GB server, as requested by the operator; further requests queue. Concurrent build memory has not yet been measured.
++
++## Verification
++
++`tests/gitlab.spec.ts` covers nested namespaces, permissions, reverse-proxy URL normalization, project-scoped API calls, MR ownership and terminal notices. Existing core, deployment, environment, tools and source tests still apply.
++
++After installation health checks, first send a read-only README request in Feishu. A separately requested code change is needed to verify the complete worktree, validation, push, MR review and closure flow. Healthy installation does not prove that full workflow has already run.

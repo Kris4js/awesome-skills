@@ -22,6 +22,7 @@ Each linked folder is the directory to copy; read its `SKILL.md` first. The path
 | [bytedance-oceanengine-frontend](../../collections/frontend/bytedance-oceanengine-frontend/) | You need OceanEngine-style React components | A standalone skill with component guidelines, templates, reference screenshots, an interactive gallery, and verification scripts | Node.js and npm for preview; ego-browser CLI for capture/comparison; license not declared |
 | [compact-floating-panel](../../collections/frontend/compact-floating-panel/) | You need compact in-page floating tools | Panel implementation guidelines, HTML skeletons, and scoped CSS | Not a ready-to-run plugin; implement interactions and business logic in the host project; license not declared |
 | [archify](../../collections/architecture/archify/) | You need architecture, workflow, sequence, data-flow, or state diagrams | Validated interactive HTML diagrams | Requires Node.js 18+; pinned development snapshot; browser/export behavior needs separate verification |
+| [deploy-dsh-superagent](../../collections/devops/deploy-dsh-superagent/) | You are deploying DSH with Feishu and GitHub/GitLab | Verified installation, model tools, channels and task configuration | Authorized Linux/SSH and credentials; pinned GitLab patch, not a universal upgrader; skill license undeclared |
 
 ## Full Snapshot Catalog
 

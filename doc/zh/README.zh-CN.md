@@ -13,6 +13,7 @@
 | `bytedance-oceanengine-frontend` | 需要巨量引擎风格的 React 界面 | 独立 Skill，提供组件规范、模板、参考截图、交互预览与验证脚本 | [使用指南](../../collections/frontend/bytedance-oceanengine-frontend/README.md) |
 | `compact-floating-panel` | 需要网页内紧凑悬浮工具窗口 | 个人维护的浮窗规范、HTML 骨架与隔离样式 | [使用指南](../../collections/frontend/compact-floating-panel/README.md) |
 | `archify` | 需要解释系统结构和技术流程 | 交互式 HTML 架构图、工作流、时序图、数据流与生命周期图 | [使用指南](../../collections/architecture/archify/README.md) |
+| `deploy-dsh-superagent` | 需要部署自托管编码智能体 | DSH、飞书、仓库认证、固定基线 GitLab 补丁与分阶段验收 | [使用指南](../../collections/devops/deploy-dsh-superagent/README.md) |
 
 ## 推荐起点
 
@@ -126,3 +127,7 @@ python3 -B -m unittest discover -s tests -v
 ## 致谢：LINUX DO
 
 感谢 [LINUX DO](https://linux.do/) 社区。社区对证据驱动调试、生产级审查和实际运维经验的分享，为这些技能背后的思路提供了启发。致敬开放分享和技术探索的精神。
+
+## DevOps 部署技能
+
+[DevOps 集合](../../collections/devops/README.md)收录 `deploy-dsh-superagent`。离线辅助脚本需要 Python 3.9+；实际部署需要授权的 Linux/SSH、DSH、平台 CLI 与凭据。技能许可未声明，补丁的上游 MIT 声明已保留；尚未完成全新环境重放和 Agent 发现验证。

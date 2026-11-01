@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- 收录 `devops/deploy-dsh-superagent`：DSH、飞书与 GitLab 部署流程，附三个无明文密钥参数的辅助脚本、固定基线适配补丁、逐文件摘要与离线验证。技能许可未声明，上游 MIT 声明已保留；本次未安装到真实用户目录。
+
 - 新增独立 Skill `frontend/bytedance-oceanengine-frontend`，提供巨量引擎风格的 React + Tailwind 组件规范、模板、参考截图、交互预览与验证脚本。预览及类型检查使用技能目录内的依赖；许可未声明。
 
 - 新增可重复执行的 `scripts/sync_skills.py`：扫描全部收录 Skill，为缺少的条目创建用户级链接，跳过所有已有同名内容，支持预览和自定义目录；补齐双语说明和隔离测试。新增条目需重跑脚本，未安装后台自动任务。

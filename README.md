@@ -13,6 +13,7 @@ Reusable agent skills for practical engineering work, organized as upstream seri
 | `bytedance-oceanengine-frontend` | You need OceanEngine-style React interfaces | A standalone skill with component guidelines, templates, reference screenshots, an interactive gallery, and verification scripts | [Guide (Chinese)](collections/frontend/bytedance-oceanengine-frontend/README.md) |
 | `compact-floating-panel` | You need compact in-page floating tools | Personally maintained panel guidelines, HTML skeletons, and scoped CSS | [Guide (Chinese)](collections/frontend/compact-floating-panel/README.md) |
 | `archify` | You need to explain systems and technical flows | Interactive HTML architecture, workflow, sequence, data-flow, and lifecycle diagrams | [Guide (Chinese)](collections/architecture/archify/README.md) |
+| `deploy-dsh-superagent` | You are deploying a self-hosted coding agent | DSH, Feishu, repository authentication, a pinned GitLab adapter, and staged verification | [Guide (Chinese)](collections/devops/deploy-dsh-superagent/README.md) |
 
 ## Recommended Starting Points
 
@@ -81,6 +82,7 @@ Installation does not prepare a skill's tools or external dependencies. Read its
 | `bytedance-oceanengine-frontend` | The standalone gallery requires Node.js 20.19+ or 22.12+ and npm; reference capture and browser comparison also require `ego-browser` and reference-page access; no license is declared |
 | `compact-floating-panel` | Provides guidelines and assets; implement interactions and business logic in the host project; no license is declared |
 | `archify` | Requires Node.js 18+; the collected version is a pinned development snapshot; browser and export behavior need separate verification |
+| `deploy-dsh-superagent` | Python 3.9+ for helpers; authorized Linux/SSH, DSH, platform CLIs and credentials for deployment; skill license undeclared, upstream patch notice retained |
 
 Each collection keeps its own source and license records. File integrity and installation checks do not establish agent discovery, runtime behavior, or permission to redistribute. Check the linked guides and `upstream.json` records for each skill's status.
 
@@ -91,6 +93,7 @@ Each collection keeps its own source and license records. File integrity and ins
 - [Personal Matt Pocock workflow (Chinese)](doc/usage/matt-pocock-workflow.md)
 - [Workflow design (Chinese)](doc/design/personal-skill-workflow-design.md) and [project vocabulary](CONTEXT.md)
 - [Frontend collection (Chinese)](collections/frontend/README.md)
+- [DevOps collection (Chinese)](collections/devops/README.md)
 - [Architecture collection (Chinese)](collections/architecture/README.md)
 - [Changelog (Chinese)](CHANGELOG.md)
 
@@ -100,7 +103,8 @@ Each collection keeps its own source and license records. File integrity and ins
 collections/
 ├── mattpocock/             Preserved upstream series
 ├── frontend/               Frontend interface skills
-└── architecture/           Architecture and technical visualization
+├── architecture/           Architecture and technical visualization
+└── devops/                 Self-hosted agents and deployment workflows
 doc/
 ├── usage/                  Installation, selection, and workflow guides
 ├── zh/                     Chinese overview and quickstart

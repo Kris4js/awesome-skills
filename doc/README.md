@@ -19,6 +19,7 @@ Start with installation or selection; read design documents only when changing t
 - [Matt Pocock collection](../collections/mattpocock/README.md) — 中文；source, scope, and maintenance
 - [Frontend collection](../collections/frontend/README.md) — 中文；domain navigation and collection rules
 - [Architecture collection](../collections/architecture/README.md) — 中文；archify installation, provenance, and validation boundaries
+- [DevOps collection](../collections/devops/README.md) — 中文；self-hosted DSH deployment, credentials and verification
 - [Changelog](../CHANGELOG.md)
 
 ## Language Policy

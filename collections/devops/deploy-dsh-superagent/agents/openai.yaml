@@ -1,0 +1,4 @@
+interface:
+  display_name: "部署 DSH 飞书智能体"
+  short_description: "自托管 DeepSeek Harness，接入飞书与 GitHub 或 GitLab 并验证任务流程"
+  default_prompt: "使用 $deploy-dsh-superagent 在我的服务器部署 DSH 智能体，接入飞书和代码仓库，并验证接单与交付。"
